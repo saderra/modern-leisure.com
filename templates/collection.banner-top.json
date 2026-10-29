@@ -46,8 +46,7 @@
       "type": "main-collection-product-grid",
       "custom_css": [
         ".product-card-style-card {border: 1px solid rgba(var(--color-foreground), 0.08);}",
-        ".product-card-style-card .product-card__image-wrapper {background-color: white;}",
-        ".product-card-style-card .product-card__image-wrapper > a {display: block; padding: 0.8rem;}",
+        ".product-card-style-card .product-card__image-wrapper > a {display: block; padding: 0.8rem; background-color: white;}",
         ".product-card-style-card .product-card__image-wrapper > a > motion-element {position: relative;}",
         "@media (min-width: 768px) {.product-card-style-card .product-card__image-wrapper > a {padding: 1.6rem;}}",
         "@media (min-width: 1280px) {.product-card-style-card .product-card__image-wrapper > a {padding: 2.4rem;}}"
