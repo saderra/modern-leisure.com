@@ -22,7 +22,7 @@ Carry these over on every Sleek upgrade. Everything else matches stock Sleek.
 
 - `sections/ml-product-info.liquid`, `sections/ml-alt-images.liquid`, `assets/component-ml-product-info.css`, `assets/ml-alt-images.css`: custom product sections by the original developer (Aneurin Barker Snook), used in `templates/product.json`.
 - `locales/en.default.schema.json`: theme-editor labels for those two sections (`sections.ml-alt-images`, `sections.ml-product-info`). Other locales don't have them, which causes theme check `MatchingTranslations` errors. That's expected.
-- `assets/theme.css`: `.breadcrumbs` hidden on mobile (`display: none`) and shown from 768px up. The change is marked with an "Edited by" comment.
+- Breadcrumbs hidden on mobile: done with each breadcrumbs section's Custom CSS (`custom_css` in the templates), not in `assets/theme.css`, so it carries over with the content JSON. Add the same rule to any new template that uses breadcrumbs.
 - `blocks/ai_gen_block_df1f073.liquid` (header top bar) and `blocks/ai_gen_block_deb1e09.liquid` (contact page): Shopify AI-generated blocks, inside Shopify's built-in `_blocks` section type.
 - `sections/ss-grid-pro.liquid`: a Section Store app section. Not used in any template right now.
 
@@ -30,6 +30,6 @@ Carry these over on every Sleek upgrade. Everything else matches stock Sleek.
 
 1. In Shopify admin, add a fresh copy of the new Sleek version from the Theme Store as a draft. Don't use "Update" on the live theme.
 2. Pull it into a scratch folder outside the repo: `shopify theme list --store modern-leisure-home`, then `shopify theme pull --store modern-leisure-home --theme <id> --path <scratch dir>`. Confirm `theme_version` in `config/settings_schema.json`.
-3. On `staging`: `rsync -a --delete` the stock files into the repo, excluding `.git` and `CLAUDE.md`. Then restore the content JSON (`config/settings_data.json`, `templates/`, `sections/*-group.json`) and the custom files above from git, and reapply the `theme.css` and locale label edits.
+3. On `staging`: `rsync -a --delete` the stock files into the repo, excluding `.git` and `CLAUDE.md`. Then restore the content JSON (`config/settings_data.json`, `templates/`, `sections/*-group.json`) and the custom files above from git, and reapply the locale label edits.
 4. Check that every section, block and setting the templates use still exists in the new schemas. Run `shopify theme check` on both the repo and the stock copy, and compare the results so you only look at new issues.
 5. Commit and push `staging`, preview it (cart drawer, product page, breadcrumbs on mobile), then merge into `main`. Delete the stock draft in Shopify afterwards.
