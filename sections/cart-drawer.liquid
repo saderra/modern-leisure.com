@@ -154,9 +154,34 @@
                     if gift_wrap_id != null and item.id == gift_wrap_id
                       assign is_gift_wrap_item = true
                     endif
+
+                    assign is_nested_item = false
+                    if item.parent_relationship.parent != null
+                      assign is_nested_item = true
+                    endif
+
+                    assign can_remove = true
+                    if item.instructions.can_remove == false
+                      assign can_remove = false
+                    endif
+
+                    assign can_update_quantity = true
+                    if item.instructions.can_update_quantity == false
+                      assign can_update_quantity = false
+                    endif
+
+                    assign has_components = false
+                    if item.item_components.size > 0
+                      assign has_components = true
+                    endif
+
+                    assign show_variant_options = false
+                    if item.product.has_only_default_variant == false and has_components == false
+                      assign show_variant_options = true
+                    endif
                   -%}
                   {%- capture cart_item -%}
-                  <li id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="cart-item flex flex-col gap-4" data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}">
+                  <li id="CartDrawer-Item-{{ item.index | plus: 1 }}" class="cart-item{% if is_nested_item %} cart-item--nested{% endif %} flex flex-col gap-4" data-variant-id="{{ item.variant_id }}" data-handle="{{ item.product.handle }}" data-quantity="{{ item.quantity }}" data-price="{{ item.original_price }}">
                     <div class="cart-item__product flex items-start gap-3">
                       {%- if item.image -%}
                         <a class="cart-item__media blocks-radius-sm media-wrapper" href="{{ item.url }}" tabindex="-1" aria-label="{{ item.title }}">
@@ -172,10 +197,20 @@
                       {%- endif -%}
                       <div class="cart-item__details flex-grow flex flex-col gap-2">
                         <div class="grid">
-                          <div class="block"><a href="{{ item.url }}" class="cart-item__title text-pcard-title reversed-link">{{- item.product.title | escape -}}</a></div>
-                          {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != null -%}
+                          <div class="block"><a href="{{ item.url }}" class="cart-item__title text-pcard-title reversed-link"{% if is_nested_item %} aria-label="{{ 'accessibility.nested_product' | t: product_title: item.product.title, parent_title: item.parent_relationship.parent.product.title | escape }}"{% endif %}>{{- item.product.title | escape -}}</a></div>
+                          {%- if has_components -%}
+                            <ul class="cart-item__components list-unstyled text-sm text-subtext" role="list">
+                              {%- for component in item.item_components -%}
+                                <li>
+                                  {{- component.title | escape -}}
+                                  {%- if component.quantity > 1 %} &times; {{ component.quantity }}{% endif -%}
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                          {%- if show_variant_options or item.properties.size != 0 or item.selling_plan_allocation != null -%}
                             <div class="cart-item__options">
-                              {%- if item.product.has_only_default_variant == false -%}
+                              {%- if show_variant_options -%}
                                 {%- assign last_index = item.options_with_values.size | minus: 1 -%}
                                 {%- for option in item.options_with_values -%}
                                   <span class="cart-item__option-value text-sm text-subtext">
@@ -266,12 +301,14 @@
                         {%- endif -%}
                       </div>
                       <div class="cart-item__action flex flex-col items-end justify-end gap-4">
-                        <a id="Loader-{{ section.id }}-{{ item.index | plus: 1 }}"{% unless is_gift_wrap_item %} is="cart-remove-item"{% else %} is="gift-wrap-remove-item"{% endunless %} class="cart-item__remove flex items-center justify-center relative" href="{{ item.url_to_remove }}" data-index="{{ item.index | plus: 1 }}" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
-                          <span class="flex">
-                            {%- render 'icon-close', size: 'small' -%}
-                          </span>
-                          {% render 'loading-spinner' %}
-                        </a>
+                        {%- if can_remove -%}
+                          <a id="Loader-{{ section.id }}-{{ item.index | plus: 1 }}"{% unless is_gift_wrap_item %} is="cart-remove-item"{% else %} is="gift-wrap-remove-item"{% endunless %} class="cart-item__remove flex items-center justify-center relative" href="{{ item.url_to_remove }}" data-index="{{ item.index | plus: 1 }}" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
+                            <span class="flex">
+                              {%- render 'icon-close', size: 'small' -%}
+                            </span>
+                            {% render 'loading-spinner' %}
+                          </a>
+                        {%- endif -%}
 
                         {%- liquid 
                           assign has_qty_rules = false
@@ -370,7 +407,7 @@
                                 <div class="drawer__content cart-addons-drawer__content grid gap-5">
                                   <div>
                                     <h4>{{ item.product.title | escape }}</h4>
-                                    {% if item.product.has_only_default_variant == false %}
+                                    {% if show_variant_options %}
                                       <div class="flex gap-1">
                                         {% for option in item.options_with_values %}
                                           <span class="text-sm text-subtext">{{ option.value }}{% unless forloop.index0 == last_index %},{% endunless %}</span>
@@ -386,7 +423,7 @@
                             </modal-component>
                           {% endif %}
 
-                          {%- unless is_gift_wrap_item -%}
+                          {%- if is_gift_wrap_item == false and can_update_quantity -%}
                             <quantity-input class="cart-quantity quantity">
                               <label class="visually-hidden" for="Quantity-{{ section.id }}-{{ item.index | plus: 1 }}"></label>
                               <button type="button" name="minus" class="quantity__button" aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">
@@ -457,7 +494,7 @@
                                 </svg>
                               </button>
                             </div>
-                          {%- endunless -%}
+                          {%- endif -%}
                         </div>
                       </div>
                     </div>

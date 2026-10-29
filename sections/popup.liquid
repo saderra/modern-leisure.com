@@ -95,9 +95,9 @@
                 {%- when 'heading' -%}
                   {%- unless block.settings.heading == blank -%}
                     <div class="subscription-popup__title" {{ block.shopify_attributes }}>
-                      <h3 class="{{ block.settings.text_size }}">
+                      <{{ block.settings.heading_tag }} class="{{ block.settings.text_size }}">
                         {{- block.settings.heading -}}
-                      </h3>
+                      </{{ block.settings.heading_tag }}>
                     </div>
                   {%- endunless -%}
                 {%- when 'text' -%}
@@ -417,6 +417,39 @@
             }
           ],
           "default": "h1"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "t:sections.all.heading_tag.label",
+          "default": "h3",
+          "options": [
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_tag.options__1.label"
+            },
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_tag.options__2.label"
+            },
+            {
+              "value": "h3",
+              "label": "t:sections.all.heading_tag.options__3.label"
+            },
+            {
+              "value": "h4",
+              "label": "t:sections.all.heading_tag.options__4.label"
+            },
+            {
+              "value": "h5",
+              "label": "t:sections.all.heading_tag.options__5.label"
+            },
+            {
+              "value": "h6",
+              "label": "t:sections.all.heading_tag.options__6.label"
+            }
+          ],
+          "info": "t:sections.all.heading_tag.info"
         }
       ]
     },

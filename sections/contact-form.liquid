@@ -53,16 +53,18 @@
       <div class="contact">
         <div class="contact__wrapper flex justify-center flex-col h-full">
           {%- if section.settings.heading != blank -%}
-            <h2 class="contact__title inline-richtext {{ section.settings.heading_size }} text-center">
+            <{{ section.settings.heading_tag }} class="contact__title inline-richtext {{ section.settings.heading_size }} text-center">
               <motion-element data-motion="fade-up" class="inline-flex">
                 {% render 'highlight-text',
                   text: section.settings.heading,
                   style: section.settings.heading_highlight_style
                 %}
               </motion-element>
-            </h2>
+            </{{ section.settings.heading_tag }}>
           {%- else -%}
-            <h2 class="visually-hidden">{{ 'templates.contact.form.title' | t }}</h2>
+            <{{ section.settings.heading_tag }} class="visually-hidden">
+              {{- 'templates.contact.form.title' | t -}}
+            </{{ section.settings.heading_tag }}>
           {%- endif -%}
           {%- form 'contact', id: form_id, class: 'w-full' -%}
             {%- if form.posted_successfully? -%}
@@ -74,10 +76,10 @@
               </div>
             {%- elsif form.errors -%}
               <div class="form-error alert alert--error blocks-radius">
-                <h2 class="form-message form-message--error h6 m-0" role="alert" tabindex="-1" autofocus>
+                <h3 class="form-message form-message--error h6 m-0" role="alert" tabindex="-1" autofocus>
                   {% render 'icon-error', size: 'small' %}
                   {{ 'templates.contact.form.error_heading' | t }}
-                </h2>
+                </h3>
 
                 <ul role="list">
                   <li>
@@ -442,6 +444,39 @@
           "label": "t:sections.all.text_size.options__hd1.label"
         }
       ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.all.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_tag.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_tag.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.all.heading_tag.options__3.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.all.heading_tag.options__4.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.all.heading_tag.options__5.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.all.heading_tag.options__6.label"
+        }
+      ],
+      "info": "t:sections.all.heading_tag.info"
     },
     {
       "type": "header",

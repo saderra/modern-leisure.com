@@ -18,6 +18,7 @@
   endif
 
   assign media_item_gap = 10
+  assign initial_media_limit = 10
 
   if section.settings.media_size == 'large'
     assign media_width = 0.585
@@ -59,6 +60,8 @@
   data-enable-desktop-slider="{{ enable_desktop_slider }}"
   data-enable-mobile-thumbnails="{{ enable_mobile_thumbnails }}"
   data-media-item-gap="{{ media_item_gap }}"
+  data-initial-media-limit="{{ initial_media_limit }}"
+  data-total-media-count="{{ media_count }}"
   style="--media-item-gap: {{ media_item_gap }}px"
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
@@ -75,7 +78,7 @@
         class="product__media-list flex swiper-wrapper"
         role="list"
       >
-        {%- for media in product.media -%}
+        {%- for media in product.media limit: initial_media_limit -%}
           {% render 'product-thumbnail',
             media: media,
             media_count: media_count,
@@ -134,7 +137,7 @@
         id="Slider-Thumbnails-{{ section.id }}"
         class="thumbnail-list swiper-wrapper"
       >
-        {%- for media in product.media -%}
+        {%- for media in product.media limit: initial_media_limit -%}
           {%- liquid
             capture media_index
               if media.media_type == 'model'
@@ -181,5 +184,73 @@
         {%- endfor -%}
       </div>
     </div>
+    {%- if media_count > initial_media_limit -%}
+      <template id="DeferredThumbnails-{{ section.id }}">
+        {%- for media in product.media offset: initial_media_limit -%}
+          {%- liquid
+            capture media_index
+              if media.media_type == 'model'
+                increment model_index
+              elsif media.media_type == 'video' or media.media_type == 'external_video'
+                increment video_index
+              elsif media.media_type == 'image'
+                increment image_index
+              endif
+            endcapture
+            assign media_index = media_index | plus: 1
+          -%}
+          <div
+            class="product__thumbs-item swiper-slide"
+            data-target="{{ media.id }}"
+            data-media-position="{{ media_index }}"
+          >
+            <div class="product__thumbs-container medium-blocks-radius media-wrapper">
+              <div class="product__thumbs-inner" style="--aspect-ratio: 1">
+                {{
+                  media.preview_image
+                  | image_url: width: media.preview_image.width
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '70, 100, 140, 150, 200, 300, 400',
+                    sizes: '(max-width: 767px) calc((100vw - 30px) / 4), (max-width: 1023px) 70px, 150px',
+                    id: thumbnail_id,
+                    is: 'image-lazy',
+                    alt: media.alt
+                  | escape
+                }}
+              </div>
+              {%- if media.media_type == 'model' -%}
+                <span class="product__thumbs-badge" aria-hidden="true">
+                  {%- render 'icon-3d-model', size: 'small' -%}
+                </span>
+              {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
+                <span class="product__thumbs-badge" aria-hidden="true">
+                  {%- render 'icon-video', size: 'small' -%}
+                </span>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </template>
+    {%- endif -%}
+  {%- endif -%}
+  {%- if media_count > initial_media_limit -%}
+    <template id="DeferredSlides-{{ section.id }}">
+      {%- for media in product.media offset: initial_media_limit -%}
+        {%- assign deferred_position = forloop.index0 | plus: initial_media_limit -%}
+        {% render 'product-thumbnail',
+          media: media,
+          media_count: media_count,
+          position: deferred_position,
+          desktop_layout: media_layout,
+          mobile_layout: mobile_thumbnails,
+          enable_image_zoom: enable_image_zoom,
+          loop: section.settings.enable_video_looping,
+          modal_id: section.id,
+          xr_button: true,
+          media_width: media_width
+        %}
+      {%- endfor -%}
+    </template>
   {%- endif -%}
 </media-gallery>

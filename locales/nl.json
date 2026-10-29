@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -130,7 +139,8 @@
     "menu_drawer": "Schakelmenu",
     "layout_switcher": "{{ col }} kleur",
     "play_video": "Video afspelen",
-    "load_video": "Video laden: {{ description }}"
+    "load_video": "Video laden: {{ description }}",
+    "nested_product": "{{ product_title }} voor {{ parent_title }}"
   },
   "blogs": {
     "article": {

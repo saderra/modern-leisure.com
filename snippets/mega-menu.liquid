@@ -67,30 +67,35 @@
                 </ul>
               </div>
             {%- endif -%}
-            {%- for childlink in link.links -%}
-              <div class="mega-menu__item">
-                {%- if show_menu_column_divider -%}
-                  <div class="mega-menu__item-wrapper">
-                {%- endif -%}
-                <a href="{{ childlink.url }}" class="h5 mega-menu__link mega-menu__link--top font-heading">
-                  {{- childlink.title | escape -}}
-                </a>
-                {%- if childlink.links != blank -%}
-                  <ul class="mega-menu__item-child">
-                    {%- for grandchildlink in childlink.links -%}
-                      <li>
-                        <a href="{{ grandchildlink.url }}" class="reversed-link mega-menu__link">
-                          {{- grandchildlink.title | escape -}}
-                        </a>
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                {%- endif -%}
-                {%- if show_menu_column_divider -%}
-                  </div>
-                {%- endif -%}
+            {%- for i in (1..menu_columns) -%}
+              {%- assign column_index = forloop.index0 -%}
+              <div class="mega-menu__column flex flex-col gap-y-6 mega-menu__item{% if show_menu_column_divider %} mega-menu__item-wrapper{% endif %}">
+                {%- for childlink in link.links -%}
+                  {%- liquid
+                    assign item_index = forloop.index0
+                    assign current_column = item_index | modulo: menu_columns
+                  -%}
+                  {%- if current_column == column_index -%}
+                    <div class="mega-menu__item-inner">
+                      <a href="{{ childlink.url }}" class="h5 mega-menu__link mega-menu__link--top font-heading">
+                        {{- childlink.title | escape -}}
+                      </a>
+                      {%- if childlink.links != blank -%}
+                        <ul class="mega-menu__item-child">
+                          {%- for grandchildlink in childlink.links -%}
+                            <li>
+                              <a href="{{ grandchildlink.url }}" class="reversed-link mega-menu__link">
+                                {{- grandchildlink.title | escape -}}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
               </div>
-            {%- endfor -%}
+            {% endfor %}
           </div>
         {%- endif -%}
         {%- case block.type -%}

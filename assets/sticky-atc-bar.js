@@ -36,6 +36,9 @@ if (!customElements.get('sticky-atc-bar')) {
         this.container = this.closest('.sticky-atc-bar');
         this.submitButton = this.querySelector('[type="submit"]');
         this.selectedVariantId = this.querySelector(this.selectors.variantIdSelect).value;
+        const img = this.querySelector('.sticky-atc-bar__product-image img');
+        this.mainImageSrc = img ? img.src : null;
+        this.mainImageAlt = img ? img.alt : '';
 
         this.variantData = this.getVariantData();
 
@@ -83,6 +86,7 @@ if (!customElements.get('sticky-atc-bar')) {
           }
 
           this.updatePrice();
+          this.updateImage();
           this.updateButton(true, '', false);
           if (!this.currentVariant) {
             this.updateButton(true, '', true);
@@ -96,7 +100,7 @@ if (!customElements.get('sticky-atc-bar')) {
           this.submitButton.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-            this.productFormActions.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            this.productFormActions.scrollIntoView({ behavior: FoxTheme.config.disableAnimations ? 'auto' : 'smooth', block: 'center' });
             setTimeout(() => {
               this.productFormActions.requestSubmit();
             }, 300);
@@ -185,60 +189,31 @@ if (!customElements.get('sticky-atc-bar')) {
         }
       }
 
+      updateImage() {
+        const imageWrapper = this.querySelector('[data-variant-image]');
+        if (!imageWrapper) return;
+        const selected = this.querySelector('[name="id"] option:checked');
+        const src = selected ? selected.getAttribute('data-variant-image') : null;
+        let img = imageWrapper.querySelector('img');
+        if (src) {
+          if (img) {
+            img.src = src;
+            img.removeAttribute('srcset');
+          } else {
+            imageWrapper.innerHTML = `<img src="${src}" class="motion-reduce" loading="lazy" fetchpriority="low" is="image-lazy" widths="90, 180" sizes="90px">`;
+          }
+        } else if (this.mainImageSrc) {
+          if (img) {
+            img.src = this.mainImageSrc;
+            img.removeAttribute('srcset');
+          } else {
+            imageWrapper.innerHTML = `<img src="${this.mainImageSrc}" class="motion-reduce" loading="lazy" fetchpriority="low" is="image-lazy" widths="90, 180" sizes="90px">`;
+          }
+        }
+      }
+
       updatePrice() {
-        const classes = {
-          onSale: 'f-price--on-sale',
-          soldOut: 'f-price--sold-out',
-        };
-        const selectors = {
-          priceWrapper: '.f-price',
-          salePrice: '.f-price-item--sale',
-          compareAtPrice: ['.f-price-item--regular'],
-          unitPriceWrapper: '.f-price__unit-wrapper',
-        };
-        const moneyFormat = FoxTheme.settings.moneyFormat;
-        const { priceWrapper, salePrice, unitPriceWrapper, compareAtPrice } = FoxTheme.utils.queryDomNodes(
-          selectors,
-          this
-        );
-        const unitPrice = unitPriceWrapper.querySelector('.f-price__unit');
-
-        const { compare_at_price, price, unit_price_measurement } = this.currentVariant;
-
-        // On sale.
-        if (compare_at_price && compare_at_price > price) {
-          priceWrapper.classList.add(classes.onSale);
-        } else {
-          priceWrapper.classList.remove(classes.onSale);
-        }
-
-        // Sold out.
-        if (!this.currentVariant.available) {
-          priceWrapper.classList.add(classes.soldOut);
-        } else {
-          priceWrapper.classList.remove(classes.soldOut);
-        }
-
-        if (salePrice) salePrice.innerHTML = FoxTheme.Currency.formatMoney(price, moneyFormat);
-
-        if (compareAtPrice && compareAtPrice.length && compare_at_price > price) {
-          compareAtPrice.forEach(
-            (item) => (item.innerHTML = FoxTheme.Currency.formatMoney(compare_at_price, moneyFormat))
-          );
-        } else {
-          compareAtPrice.forEach((item) => (item.innerHTML = FoxTheme.Currency.formatMoney(price, moneyFormat)));
-        }
-
-        if (unit_price_measurement && unitPrice) {
-          unitPriceWrapper.classList.remove('hidden');
-          const unitPriceContent = `<span>${FoxTheme.Currency.formatMoney(
-            this.currentVariant.unit_price,
-            moneyFormat
-          )}</span>/<span data-unit-price-base-unit>${FoxTheme.Currency.getBaseUnit(this.currentVariant)}</span>`;
-          unitPrice.innerHTML = unitPriceContent;
-        } else {
-          unitPriceWrapper.classList.add('hidden');
-        }
+        FoxTheme.updatePriceFromVariant(this, this.currentVariant);
       }
 
       syncWithMainProductForm() {
@@ -250,6 +225,7 @@ if (!customElements.get('sticky-atc-bar')) {
 
           this.currentVariant = variant;
           variantInput.value = variant.id;
+          this.updateImage();
           this.updatePrice();
           this.updateButton(true, '', false);
           if (!variant) {

@@ -53,8 +53,10 @@
   transition: transform var(--duration-default) ease, color var(--duration-default) ease;
   z-index: 1;
 }
-.deferred-media__poster-button:hover {
-  transform: translate(-50%, -50%) scale(1.1);
+@media (hover: hover) {
+  .deferred-media__poster-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
 }
 .deferred-media__poster-button .icon {
   width: 2.8rem;

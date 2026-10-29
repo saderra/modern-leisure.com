@@ -27,6 +27,10 @@
     assign show_product_option = settings.pcard_show_color_swatch
   endif
 
+  if show_price == null
+    assign show_price = true
+  endif
+
   assign first_media_type = product.featured_media.media_type
   assign featured_media = product.featured_media
 
@@ -307,7 +311,9 @@
       <h3 class="product-card__title text-pcard-title">
         <a class="reversed-link" href="{{ product.url }}">{{- product.title -}}</a>
       </h3>
-      {% render 'price', product: product, alignment: settings.pcard_content_alignment %}
+      {%- if show_price -%}
+        {% render 'price', product: product, alignment: settings.pcard_content_alignment %}
+      {%- endif -%}
       {%- if show_color_swatches -%}
         {%- render 'pcard-color-swatch', product: product -%}
       {%- endif -%}

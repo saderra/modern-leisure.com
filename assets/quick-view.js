@@ -114,7 +114,11 @@ if (!customElements.get('quick-view-modal')) {
 
       disconnectedCallback() {
         super.disconnectedCallback();
-        this.handleAfterHide();
+        // Only run hide cleanup if it was actually open. Otherwise removing a
+        // never-opened quick view from the DOM (e.g. when predictive search
+        // swaps in new results) would decrement the shared modal lock counter
+        // and wrongly unlock the page while another modal (search drawer) is open.
+        if (this.open) this.handleAfterHide();
       }
     }
   );

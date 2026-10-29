@@ -60,6 +60,8 @@
       assign custom_css_class = custom_css_class | prepend: ' '
     endunless
 
+    assign heading_tag = section_settings.heading_tag | default: 'h2'
+
     assign motion_delay = motion_delay | default: 50
   -%}
   <div class="section__header {{ header_class }} spacing--{{ spacing | default: 'normal' }}{{ custom_css_class }}">
@@ -73,14 +75,14 @@
         {%- assign motion_delay = motion_delay | plus: 50 -%}
       {%- endif -%}
       {%- if section_settings.heading != blank -%}
-        <h2 class="section__heading{% if section_settings.heading_size %} {{ section_settings.heading_size }}{% endif %}">
+        <{{ heading_tag }} class="section__heading{% if section_settings.heading_size %} {{ section_settings.heading_size }}{% endif %}">
           <motion-element class="block" data-motion="fade-up" data-motion-delay="{{ motion_delay }}">
             {% render 'highlight-text',
               text: section_settings.heading,
               style: section_settings.heading_highlight_style
             %}
           </motion-element>
-        </h2>
+        </{{ heading_tag }}>
         {%- assign motion_delay = motion_delay | plus: 50 -%}
       {%- endif -%}
       {%- if description != blank -%}

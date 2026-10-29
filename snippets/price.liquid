@@ -37,6 +37,11 @@
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
+
+  assign on_sale = false
+  if compare_at_price > price
+    assign on_sale = true
+  endif
 -%}
 <div
   class="
@@ -44,9 +49,9 @@
     {%- if alignment %} f-price--{{ alignment }}{% endif -%}
     {%- if price_class %} {{ price_class }}{% endif -%}
     {%- if available == false %} f-price--sold-out {% endif -%}
-    {%- if compare_at_price > price and product.quantity_price_breaks_configured? != true %} f-price--on-sale {% endif -%}
+    {%- if on_sale and product.quantity_price_breaks_configured? != true %} f-price--on-sale {% endif -%}
     {%- if target.price_varies == false and target.compare_at_price_varies %} f-price--no-compare{% endif -%}
-    {%- if compare_at_price > price and product.quantity_price_breaks_configured? %} volume-pricing--sale-badge{% endif -%}
+    {%- if on_sale and product.quantity_price_breaks_configured? %} volume-pricing--sale-badge{% endif -%}
   "
 >
   {%- comment -%}
@@ -75,14 +80,18 @@
     {%- else -%}
       <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
       <span class="f-price-item f-price-item--regular">
-        {{ money_price }}
+        {%- unless on_sale -%}
+          {{- money_price -}}
+        {%- endunless -%}
       </span>
     {%- endif -%}
   </div>
   <div class="f-price__sale{% if price_sale_class %} {{ price_sale_class }}{% endif %}">
     <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
     <span class="f-price-item f-price-item--sale">
-      {{ money_price }}
+      {%- if on_sale -%}
+        {{- money_price -}}
+      {%- endif -%}
     </span>
     {%- unless target.price_varies == false and target.compare_at_price_varies %}
       <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>

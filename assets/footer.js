@@ -8,19 +8,15 @@ if (!customElements.get("footer-details")) {
       this.openDefault = this.dataset.openDefault === 'true';
 
       if (FoxTheme.config.mqlTablet) {
-        if (!this.openDefault) this.open = false;
+        if (!this.openDefault) this.toggle(false);
       }
 
       document.addEventListener('matchTablet', () => {
-        if (!this.openDefault) {
-          this.open = false;
-        } else {
-          this.open = true;
-        }
+        this.toggle(this.openDefault);
       });
 
       document.addEventListener('unmatchTablet', () => {
-        this.open = true;
+        this.toggle(true);
       });
     }
   }

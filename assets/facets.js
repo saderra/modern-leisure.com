@@ -157,6 +157,7 @@ class FacetForm extends HTMLFormElement {
 
     this.dirty = false;
     this.cachedMap = new Map();
+    this.abortController = null;
 
     this.addEventListener('change', this.onFormChange);
     this.addEventListener('submit', this.onFormSubmit);
@@ -201,7 +202,7 @@ class FacetForm extends HTMLFormElement {
   beforeRenderSection() {
     const container = document.getElementById('ProductGridContainer');
     const loadings = document.querySelectorAll('[data-facet-loading]');
-    const translateY = FoxTheme.config.motionReduced ? 0 : 50;
+    const translateY = FoxTheme.config.motionReduced || FoxTheme.config.disableAnimations ? 0 : 50;
 
     FoxTheme.Motion.timeline([[container, { y: translateY, opacity: 0 }, { duration: 0 }]]);
 
@@ -209,7 +210,7 @@ class FacetForm extends HTMLFormElement {
       const target = document.querySelector('.collection');
       window.scrollTo({
         top: target.getBoundingClientRect().top + window.scrollY - 95,
-        behavior: FoxTheme.config.motionReduced ? 'auto' : 'smooth',
+        behavior: FoxTheme.config.motionReduced || FoxTheme.config.disableAnimations ? 'auto' : 'smooth',
       });
       if (loadings) {
         loadings.forEach((loading) => {
@@ -223,14 +224,17 @@ class FacetForm extends HTMLFormElement {
     const container = document.getElementById('ProductGridContainer');
     const items = container.querySelectorAll('.product-card');
     const loadings = document.querySelectorAll('[data-facet-loading]');
-    const translateY = FoxTheme.config.motionReduced ? 0 : 50;
+    const translateY = FoxTheme.config.motionReduced || FoxTheme.config.disableAnimations ? 0 : 50;
 
     FoxTheme.Motion.timeline([
       [container, { y: [translateY, 0], opacity: [0, 1] }],
       [
         items,
         { y: [translateY, 0], opacity: [0, 1], visibility: ['hidden', 'visible'] },
-        { duration: 0.5, delay: FoxTheme.config.motionReduced ? 0 : FoxTheme.Motion.stagger(0.1) },
+        {
+          duration: 0.5,
+          delay: FoxTheme.config.motionReduced || FoxTheme.config.disableAnimations ? 0 : FoxTheme.Motion.stagger(0.1),
+        },
       ],
     ]);
 
@@ -252,10 +256,13 @@ class FacetForm extends HTMLFormElement {
   }
 
   renderSectionFromFetch(url, event) {
+    if (this.abortController) this.abortController.abort();
+    this.abortController = new AbortController();
+
     this.beforeRenderSection();
     const start = performance.now();
 
-    fetch(url)
+    fetch(url, { signal: this.abortController.signal })
       .then((response) => response.text())
       .then((responseText) => {
         const execution = performance.now() - start;
@@ -276,6 +283,9 @@ class FacetForm extends HTMLFormElement {
           },
           execution > 250 ? 0 : 250
         );
+      })
+      .catch((error) => {
+        if (error.name !== 'AbortError') throw error;
       });
   }
 
@@ -481,7 +491,7 @@ class LoadMoreButton extends HTMLButtonElement {
         productList.appendChild(item);
       });
 
-      gridList && gridList.reload();
+      gridList && gridList.reShowVisibleGridItems();
     }
   }
 

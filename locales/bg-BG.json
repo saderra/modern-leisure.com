@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -130,7 +139,8 @@
     "menu_drawer": "Превключване на менюто",
     "layout_switcher": "{{ col }} кол",
     "play_video": "Възпроизвеждане на видео",
-    "load_video": "Зареждане на видео: {{ description }}"
+    "load_video": "Зареждане на видео: {{ description }}",
+    "nested_product": "{{ product_title }} за {{ parent_title }}"
   },
   "blogs": {
     "article": {

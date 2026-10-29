@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "ページ遷移を有効にする"
+        },
+        "enable_animation": {
+          "label": "アニメーションを有効にする"
+        },
+        "enable_scroll_animations": {
+          "label": "スクロールアニメーションを有効にする",
+          "info": "有効にすると、要素がスクロールして表示される際にアニメーションします。"
+        },
+        "enable_hover_image": {
+          "label": "画像のホバーエフェクトを有効にする",
+          "info": "有効にすると、商品カード、コレクション、その他のメディアで画像がホバー時にズームまたは切り替わります。"
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "送料無料の最低金額",
-          "info": "[テーマ設定](/editor?context=theme&category=cart)で送料無料の最低金額を設定します。"
+          "info": "[テーマ設定](/editor?context=theme&category=cart)で送料無料の最低金額を設定します。",
+          "help": "金額は数字のみで入力してください。複数の通貨を使用する場合は、各通貨コードと金額を区切って入力してください（例: USD:100, EUR:95, JPY:13000） 他の通貨がフォールバックできるよう、ストアの既定通貨を含めてください。"
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "見出しタグ"
+        "label": "見出しタグ",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "SEOと検索エンジンのクロール目的で見出しタグの種類を指定します。"
       },
       "text_alignment": {
         "label": "テキストの配置",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "見出し",
-        "name": "見出し"
+        "name": "見出し",
+        "content": "見出し"
       },
       "subheading": {
         "label": "小見出し",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "右"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "画像の幅",
@@ -2082,6 +2115,13 @@
             "label": "色"
           }
         },
+        "customer_account": {
+          "content": "顧客アカウント",
+          "paragraph": "[表示設定を管理](/admin/settings/customer_accounts)は顧客アカウント設定にあります。",
+          "menu": {
+            "label": "メニュー"
+          }
+        },
         "mobile_layout": {
           "content": "モバイルレイアウト"
         },
@@ -3011,7 +3051,11 @@
           "label": "画像ズームを有効にする"
         },
         "enable_video_looping": {
-          "label": "ビデオループを有効にする"
+          "label": "動画のループを有効にする"
+        },
+        "default_product_image": {
+          "label": "プレースホルダー画像",
+          "info": "商品にメディアがない場合のプレースホルダー画像として使用します。"
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "404ページ"
     },
     "multicolumn": {
       "name": "複数列",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "検索ドロワー"
+      "name": "検索ドロワー",
+      "settings": {
+        "drawer_position": {
+          "label": "引き出しの位置",
+          "options__right": {
+            "label": "右"
+          },
+          "options__top": {
+            "label": "上"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "クイックビュー"

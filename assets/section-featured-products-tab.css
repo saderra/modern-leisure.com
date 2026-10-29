@@ -97,9 +97,16 @@
     height: 100%;
     background: rgb(var(--color-foreground));
     opacity: 0;
-    transition: all 0.3s;
+    transition: opacity 0.3s;
   }
-  .section--featured-products-tab .tabs__tab:hover, .section--featured-products-tab .tabs__tab[aria-selected=true] {
+}
+@media (min-width: 1024px) and (hover: hover) {
+  .section--featured-products-tab .tabs__tab:hover {
+    color: rgb(var(--color-foreground));
+  }
+}
+@media (min-width: 1024px) {
+  .section--featured-products-tab .tabs__tab[aria-selected=true] {
     color: rgb(var(--color-foreground));
   }
   .section--featured-products-tab .tabs__tab[aria-selected=true]:before {

@@ -1,3 +1,23 @@
+@media (min-width: 768px) {
+  .drawer--top .search__form {
+    padding-inline: var(--page-padding);
+    padding-bottom: 0;
+  }
+}
+@media (min-width: 768px) {
+  .drawer--top .search__field {
+    width: 80rem;
+    max-width: 80%;
+    padding-block: 3.2rem;
+    margin: 0 auto;
+  }
+}
+@media (min-width: 768px) {
+  .drawer--top .search__content {
+    padding-block: 0;
+    padding-bottom: 8rem;
+  }
+}
 .search__content .media-wrapper {
   flex: 0 0 10rem;
 }

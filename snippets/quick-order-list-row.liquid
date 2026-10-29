@@ -70,20 +70,20 @@
       <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
     {%- endif -%}
 
-    {%- if item.available and item.unit_price_measurement -%}
+    {%- if variant.available and variant.unit_price_measurement -%}
       <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
       <span class="unit-price flex items-center">
         {%- liquid
           capture unit_price_base_unit
-            if item.unit_price_measurement
-              if item.unit_price_measurement.reference_value != 1
-                echo item.unit_price_measurement.reference_value
+            if variant.unit_price_measurement
+              if variant.unit_price_measurement.reference_value != 1
+                echo variant.unit_price_measurement.reference_value
               endif
-              echo item.unit_price_measurement.reference_unit
+              echo variant.unit_price_measurement.reference_unit
             endif
           endcapture
         -%}
-        ({{ item.variant.unit_price | money }}
+        ({{ variant.unit_price | money }}
         <span aria-hidden="true">/</span>
         <span class="visually-hidden">&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
         {{ unit_price_base_unit }})

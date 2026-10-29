@@ -107,9 +107,11 @@ class CartItems extends HTMLElement {
   constructor() {
     super();
 
+    this.debouncedOnChange = FoxTheme.utils.debounce(this.onChange.bind(this), 300);
     this.addEventListener('change', (event) => {
-      if (event.target && event.target.closest('quantity-input')) {
-        FoxTheme.utils.debounce(this.onChange(event), 300);
+      const target = event.target;
+      if (target && target.closest('quantity-input')) {
+        this.debouncedOnChange(event);
       }
     });
     this.cartUpdateUnsubscriber = FoxTheme.pubsub.subscribe(
@@ -793,8 +795,8 @@ class ShippingCalculator extends HTMLFormElement {
           shippingRates.length === 0
             ? FoxTheme.shippingCalculatorStrings.notFound
             : shippingRates.length === 1
-            ? FoxTheme.shippingCalculatorStrings.oneResult
-            : FoxTheme.shippingCalculatorStrings.multipleResults
+              ? FoxTheme.shippingCalculatorStrings.oneResult
+              : FoxTheme.shippingCalculatorStrings.multipleResults
         }</p>
         ${
           shippingRatesList === ''
@@ -907,48 +909,86 @@ class FreeShippingGoal extends HTMLElement {
     this.selectors = {
       leftToSpend: '[data-left-to-spend]',
     };
-    this.goal = Number(this.dataset.minimumAmount) * Number(window.Shopify.currency.rate || 1) || 0;
     this.progress = this.querySelector('progress-bar');
     this.money_format = window.FoxTheme.settings.moneyFormat;
+
+    this.activeCode = (this.dataset.activeCode || 'USD').toUpperCase();
+    // Goal expressed in the active currency's major units.
+    this.goalMajor = this.resolveGoalMajor();
+
+    this.onCartUpdated = (event) => this.updateShippingGoal(event.detail.cart.items_subtotal_price);
   }
 
   connectedCallback() {
-    this.updateShippingGloal(Number(this.dataset.cartTotal));
-    document.addEventListener('cart:updated', (event) => {
-      this.updateShippingGloal(event.detail.cart.items_subtotal_price);
-    });
+    this.updateShippingGoal(Number(this.dataset.cartTotal));
+    document.addEventListener('cart:updated', this.onCartUpdated);
   }
 
-  updateShippingGloal(amount) {
-    if (amount > 0) {
-      this.classList.remove('hidden');
-    } else {
-      this.classList.add('hidden');
+  disconnectedCallback() {
+    document.removeEventListener('cart:updated', this.onCartUpdated);
+  }
+
+  // Parse "USD:100,CAD:120,JPY:500" → { USD: 100, ... }; returns null for a plain number.
+  parseConfig(raw) {
+    const map = {};
+    let hasMap = false;
+    (raw || '').split(',').forEach((part) => {
+      const [code, value] = part.split(':');
+      if (value !== undefined) {
+        const amount = parseFloat(String(value).replace(/[^0-9.]/g, ''));
+        if (code && !isNaN(amount)) {
+          map[code.trim().toUpperCase()] = amount;
+          hasMap = true;
+        }
+      }
+    });
+    return hasMap ? map : null;
+  }
+
+  // Resolve the goal in active-currency major units.
+  resolveGoalMajor() {
+    const shopCode = (this.dataset.shopCode || '').toUpperCase();
+    const rate = Number((window.Shopify && window.Shopify.currency && window.Shopify.currency.rate) || 1);
+    const map = this.parseConfig(this.dataset.config);
+
+    if (map) {
+      // Explicit value for the viewed currency — exact, no conversion.
+      if (map[this.activeCode] != null) return map[this.activeCode];
+      // Fallback: shop-currency value converted with the live rate.
+      if (map[shopCode] != null) return map[shopCode] * rate;
+      return 0;
     }
 
-    this.cartTotal = amount / 100;
-    this.goalLeft = this.goal - this.cartTotal;
-    this.goalDone = this.goalLeft <= 0;
+    // Backward compatibility: a single number is a shop-currency amount.
+    const legacy = parseFloat(String(this.dataset.config || '').replace(/[^0-9.]/g, ''));
+    return isNaN(legacy) ? 0 : legacy * rate;
+  }
 
-    this.percent = (this.cartTotal * 100) / this.goal;
+  updateShippingGoal(amount) {
+    amount = Number(amount) || 0;
+    // Shopify money fields are always integer hundredths (¥1,100 → 110000),
+    // regardless of the currency's real decimal count, so always divide by 100.
+    const cartMajor = amount / 100;
+    this.classList.toggle('hidden', amount <= 0 || this.goalMajor <= 0);
+    if (this.goalMajor <= 0) return;
 
-    if (this.percent >= 100) this.percent = 100;
+    const remainingMajor = this.goalMajor - cartMajor;
+    this.percent = Math.min((cartMajor / this.goalMajor) * 100, 100);
 
-    if (this.cartTotal >= this.goal) {
-      this.progress.style.setProperty('--percent', `${this.percent}%`);
+    this.progress.style.setProperty('--percent', `${this.percent}%`);
+    this.progress.dataset.value = cartMajor;
+    this.progress.dataset.max = this.goalMajor;
+
+    if (remainingMajor <= 0) {
       this.classList.add('free-shipping-goal--done');
-      this.progress.dataset.value = this.cartTotal;
-      this.progress.dataset.max = this.goal;
     } else {
-      let spend = (this.goal - this.cartTotal) * 100;
-      this.querySelector(this.selectors.leftToSpend).innerHTML = FoxTheme.Currency.formatMoney(
-        spend,
-        this.money_format
-      );
       this.classList.remove('free-shipping-goal--done');
-      this.progress.style.setProperty('--percent', `${this.percent}%`);
-      this.progress.dataset.value = this.cartTotal;
-      this.progress.dataset.max = this.goal;
+      const leftToSpend = this.querySelector(this.selectors.leftToSpend);
+      // formatMoney expects a two-decimal "cents" value; major × 100 keeps the
+      // amount correct while the shop money format controls the symbol/style.
+      if (leftToSpend) {
+        leftToSpend.innerHTML = FoxTheme.Currency.formatMoney(Math.round(remainingMajor * 100), this.money_format);
+      }
     }
   }
 }

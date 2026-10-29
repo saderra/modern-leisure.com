@@ -9,8 +9,10 @@
 .shopify-model-viewer-ui .shopify-model-viewer-ui__button {
   color: rgba(var(--color-foreground), 0.75);
 }
-.shopify-model-viewer-ui .shopify-model-viewer-ui__button--control:hover {
-  color: rgba(var(--color-foreground), 0.55);
+@media (hover: hover) {
+  .shopify-model-viewer-ui .shopify-model-viewer-ui__button--control:hover {
+    color: rgba(var(--color-foreground), 0.55);
+  }
 }
 .shopify-model-viewer-ui .shopify-model-viewer-ui__button--control:active, .shopify-model-viewer-ui .shopify-model-viewer-ui__button--control.focus-visible:focus {
   color: rgba(var(--color-foreground), 0.55);
@@ -35,6 +37,11 @@
   height: 4.8rem;
   margin-top: 0.3rem;
 }
-.shopify-model-viewer-ui .shopify-model-viewer-ui__button--poster:hover, .shopify-model-viewer-ui .shopify-model-viewer-ui__button--poster:focus {
+.shopify-model-viewer-ui .shopify-model-viewer-ui__button--poster:focus {
   transform: translate(-50%, -50%) scale(1.1);
+}
+@media (hover: hover) {
+  .shopify-model-viewer-ui .shopify-model-viewer-ui__button--poster:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
 }

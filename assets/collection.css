@@ -10,9 +10,17 @@
   padding-block: 1.2rem;
   margin-block-end: 1.2rem;
 }
+.collection .card-promotion,
+.collection .card-promotion__media {
+  height: 100%;
+}
 
 #ProductGridWrapper.show-toolbar {
   margin-block-start: -1.2rem;
+}
+
+#ProductsList.f-grid-1-cols .image-column {
+  display: none;
 }
 
 .facet-accordion-details .accordion-details__summary {

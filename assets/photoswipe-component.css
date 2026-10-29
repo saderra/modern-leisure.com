@@ -200,7 +200,7 @@ and show (for example fade in) when PhotoSwipe is opened
   outline: none;
   border: 1px solid rgb(var(--color-border));
   opacity: 1;
-  transition: 0.3s all;
+  transition: 0.3s opacity, 0.3s color, 0.3s box-shadow;
   background: rgb(var(--color-background, 255, 255, 255));
   color: rgb(var(--color-foreground, 0, 0, 0));
   overflow: hidden;
@@ -229,7 +229,14 @@ and show (for example fade in) when PhotoSwipe is opened
   stroke-linejoin: round;
 }
 
-.pswp__button:hover,
+@media (hover: hover) {
+  .pswp__button:hover {
+    background-color: rgb(var(--color-button-hover-background));
+    color: rgb(var(--color-button-hover-text));
+    border-color: rgb(var(--color-button-hover-background));
+    box-shadow: 0 0 0 3px rgb(var(--color-button-hover-background));
+  }
+}
 .pswp__button:active,
 .pswp__button:focus {
   background-color: rgb(var(--color-button-hover-background));

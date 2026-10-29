@@ -4,16 +4,16 @@
   assign sizes = sizes | default: 'min(100vw, var(--page-width))'
   assign widths = '300,400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200'
 
-  # Allow override video url type and id
-  if video_url != blank
-    assign video_url_type = video_url_type | default: video_url.type
-    assign video_url_id = video_url_id | default: video_url.id
-  else
+  if video != blank
     assign video_url_type = video.host
     # Extract video ID from external video (YouTube/Vimeo)
     if video.media_type == 'external_video'
       assign video_url_id = video.external_id
     endif
+  elsif video_url != blank
+    # Allow override video url type and id
+    assign video_url_type = video_url_type | default: video_url.type
+    assign video_url_id = video_url_id | default: video_url.id
   endif
 
   assign video_id = video.id | default: video_url_id
@@ -33,7 +33,7 @@
     endif
   endcapture
 -%}
-{{ video_url_type }}
+
 {%- if video != blank or video_url != blank -%}
   <video-element
     class="media-wrapper"
@@ -46,7 +46,19 @@
   >
     {{- poster -}}
     <template>
-      {%- if video_url_type == 'youtube' or video_url_type == 'vimeo' -%}
+      {%- if video != blank -%}
+        {{-
+          video
+          | video_tag:
+            playsinline: true,
+            muted: muted,
+            autoplay: true,
+            loop: loop,
+            controls: controls,
+            preload: 'none',
+            image_size: '800x'
+        -}}
+      {%- elsif video_url_type == 'youtube' or video_url_type == 'vimeo' -%}
         {%- if video_url_type == 'youtube' -%}
           <iframe
             src="https://www.youtube.com/embed/{{ video_url_id }}?playsinline=1{% if controls %}&controls=1{% else %}&controls=0{% endif %}{% if autoplay %}&autoplay=1{% endif %}{% if muted %}&mute=1{% endif %}{% if loop %}&loop=1{% endif %}&playlist={{ video_url_id }}&enablejsapi=1&rel=0&modestbranding=1&origin={{ 'https://' | append: request.host | url_encode }}"
@@ -60,18 +72,6 @@
             allowfullscreen="allowfullscreen"
           ></iframe>
         {%- endif -%}
-      {%- elsif video != blank -%}
-        {{-
-          video
-          | video_tag:
-            playsinline: true,
-            muted: muted,
-            autoplay: true,
-            loop: loop,
-            controls: controls,
-            preload: 'none',
-            image_size: '800x'
-        -}}
       {%- endif -%}
     </template>
     {%- if show_play_button -%}

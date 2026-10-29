@@ -12,7 +12,11 @@
   assign menu = section.settings.menu
   assign menu_mobile = section.settings.menu_mobile
   assign logo_mobile_position = section.settings.logo_mobile_position
-  assign enable_transparent_header = section.settings.enable_transparent_header
+  assign enable_transparent_header = false
+  if section.settings.enable_transparent_header and request.page_type == 'index'
+    assign enable_transparent_header = true
+  endif
+
   assign classes = 'header section--padding grid items-center' | append: ' header--' | append: header_layout
   assign classes = classes | append: ' color-' | append: section.settings.color_scheme
   assign classes = classes | append: ' header-mobile--' | append: logo_mobile_position
@@ -21,6 +25,10 @@
     assign classes = classes | append: ' page-width'
   else
     assign classes = classes | append: ' w-full'
+  endif
+
+  if enable_transparent_header
+    assign classes = classes | append: ' header--transparent'
   endif
 
   if section.settings.show_sperator_line
@@ -59,7 +67,7 @@
 <header
   data-section-id="{{ section.id }}"
   class="{{ classes }}"
-  {% if request.page_type == 'index' %}
+  {% if enable_transparent_header %}
     data-enable-transparent="{{ enable_transparent_header }}"
   {% endif %}
   {% if sticky_header != 'none' %}
@@ -224,21 +232,20 @@
         {%- render 'icon-search', size: 'large' -%}
       </a>
       {%- if shop.customer_accounts_enabled -%}
-        <a
-          href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-          class="account-button hidden lg:flex items-center justify-center"
-        >
-          {%- render 'icon-account', size: 'large' -%}
-          <span class="visually-hidden">
-            {%- liquid
-              if customer
-                echo 'customer.account_fallback' | t
-              else
-                echo 'customer.log_in' | t
-              endif
-            -%}
-          </span>
-        </a>
+        <shopify-account menu="{{ section.settings.customer_account_menu }}" class="flex">
+          {% if customer %}
+            <div class="account-button__fallback no-empty" aria-label="{{ 'customer.account_fallback' | t }}"></div>
+          {% else %}
+            <span
+              slot="signed-out-avatar"
+              aria-hidden="true"
+              aria-label="{{ 'customer.log_in' | t }}"
+              class="flex items-center justify-center"
+            >
+              {%- render 'icon-account', size: 'large' -%}
+            </span>
+          {% endif %}
+        </shopify-account>
       {%- endif -%}
       <a
         href="{{ routes.cart_url }}"
@@ -451,6 +458,20 @@
       "label": "t:sections.header.settings.transparent_header.transparent_header_color.label",
       "default": "#FFFFFF",
       "visible_if": "{{ section.settings.enable_transparent_header == true }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.customer_account.content"
+    },
+    {
+      "type": "paragraph",
+      "content": "t:sections.header.settings.customer_account.paragraph"
+    },
+    {
+      "type": "link_list",
+      "id": "customer_account_menu",
+      "label": "t:sections.header.settings.customer_account.menu.label",
+      "default": "customer-account-main-menu"
     },
     {
       "type": "header",

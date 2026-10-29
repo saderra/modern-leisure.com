@@ -9,6 +9,29 @@
   if columns < 4 or request.design_mode
     assign columns_tablet = columns
   endif
+
+  # The cart page has no `product` to base recommendations on, so seed them with the first product in
+  # the cart. product-recommendations.js drops products that are already in the cart, so ask for enough
+  # extra to still fill `limit` afterwards (the endpoint returns 10 at most).
+  assign seed_product_id = product.id
+  assign on_cart = false
+  assign fetch_limit = limit
+  if template.name == 'cart'
+    assign on_cart = true
+    assign seed_product_id = cart.items.first.product_id
+    assign in_cart_count = cart.items | map: 'product_id' | uniq | size
+    assign fetch_limit = limit | plus: in_cart_count
+    if fetch_limit > 10
+      assign fetch_limit = 10
+    endif
+  endif
+
+  # An empty cart leaves nothing to recommend from: render nothing rather than an empty padded box,
+  # except in the theme editor, where the merchant still needs to see the section to configure it.
+  assign render_section = true
+  if on_cart and seed_product_id == blank and request.design_mode == false
+    assign render_section = false
+  endif
 -%}
 {%- capture image_sizes -%}
 (max-width: 767px) calc((100vw - 30px) / {{ columns_mobile }}),
@@ -18,6 +41,7 @@
 <script src="{{ 'product-recommendations.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'product-slider.js' | asset_url }}" defer="defer"></script>
 
+{%- if render_section -%}
 {% render 'divider',
   show_divider: section.settings.show_section_divider,
   divider_width: section.settings.divider_width
@@ -30,7 +54,12 @@
 >
   <product-recommendations
     class="related-products"
-    data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ limit }}"
+    data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ seed_product_id }}&limit={{ fetch_limit }}"
+    {%- if on_cart %}
+      data-source="cart"
+      data-limit="{{ limit }}"
+      data-exclude="{{ cart.items | map: 'product_id' | uniq | join: ',' }}"
+    {%- endif %}
   >
     {%- if recommendations.performed and recommendations.products_count > 0 -%}
       {%- liquid
@@ -52,7 +81,7 @@
       -%}
       {% render 'section-heading', section_settings: section.settings %}
       <product-slider
-        class="relative swiper-show-nav-on-hover"
+        class="relative swiper-show-nav-on-hover block"
         data-section-id="{{ section.id }}"
         {% if enable_slider %}
           data-enable-slider="true"
@@ -64,7 +93,7 @@
         <div class="products-grid-wrap{% if enable_slider %} swiper swiper-equal-height{% endif %}{% if enable_swipe_mobile %} swipe-mobile swipe-mobile--{{ section.settings.columns_mobile }}-cols{% endif %}">
           <div class="products-grid f-grid f-grid-{{ columns_mobile }}-cols md:f-grid-{{ columns_tablet }}-cols lg:f-grid-{{ columns }}-cols f-grid--gap-{{ section.settings.column_gap }} f-grid--row-gap-{{ section.settings.row_gap }}{% if enable_slider %} swiper-wrapper{% endif %}{% if enable_swipe_mobile %} swipe-mobile__inner{% endif %}">
             {%- for recommendation in recommendations.products -%}
-              <div class="{{ item_css_class }}">
+              <div class="{{ item_css_class }}" data-product-id="{{ recommendation.id }}">
                 {% render 'card-product',
                   product: recommendation,
                   image_sizes: image_sizes,
@@ -95,9 +124,23 @@
           </div>
         {%- endif -%}
       </product-slider>
+    {%- elsif on_cart and seed_product_id == blank -%}
+      {%- comment -%}
+        Theme editor with an empty cart: there is nothing to recommend from yet, so show the layout the
+        merchant is configuring instead of an empty section.
+      {%- endcomment -%}
+      {% render 'section-heading', section_settings: section.settings %}
+      <div class="products-grid f-grid f-grid-{{ columns_mobile }}-cols md:f-grid-{{ columns_tablet }}-cols lg:f-grid-{{ columns }}-cols f-grid--gap-{{ section.settings.column_gap }} f-grid--row-gap-{{ section.settings.row_gap }}">
+        {%- for i in (1..columns) -%}
+          <div class="f-column">
+            {% render 'card-product-placeholder', image_ratio: section.settings.pcard_image_ratio %}
+          </div>
+        {%- endfor -%}
+      </div>
     {%- endif -%}
   </product-recommendations>
 </div>
+{%- endif -%}
 {% schema %}
 {
   "name": "t:sections.related-products.name",
@@ -177,6 +220,39 @@
           "label": "t:sections.all.text_size.options__hd1.label"
         }
       ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.all.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_tag.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_tag.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.all.heading_tag.options__3.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.all.heading_tag.options__4.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.all.heading_tag.options__5.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.all.heading_tag.options__6.label"
+        }
+      ],
+      "info": "t:sections.all.heading_tag.info"
     },
     {
       "type": "header",

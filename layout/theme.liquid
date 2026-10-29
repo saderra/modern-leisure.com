@@ -87,7 +87,7 @@
   </head>
 
   <body
-    class="{{ request.page_type }}-template {{ template.suffix }} blocks-corner--{{ settings.blocks_corner_radius }}{% if request.design_mode %} shopify-design-mode{% endif %}"
+    class="{{ request.page_type }}-template {{ template.suffix }} blocks-corner--{{ settings.blocks_corner_radius }}{% if request.design_mode %} shopify-design-mode{% endif %}{% unless settings.enable_animation %} disable-animations{% endunless %}{% unless settings.enable_hover_image %} disable-hover-image{% endunless %}"
     data-initializing
   >
     {% comment %} Custom metafield for body tag like GTag tracking {% endcomment %}

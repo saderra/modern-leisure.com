@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "啟用頁面轉換"
+        },
+        "enable_animation": {
+          "label": "啟用動畫"
+        },
+        "enable_scroll_animations": {
+          "label": "啟用捲動動畫",
+          "info": "啟用後，元素在捲動進入畫面時會產生動畫效果。"
+        },
+        "enable_hover_image": {
+          "label": "啟用圖片懸停效果",
+          "info": "啟用後，產品卡片、系列及其他媒體中的圖片會在懸停時放大或切換。"
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "免運費最低金額",
-          "info": "在[主題設定](/editor?context=theme&category=cart)中設定免費送貨的最低金額。"
+          "info": "在[主題設定](/editor?context=theme&category=cart)中設定免費送貨的最低金額。",
+          "help": "僅使用數字輸入金額。如使用多種貨幣，請將每個貨幣代碼與其金額分隔（例如：USD:100, EUR:95, JPY:13000） 請包含商店的預設貨幣，讓其他貨幣可回退使用。"
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "標題標籤"
+        "label": "標題標籤",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "為SEO和搜尋引擎的爬取目的指定標題標籤類型。"
       },
       "text_alignment": {
         "label": "文字對齊",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "標題",
-        "name": "標題"
+        "name": "標題",
+        "content": "標題"
       },
       "subheading": {
         "label": "副標題",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "正確的"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "圖片寬度",
@@ -2082,6 +2115,13 @@
             "label": "顏色"
           }
         },
+        "customer_account": {
+          "content": "客戶帳戶",
+          "paragraph": "在客戶帳戶設定中[管理可見性](/admin/settings/customer_accounts)。",
+          "menu": {
+            "label": "選單"
+          }
+        },
         "mobile_layout": {
           "content": "移動佈局"
         },
@@ -3011,7 +3051,11 @@
           "label": "啟用圖像縮放"
         },
         "enable_video_looping": {
-          "label": "啟用視訊循環"
+          "label": "啟用影片循環"
+        },
+        "default_product_image": {
+          "label": "佔位圖片",
+          "info": "當產品沒有媒體時，用作佔位圖片。"
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "404 頁面"
     },
     "multicolumn": {
       "name": "多列",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "搜尋抽屜"
+      "name": "搜尋抽屜",
+      "settings": {
+        "drawer_position": {
+          "label": "抽屜位置",
+          "options__right": {
+            "label": "右側"
+          },
+          "options__top": {
+            "label": "頂部"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "快速瀏覽"

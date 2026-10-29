@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -130,7 +139,8 @@
     "menu_drawer": "Váltó menü",
     "layout_switcher": "{{ col }} oszlop",
     "play_video": "Videó lejátszása",
-    "load_video": "Videó betöltése: {{ description }}"
+    "load_video": "Videó betöltése: {{ description }}",
+    "nested_product": "{{ product_title }} – {{ parent_title }}"
   },
   "blogs": {
     "article": {

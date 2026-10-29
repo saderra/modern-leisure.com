@@ -10,7 +10,7 @@ body.sticky-atc-bar-enabled {
   z-index: 29;
   background: #fff;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.09);
-  transition: cubic-bezier(0.4, 0, 0.2, 1) 0.3s all;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translate3d(0, 100%, 0);
 }
 .sticky-atc-bar--show {

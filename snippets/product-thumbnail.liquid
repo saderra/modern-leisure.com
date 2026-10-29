@@ -34,6 +34,8 @@
     assign loading = 'eager'
     assign fetchpriority = 'high'
   endif
+
+  assign media_alt = media.preview_image.alt | escape
 -%}
 {%- capture sizes -%}
 {%- if desktop_columns > 1 -%}
@@ -50,6 +52,7 @@
   data-media-type="{{ media.media_type }}"
   data-media-index="{{ position }}"
   data-src="{{ media.preview_image | image_url: width: 1946 }}"
+  data-alt="{{ media.preview_image.alt | escape }}"
   data-pswp-width="{{ media.preview_image.width }}"
   data-pswp-height="{{ media.preview_image.width | divided_by: media.preview_image.aspect_ratio | ceil }}"
 >
@@ -65,6 +68,7 @@
               media.preview_image
               | image_url: width: 1946
               | image_tag:
+                alt: media_alt,
                 is: 'image-lazy',
                 loading: loading,
                 fetchpriority: fetchpriority,
@@ -120,6 +124,7 @@
             media.preview_image
             | image_url: width: 1946
             | image_tag:
+              alt: media_alt,
               is: 'image-lazy',
               loading: loading,
               fetchpriority: fetchpriority,

@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Enable page transition"
+        },
+        "enable_animation": {
+          "label": "Enable animation"
+        },
+        "enable_scroll_animations": {
+          "label": "Enable scroll animations",
+          "info": "When enabled, elements animate as they scroll into view."
+        },
+        "enable_hover_image": {
+          "label": "Enable image hover effects",
+          "info": "When enabled, images zoom or swap on hover across product cards, collections, and other media."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Free shipping minimum amount",
-          "info": "Set the minimum amount for Free Shipping in the [theme settings](/editor?context=theme&category=cart)."
+          "info": "Set the minimum amount for Free Shipping in the [theme settings](/editor?context=theme&category=cart).",
+          "help": "Enter amount using number only. If using multiple currencies, separate each currency code with its amount (e.g: USD:100, EUR:95, JPY:13000) Include your store's default currency so other currencies fall back to it."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Heading tag"
+        "label": "Heading tag",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Specify heading code types for SEO and search engines for crawling purposes."
       },
       "text_alignment": {
         "label": "Text alignment",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Heading",
-        "name": "Heading"
+        "name": "Heading",
+        "content": "Heading"
       },
       "subheading": {
         "label": "Subheading",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Right"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Image width",
@@ -1582,7 +1615,7 @@
       },
       "extend_to_screen_edge": {
         "label": "Extend to screen edge"
-      },
+      }
     },
     "announcement-bar": {
       "name": "Announcement bar",
@@ -2109,6 +2142,13 @@
           },
           "transparent_header_color": {
             "label": "Color"
+          }
+        },
+        "customer_account": {
+          "content": "Customer account",
+          "paragraph": "[Manage visibility](/admin/settings/customer_accounts) in customer account settings.",
+          "menu": {
+            "label": "Menu"
           }
         },
         "mobile_layout": {
@@ -3041,6 +3081,10 @@
         },
         "enable_video_looping": {
           "label": "Enable video looping"
+        },
+        "default_product_image": {
+          "label": "Placeholder image",
+          "info": "Use as a placeholder image when the product has no media."
         }
       }
     },
@@ -3135,6 +3179,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "404 page"
     },
     "multicolumn": {
       "name": "Multicolumn",
@@ -4240,7 +4287,18 @@
       }
     },
     "search-drawer": {
-      "name": "Search drawer"
+      "name": "Search drawer",
+      "settings": {
+        "drawer_position": {
+          "label": "Drawer position",
+          "options__right": {
+            "label": "Right"
+          },
+          "options__top": {
+            "label": "Top"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Quick view"
@@ -4282,7 +4340,7 @@
         },
         "cart_discount": {
           "name": "Cart discount"
-        },
+        }
       }
     },
     "mobile-sticky-bar": {

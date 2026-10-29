@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Sayfa geçişini etkinleştir"
+        },
+        "enable_animation": {
+          "label": "Animasyonu etkinleştir"
+        },
+        "enable_scroll_animations": {
+          "label": "Kaydırma animasyonlarını etkinleştir",
+          "info": "Etkinleştirildiğinde, öğeler görünüme kaydırıldıkça animasyon yapar."
+        },
+        "enable_hover_image": {
+          "label": "Görsel hover efektlerini etkinleştir",
+          "info": "Etkinleştirildiğinde, ürün kartlarında, koleksiyonlarda ve diğer medyalarda görseller üzerine gelindiğinde yakınlaşır veya değişir."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Ücretsiz gönderim minimum tutarı",
-          "info": "Ücretsiz Gönderim için minimum tutarı [tema ayarları](/editor?context=theme&category=cart) bölümünde ayarlayın."
+          "info": "Ücretsiz Gönderim için minimum tutarı [tema ayarları](/editor?context=theme&category=cart) bölümünde ayarlayın.",
+          "help": "Tutarı yalnızca rakamla girin. Birden fazla para birimi kullanıyorsanız her para birimi kodunu tutarıyla ayırın (örn.: USD:100, EUR:95, JPY:13000) Diğer para birimlerinin geri dönebilmesi için mağazanızın varsayılan para birimini ekleyin."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Başlık etiketi"
+        "label": "Başlık etiketi",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "SEO ve arama motorları için tarama amacıyla başlık etiket türlerini belirtin."
       },
       "text_alignment": {
         "label": "Metin hizalama",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Başlık",
-        "name": "Başlık"
+        "name": "Başlık",
+        "content": "Başlık"
       },
       "subheading": {
         "label": "Alt başlık",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Sağ"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Resim Genişliği",
@@ -2082,6 +2115,13 @@
             "label": "Renk"
           }
         },
+        "customer_account": {
+          "content": "Müşteri hesabı",
+          "paragraph": "Müşteri hesabı ayarlarında [görünürlüğü yönet](/admin/settings/customer_accounts).",
+          "menu": {
+            "label": "Menü"
+          }
+        },
         "mobile_layout": {
           "content": "Mobil düzen"
         },
@@ -3012,6 +3052,10 @@
         },
         "enable_video_looping": {
           "label": "Video döngüsünü etkinleştir"
+        },
+        "default_product_image": {
+          "label": "Yer tutucu resim",
+          "info": "Ürünün medyası olmadığında yer tutucu resim olarak kullanın."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "404 sayfası"
     },
     "multicolumn": {
       "name": "Çok sütunlu",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Arama çekmecesi"
+      "name": "Arama çekmecesi",
+      "settings": {
+        "drawer_position": {
+          "label": "Çekmece konumu",
+          "options__right": {
+            "label": "Sağ"
+          },
+          "options__top": {
+            "label": "Üst"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Hızlı Görünüm"

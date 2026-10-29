@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Ota sivun siirto käyttöön"
+        },
+        "enable_animation": {
+          "label": "Ota animaatio käyttöön"
+        },
+        "enable_scroll_animations": {
+          "label": "Ota vierityksen animaatiot käyttöön",
+          "info": "Kun tämä on käytössä, elementit animoituvat, kun ne tulevat näkyviin vieritettäessä."
+        },
+        "enable_hover_image": {
+          "label": "Ota kuvan hover-tehosteet käyttöön",
+          "info": "Kun tämä on käytössä, kuvat zoomaavat tai vaihtuvat osoittimen kohdistuessa tuotekorteissa, kokoelmissa ja muissa medioissa."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Ilmainen toimitus minimisumma",
-          "info": "Aseta ilmaisen toimituksen vähimmäissumma [teema-asetuksissa](/editor?context=theme&category=cart)."
+          "info": "Aseta ilmaisen toimituksen vähimmäissumma [teema-asetuksissa](/editor?context=theme&category=cart).",
+          "help": "Anna summa vain numeroina. Jos käytät useita valuuttoja, erota kukin valuuttakoodi summineen (esim.: USD:100, EUR:95, JPY:13000) Sisällytä myymäläsi oletusvaluutta, jotta muut valuutat voivat käyttää sitä varana."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Otsikkotunniste"
+        "label": "Otsikkotunniste",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Määritä otsikkotunnistetyypit SEO:lle ja hakukoneille indeksointitarkoituksessa."
       },
       "text_alignment": {
         "label": "Tekstin tasaus",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Otsikko",
-        "name": "Otsikko"
+        "name": "Otsikko",
+        "content": "Otsikko"
       },
       "subheading": {
         "label": "Alaotsikko",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Oikein"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Kuvan leveys",
@@ -2082,6 +2115,13 @@
             "label": "Väri"
           }
         },
+        "customer_account": {
+          "content": "Asiakastili",
+          "paragraph": "[Hallitse näkyvyyttä](/admin/settings/customer_accounts) asiakastilin asetuksissa.",
+          "menu": {
+            "label": "Valikko"
+          }
+        },
         "mobile_layout": {
           "content": "Mobiiliasettelu"
         },
@@ -3012,6 +3052,10 @@
         },
         "enable_video_looping": {
           "label": "Ota videosilmukka käyttöön"
+        },
+        "default_product_image": {
+          "label": "Paikkamerkkikuva",
+          "info": "Käytä paikkamerkkikuvana, kun tuotteella ei ole mediaa."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "404-sivu"
     },
     "multicolumn": {
       "name": "Monisarake",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Hakulaatikko"
+      "name": "Hakulaatikko",
+      "settings": {
+        "drawer_position": {
+          "label": "Laatikon sijainti",
+          "options__right": {
+            "label": "Oikea"
+          },
+          "options__top": {
+            "label": "Yläreuna"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Katsaus"

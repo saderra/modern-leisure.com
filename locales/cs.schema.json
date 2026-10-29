@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Povolit přechod stránky"
+        },
+        "enable_animation": {
+          "label": "Povolit animaci"
+        },
+        "enable_scroll_animations": {
+          "label": "Povolit animace při posouvání",
+          "info": "Když je tato možnost povolena, prvky se animují, jakmile se objeví při posouvání."
+        },
+        "enable_hover_image": {
+          "label": "Povolit efekty obrázku při najetí myší",
+          "info": "Když je tato možnost povolena, obrázky se při najetí myší přiblíží nebo prohodí napříč kartami produktů, kolekcemi a dalšími médii."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Minimální množství dopravy zdarma",
-          "info": "Nastavte minimální částku pro dopravu zdarma v [nastavení motivu](/editor?context=theme&category=cart)."
+          "info": "Nastavte minimální částku pro dopravu zdarma v [nastavení motivu](/editor?context=theme&category=cart).",
+          "help": "Zadejte částku pouze čísly. Při použití více měn oddělte každý kód měny s jeho částkou (např.: USD:100, EUR:95, JPY:13000) Zahrňte výchozí měnu vašeho obchodu, aby ostatní měny mohly použít její hodnotu."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Značka nadpisu"
+        "label": "Značka nadpisu",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Zadejte typy značek nadpisu pro SEO a vyhledávače pro účely procházení."
       },
       "text_alignment": {
         "label": "Zarovnání textu",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Nadpis",
-        "name": "Nadpis"
+        "name": "Nadpis",
+        "content": "Nadpis"
       },
       "subheading": {
         "label": "Podnadpis",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Že jo"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Šířka obrázku",
@@ -2082,6 +2115,13 @@
             "label": "Barva"
           }
         },
+        "customer_account": {
+          "content": "Zákaznický účet",
+          "paragraph": "[Spravovat viditelnost](/admin/settings/customer_accounts) v nastavení zákaznického účtu.",
+          "menu": {
+            "label": "Menu"
+          }
+        },
         "mobile_layout": {
           "content": "Mobilní rozložení"
         },
@@ -3011,7 +3051,11 @@
           "label": "Povolit přiblížení obrázku"
         },
         "enable_video_looping": {
-          "label": "Povolit smyčkování videa"
+          "label": "Povolit smyčku videa"
+        },
+        "default_product_image": {
+          "label": "Zástupný obrázek",
+          "info": "Použít jako zástupný obrázek, pokud produkt nemá žádná média."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "Stránka 404"
     },
     "multicolumn": {
       "name": "Vícesloupcové",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Vyhledávací zásuvka"
+      "name": "Vyhledávací zásuvka",
+      "settings": {
+        "drawer_position": {
+          "label": "Pozice zásuvky",
+          "options__right": {
+            "label": "Vpravo"
+          },
+          "options__top": {
+            "label": "Nahoře"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Rychlý pohled"

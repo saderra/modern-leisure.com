@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "启用页面转换"
+        },
+        "enable_animation": {
+          "label": "启用动画"
+        },
+        "enable_scroll_animations": {
+          "label": "启用滚动动画",
+          "info": "启用后，元素在滚动进入视图时产生动画效果。"
+        },
+        "enable_hover_image": {
+          "label": "启用图片悬停效果",
+          "info": "启用后，产品卡片、合集及其他媒体中的图片会在悬停时放大或切换。"
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "免运费最低金额",
-          "info": "在[主题设置](/editor?context=theme&category=cart)中设置免费送货的最低金额。"
+          "info": "在[主题设置](/editor?context=theme&category=cart)中设置免费送货的最低金额。",
+          "help": "仅使用数字输入金额。如使用多种货币，请将每个货币代码与其金额分隔开（例如：USD:100, EUR:95, JPY:13000） 请包含店铺的默认货币，以便其他货币可回退使用。"
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "标题标签"
+        "label": "标题标签",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "为SEO和搜索引擎的抓取目的指定标题标签类型。"
       },
       "text_alignment": {
         "label": "文本对齐",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "标题",
-        "name": "标题"
+        "name": "标题",
+        "content": "标题"
       },
       "subheading": {
         "label": "副标题",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "正确的"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "图片宽度",
@@ -2082,6 +2115,13 @@
             "label": "颜色"
           }
         },
+        "customer_account": {
+          "content": "客户账户",
+          "paragraph": "在客户账户设置中[管理可见性](/admin/settings/customer_accounts)。",
+          "menu": {
+            "label": "菜单"
+          }
+        },
         "mobile_layout": {
           "content": "移动布局"
         },
@@ -3012,6 +3052,10 @@
         },
         "enable_video_looping": {
           "label": "启用视频循环"
+        },
+        "default_product_image": {
+          "label": "占位图片",
+          "info": "当产品没有媒体时，用作占位图片。"
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "404 页面"
     },
     "multicolumn": {
       "name": "多列",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "搜索抽屉"
+      "name": "搜索抽屉",
+      "settings": {
+        "drawer_position": {
+          "label": "抽屉位置",
+          "options__right": {
+            "label": "右侧"
+          },
+          "options__top": {
+            "label": "顶部"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "快速浏览"

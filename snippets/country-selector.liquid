@@ -88,29 +88,31 @@
           {% render 'icon-caret' %}
         </button>
         <ul class="disclosure-list v-scrollable text-left">
-          {%- for country in localization.available_countries -%}
-            <li class="disclosure-list__item{% if country.iso_code == localization.country.iso_code %} disclosure-list__item--current{% endif %}">
-              <a
-                class="disclosure-list__option"
-                href="#"
-                {% if country.iso_code == localization.country.iso_code %}
-                  aria-current="true"
-                {% endif %}
-                data-value="{{ country.iso_code }}"
-                data-disclosure-option
-              >
-                <span
-                  class="f-country-flags f-country-flags--{{ country.iso_code }}"
-                  style="--background-image: url({{ country | image_url: width: 20 }})"
-                ></span>
-                {{- country.name -}}
-                <span class="localization-form__currency"
-                  >({{ country.currency.iso_code }}
-                  {{ country.currency.symbol }})</span
+          <template>
+            {%- for country in localization.available_countries -%}
+              <li class="disclosure-list__item{% if country.iso_code == localization.country.iso_code %} disclosure-list__item--current{% endif %}">
+                <a
+                  class="disclosure-list__option"
+                  href="#"
+                  {% if country.iso_code == localization.country.iso_code %}
+                    aria-current="true"
+                  {% endif %}
+                  data-value="{{ country.iso_code }}"
+                  data-disclosure-option
                 >
-              </a>
-            </li>
-          {%- endfor -%}
+                  <span
+                    class="f-country-flags f-country-flags--{{ country.iso_code }}"
+                    style="--background-image: url({{ country | image_url: width: 20 }})"
+                  ></span>
+                  {{- country.name -}}
+                  <span class="localization-form__currency"
+                    >({{ country.currency.iso_code }}
+                    {{ country.currency.symbol }})</span
+                  >
+                </a>
+              </li>
+            {%- endfor -%}
+          </template>
         </ul>
         <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}" data-disclosure-input>
       {%- endform -%}

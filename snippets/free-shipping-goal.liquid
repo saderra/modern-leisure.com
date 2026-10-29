@@ -1,22 +1,25 @@
-{%- liquid
-  assign minimum_amount_in_cents = minimum_amount | plus: 0
-  assign total_price = cart.total_price | plus: 0
--%}
-{%- capture left_to_spend -%}
-    <strong data-left-to-spend>{{ limit_currency | minus: cart.total_price | money }}</strong>
-{%- endcapture -%}
+{%- comment -%}
+  Free shipping goal.
+
+  Accepts a per-currency threshold map in `minimum_amount`, e.g. "USD:100,CAD:120,JPY:500".
+  A plain number (e.g. "100") is treated as a shop-currency amount for backward compatibility.
+
+  Resolution (currency selection, rate fallback, decimals) happens in the
+  FreeShippingGoal custom element so it can read the live presentment rate.
+{%- endcomment -%}
 <free-shipping-goal
-  data-cart-total="{{ total_price }}"
-  data-minimum-amount="{{ minimum_amount_in_cents }}"
+  data-config="{{ minimum_amount | escape }}"
+  data-active-code="{{ cart.currency.iso_code }}"
+  data-shop-code="{{ shop.currency }}"
+  data-cart-total="{{ cart.items_subtotal_price }}"
   class="free-shipping-goal grid gap-3{% if classes %} {{ classes }}{% endif %}"
 >
   <span class="free-shipping-goal__label free-shipping-goal__label--success">
     {{- 'general.cart.free_shipping.congratulations_html' | t -}}
   </span>
   <span class="free-shipping-goal__label free-shipping-goal__label--default">
+    {%- capture left_to_spend -%}<strong data-left-to-spend></strong>{%- endcapture -%}
     {{- 'general.cart.free_shipping.remaining_html' | t: remaining_amount: left_to_spend -}}
   </span>
-  <progress-bar
-    class="progress-bar"
-  ></progress-bar>
+  <progress-bar class="progress-bar"></progress-bar>
 </free-shipping-goal>

@@ -1,0 +1,35 @@
+{% comment %}
+  Renders one variant as the trimmed JSON object the optimistic path reads.
+
+  Rendered per variant by product-variant-picker.liquid (the [data-variants-cache] array) and for a
+  single server-resolved variant by sections/variant-data.liquid, so the cache and the fallback fetch
+  speak one shape and cannot drift apart.
+
+  Trimmed rather than `variant | json`: that ships fields nothing here reads, and it omits
+  inventory_quantity and inventory_policy entirely — which is why in_stock has to be computed here,
+  where Liquid still has them. A `continue` policy variant that is out of stock is `available` while
+  its badge must still read sold out (see product-badges.liquid).
+
+  Accepts:
+  - variant: {Object} variant object.
+
+  Usage:
+  {% render 'variant-json', variant: variant %}
+{% endcomment %}
+{%- liquid
+  assign in_stock = true
+  if variant.inventory_management == 'shopify' and variant.inventory_quantity < 1 and variant.inventory_policy != 'continue'
+    assign in_stock = false
+  endif
+-%}
+{
+  "id": {{ variant.id }},
+  "options": {{ variant.options | json }},
+  "available": {{ variant.available }},
+  "in_stock": {{ in_stock }},
+  "price": {{ variant.price }},
+  "compare_at_price": {{ variant.compare_at_price | json }},
+  "unit_price": {{ variant.unit_price | json }},
+  "unit_price_measurement": {{ variant.unit_price_measurement | json }},
+  "featured_media": {% if variant.featured_media %}{"id": {{ variant.featured_media.id }}, "position": {{ variant.featured_media.position }}}{% else %}null{% endif %}
+}

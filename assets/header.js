@@ -465,6 +465,10 @@ class MenuDrawer extends DrawerComponent {
     return this._menuItems;
   }
 
+  get requiresBodyAppended() {
+    return false;
+  }
+
   prepareToShow() {
     super.prepareToShow();
     setTimeout(() => {
@@ -473,6 +477,8 @@ class MenuDrawer extends DrawerComponent {
   }
 
   animateMenuItems() {
+    if (FoxTheme.config.motionReduced) return;
+
     FoxTheme.Motion.animate(
       this.menuItems,
       {

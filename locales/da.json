@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -130,7 +139,8 @@
     "menu_drawer": "Skift menu",
     "layout_switcher": "{{ col }} kol",
     "play_video": "Afspil video",
-    "load_video": "Indlæs video: {{ description }}"
+    "load_video": "Indlæs video: {{ description }}",
+    "nested_product": "{{ product_title }} for {{ parent_title }}"
   },
   "blogs": {
     "article": {

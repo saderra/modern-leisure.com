@@ -6,7 +6,9 @@
 
   assign product_class = 'product--' | append: section.settings.media_size
   assign product_class = product_class | append: ' product--' | append: media_layout
-  assign product_class = product_class | append: ' product--media-has-' | append: product.media.size
+  if product.media.size == 0 and section.settings.default_product_image == blank
+    assign product_class = product_class | append: ' product--media-has-0'
+  endif
   if product.media.size > 1
     assign product_class = product_class | append: ' product--media-has-many'
   endif
@@ -80,9 +82,23 @@
           enable_image_zoom: enable_image_zoom
         %}
       </motion-element>
+    {% elsif section.settings.default_product_image != blank %}
+      <motion-element data-motion="fade-up" data-motion-delay="50" class="product__media-wrapper w-full relative">
+        <div class="media-wrapper blocks-radius" style="--aspect-ratio: 1;">
+          {{
+            section.settings.default_product_image
+            | image_url: width: 1000
+            | image_tag: loading: 'lazy', widths: '300, 600, 1000', is: 'image-lazy'
+          }}
+        </div>
+      </motion-element>
     {%- endif -%}
     <motion-element data-motion="fade-up" data-motion-delay="100" class="block product__info-wrapper w-full">
-      {% render 'product-information-blocks', enable_sticky_info: enable_sticky_info, update_browser_history: true, context: 'main-product' %}
+      {% render 'product-information-blocks',
+        enable_sticky_info: enable_sticky_info,
+        update_browser_history: true,
+        context: 'main-product'
+      %}
     </motion-element>
   </div>
   <product-recently-viewed data-product-id="{{ product.id }}" class="hidden"></product-recently-viewed>
@@ -1475,6 +1491,12 @@
       "id": "enable_video_looping",
       "default": false,
       "label": "t:sections.main-product.settings.enable_video_looping.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "default_product_image",
+      "label": "t:sections.main-product.settings.default_product_image.label",
+      "info": "t:sections.main-product.settings.default_product_image.info"
     },
     {
       "type": "header",

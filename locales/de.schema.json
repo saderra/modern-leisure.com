@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Seitenübergang aktivieren"
+        },
+        "enable_animation": {
+          "label": "Animation aktivieren"
+        },
+        "enable_scroll_animations": {
+          "label": "Scroll-Animationen aktivieren",
+          "info": "Wenn aktiviert, werden Elemente animiert, sobald sie beim Scrollen sichtbar werden."
+        },
+        "enable_hover_image": {
+          "label": "Bild-Hover-Effekte aktivieren",
+          "info": "Wenn aktiviert, zoomen oder wechseln Bilder beim Hovern in Produktkarten, Kollektionen und anderen Medien."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Kostenloser Versand ab Mindestbestellwert",
-          "info": "Legen Sie den Mindestbetrag für den kostenlosen Versand in den [Theme-Einstellungen](/editor?context=theme&category=cart) fest."
+          "info": "Legen Sie den Mindestbetrag für den kostenlosen Versand in den [Theme-Einstellungen](/editor?context=theme&category=cart) fest.",
+          "help": "Betrag nur mit Zahlen eingeben. Bei mehreren Währungen trennen Sie jeden Währungscode mit seinem Betrag (z. B.: USD:100, EUR:95, JPY:13000) Fügen Sie die Standardwährung Ihres Shops hinzu, damit andere Währungen darauf zurückgreifen können."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Überschriften-Tag"
+        "label": "Überschriften-Tag",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Geben Sie Überschriften-Tag-Typen für SEO und Suchmaschinen zu Crawling-Zwecken an."
       },
       "text_alignment": {
         "label": "Textausrichtung",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Überschrift",
-        "name": "Überschrift"
+        "name": "Überschrift",
+        "content": "Überschrift"
       },
       "subheading": {
         "label": "Unterüberschrift",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Rechts"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Bild breite",
@@ -2082,6 +2115,13 @@
             "label": "Farbe"
           }
         },
+        "customer_account": {
+          "content": "Kundenkonto",
+          "paragraph": "[Sichtbarkeit verwalten](/admin/settings/customer_accounts) in den Einstellungen des Kundenkontos.",
+          "menu": {
+            "label": "Menü"
+          }
+        },
         "mobile_layout": {
           "content": "Mobiles Layout"
         },
@@ -3011,7 +3051,11 @@
           "label": "Bildzoom aktivieren"
         },
         "enable_video_looping": {
-          "label": "Aktivieren Sie Video-Looping"
+          "label": "Videoschleife aktivieren"
+        },
+        "default_product_image": {
+          "label": "Platzhalterbild",
+          "info": "Als Platzhalterbild verwenden, wenn das Produkt keine Medien enthält."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "404-Seite"
     },
     "multicolumn": {
       "name": "Mehrspaltig",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Suchschublade"
+      "name": "Suchschublade",
+      "settings": {
+        "drawer_position": {
+          "label": "Schubladenposition",
+          "options__right": {
+            "label": "Rechts"
+          },
+          "options__top": {
+            "label": "Oben"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Schnellansicht"

@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Activer la transition de page"
+        },
+        "enable_animation": {
+          "label": "Activer l'animation"
+        },
+        "enable_scroll_animations": {
+          "label": "Activer les animations au défilement",
+          "info": "Lorsque cette option est activée, les éléments s'animent à mesure qu'ils apparaissent lors du défilement."
+        },
+        "enable_hover_image": {
+          "label": "Activer les effets d'image au survol",
+          "info": "Lorsque cette option est activée, les images zooment ou changent au survol dans les fiches produit, les collections et les autres médias."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Montant minimum de livraison gratuite",
-          "info": "Définissez le montant minimum de la livraison gratuite dans les [paramètres du thème](/editor?context=theme&category=cart)."
+          "info": "Définissez le montant minimum de la livraison gratuite dans les [paramètres du thème](/editor?context=theme&category=cart).",
+          "help": "Saisissez le montant uniquement avec des chiffres. Si vous utilisez plusieurs devises, séparez chaque code de devise avec son montant (ex. : USD:100, EUR:95, JPY:13000) Incluez la devise par défaut de votre boutique pour que les autres devises puissent s'y rabattre."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Balise de titre"
+        "label": "Balise de titre",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Spécifiez les types de balises de titre pour le SEO et les moteurs de recherche à des fins d'exploration."
       },
       "text_alignment": {
         "label": "Alignement du texte",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Titre",
-        "name": "Titre"
+        "name": "Titre",
+        "content": "Titre"
       },
       "subheading": {
         "label": "Sous-titre",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Droite"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Largeur de l'image",
@@ -2082,6 +2115,13 @@
             "label": "Couleur"
           }
         },
+        "customer_account": {
+          "content": "Compte client",
+          "paragraph": "[Gérer la visibilité](/admin/settings/customer_accounts) dans les paramètres du compte client.",
+          "menu": {
+            "label": "Menu"
+          }
+        },
         "mobile_layout": {
           "content": "Disposition mobile"
         },
@@ -3012,6 +3052,10 @@
         },
         "enable_video_looping": {
           "label": "Activer la boucle vidéo"
+        },
+        "default_product_image": {
+          "label": "Image d'espace réservé",
+          "info": "Utiliser comme image d'espace réservé lorsque le produit n'a aucun média."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "Page 404"
     },
     "multicolumn": {
       "name": "Multicolonne",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Tiroir de recherche"
+      "name": "Tiroir de recherche",
+      "settings": {
+        "drawer_position": {
+          "label": "Position du tiroir",
+          "options__right": {
+            "label": "Droite"
+          },
+          "options__top": {
+            "label": "Haut"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Aperçu rapide"

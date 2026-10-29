@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Włącz przejście strony"
+        },
+        "enable_animation": {
+          "label": "Włącz animację"
+        },
+        "enable_scroll_animations": {
+          "label": "Włącz animacje przewijania",
+          "info": "Po włączeniu elementy są animowane, gdy pojawiają się podczas przewijania."
+        },
+        "enable_hover_image": {
+          "label": "Włącz efekty obrazu po najechaniu",
+          "info": "Po włączeniu obrazy powiększają się lub zmieniają po najechaniu kursorem na kartach produktów, w kolekcjach i innych mediach."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Minimalna kwota bezpłatnej wysyłki",
-          "info": "Ustaw minimalną kwotę bezpłatnej wysyłki w [ustawieniach motywu](/editor?context=theme&category=cart)."
+          "info": "Ustaw minimalną kwotę bezpłatnej wysyłki w [ustawieniach motywu](/editor?context=theme&category=cart).",
+          "help": "Wpisz kwotę używając tylko cyfr. Jeśli używasz wielu walut, oddziel każdy kod waluty jego kwotą (np.: USD:100, EUR:95, JPY:13000) Uwzględnij domyślną walutę sklepu, aby inne waluty mogły z niej skorzystać."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Etykieta nagłówka"
+        "label": "Etykieta nagłówka",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Określ typy tagów nagłówków dla SEO i wyszukiwarek w celach indeksowania."
       },
       "text_alignment": {
         "label": "Wyrównanie tekstu",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Nagłówek",
-        "name": "Nagłówek"
+        "name": "Nagłówek",
+        "content": "Nagłówek"
       },
       "subheading": {
         "label": "Podtytuł",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Prawidłowy"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Szerokość obrazu",
@@ -2082,6 +2115,13 @@
             "label": "Kolor"
           }
         },
+        "customer_account": {
+          "content": "Konto klienta",
+          "paragraph": "[Zarządzaj widocznością](/admin/settings/customer_accounts) w ustawieniach konta klienta.",
+          "menu": {
+            "label": "Menu"
+          }
+        },
         "mobile_layout": {
           "content": "Układ mobilny"
         },
@@ -3011,7 +3051,11 @@
           "label": "Włącz powiększanie obrazu"
         },
         "enable_video_looping": {
-          "label": "Włącz pętlę wideo"
+          "label": "Włącz zapętlanie wideo"
+        },
+        "default_product_image": {
+          "label": "Obraz zastępczy",
+          "info": "Użyj jako obrazu zastępczego, gdy produkt nie ma żadnych multimediów."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "Strona 404"
     },
     "multicolumn": {
       "name": "Wielokolumnowe",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Szukaj w szufladzie"
+      "name": "Szukaj w szufladzie",
+      "settings": {
+        "drawer_position": {
+          "label": "Pozycja szuflady",
+          "options__right": {
+            "label": "Prawo"
+          },
+          "options__top": {
+            "label": "Góra"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Szybki podgląd"

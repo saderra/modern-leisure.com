@@ -5,7 +5,7 @@
   width: 16rem;
 }
 .press-thumbs .swiper-slide .media-wrapper {
-  transition: 0.3s all;
+  transition: 0.3s opacity;
   cursor: pointer;
 }
 .press-thumbs .swiper-slide:not(.swiper-slide-thumb-active) .media-wrapper {

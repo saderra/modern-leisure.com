@@ -32,7 +32,7 @@
   >
 {%- endif -%}
 <div class="card-media card-media--content-{{ content_position }} card-media--{{ content_spacing }}{% if show_text_below %} card-media--mobile-content-below{% if card_mobile_color_inherit %} card-media--mobile-color-inherit{% endif %}{% endif %}{% if content_position != 'below' %} blocks-radius{% endif %} relative overflow-hidden color-{{ color_scheme }}{% if color_scheme_mobile %} mobile-color-{{ color_scheme_mobile }}{% endif %} hover-wrapper">
-  <div class="overflow-hidden block w-full h-full{% if content_position == 'below' %} blocks-radius{% endif %}">
+  <div class="card-media__image overflow-hidden block w-full h-full{% if content_position == 'below' %} blocks-radius{% endif %}">
     <motion-element class="block h-full" data-motion="zoom-out-sm">
       <picture
         class="card-media__media media-wrapper{% if image == blank %} bg-none{% endif %}"

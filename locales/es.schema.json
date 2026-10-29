@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Habilitar transición de página"
+        },
+        "enable_animation": {
+          "label": "Activar animación"
+        },
+        "enable_scroll_animations": {
+          "label": "Activar animaciones de desplazamiento",
+          "info": "Cuando está activado, los elementos se animan a medida que aparecen al desplazarse."
+        },
+        "enable_hover_image": {
+          "label": "Activar efectos de imagen al pasar el cursor",
+          "info": "Cuando está activado, las imágenes se amplían o cambian al pasar el cursor en tarjetas de producto, colecciones y otros medios."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Importe mínimo de envío gratis",
-          "info": "Establezca el monto mínimo para envío gratuito en la [configuración del tema](/editor?context=theme&category=cart)."
+          "info": "Establezca el monto mínimo para envío gratuito en la [configuración del tema](/editor?context=theme&category=cart).",
+          "help": "Ingrese el importe solo con números. Si usa varias monedas, separe cada código de moneda con su importe (p. ej.: USD:100, EUR:95, JPY:13000) Incluya la moneda predeterminada de su tienda para que otras monedas puedan recurrir a ella."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "etiqueta de encabezado"
+        "label": "etiqueta de encabezado",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Especifique los tipos de etiquetas de encabezado para SEO y motores de búsqueda con fines de rastreo."
       },
       "text_alignment": {
         "label": "Alineación del texto",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Título",
-        "name": "Título"
+        "name": "Título",
+        "content": "Título"
       },
       "subheading": {
         "label": "Subtítulo",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Bien"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Ancho de la imagen",
@@ -2082,6 +2115,13 @@
             "label": "Color"
           }
         },
+        "customer_account": {
+          "content": "Cuenta de cliente",
+          "paragraph": "[Gestionar visibilidad](/admin/settings/customer_accounts) en la configuración de la cuenta de cliente.",
+          "menu": {
+            "label": "Menú"
+          }
+        },
         "mobile_layout": {
           "content": "Diseño móvil"
         },
@@ -3011,7 +3051,11 @@
           "label": "Habilitar zoom de imagen"
         },
         "enable_video_looping": {
-          "label": "Habilitar bucle de video"
+          "label": "Activar bucle de video"
+        },
+        "default_product_image": {
+          "label": "Imagen de marcador",
+          "info": "Usar como imagen de marcador de posición cuando el producto no tenga medios."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "Página 404"
     },
     "multicolumn": {
       "name": "multicolumna",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Cajón de búsqueda"
+      "name": "Cajón de búsqueda",
+      "settings": {
+        "drawer_position": {
+          "label": "Posición del cajón",
+          "options__right": {
+            "label": "Derecha"
+          },
+          "options__top": {
+            "label": "Arriba"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Vista rápida"
@@ -4250,7 +4308,8 @@
         },
         "cart_shipping_rate": {
           "name": "Calculadora de tarifa de envío"
-        },"cart_discount": {
+        },
+        "cart_discount": {
           "name": "Descuento de carrito"
         }
       }

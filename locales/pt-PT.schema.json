@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Habilitar transição de página"
+        },
+        "enable_animation": {
+          "label": "Ativar animação"
+        },
+        "enable_scroll_animations": {
+          "label": "Ativar animações de deslocamento",
+          "info": "Quando ativado, os elementos são animados à medida que aparecem ao deslocar."
+        },
+        "enable_hover_image": {
+          "label": "Ativar efeitos de imagem ao passar o rato",
+          "info": "Quando ativado, as imagens ampliam ou trocam ao passar o rato em cartões de produto, coleções e outros conteúdos multimédia."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Valor mínimo de frete grátis",
-          "info": "Defina o valor mínimo para frete grátis nas [configurações do tema](/editor?context=theme&category=cart)."
+          "info": "Defina o valor mínimo para frete grátis nas [configurações do tema](/editor?context=theme&category=cart).",
+          "help": "Introduza o valor usando apenas números. Se usar várias moedas, separe cada código de moeda com o respetivo valor (ex.: USD:100, EUR:95, JPY:13000) Inclua a moeda predefinida da sua loja para que outras moedas possam recorrer a ela."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Etiqueta de título"
+        "label": "Etiqueta de título",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Especifique os tipos de etiquetas de título para SEO e motores de pesquisa para fins de rastreamento."
       },
       "text_alignment": {
         "label": "Alinhamento de texto",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Cabeçalho",
-        "name": "Cabeçalho"
+        "name": "Cabeçalho",
+        "content": "Cabeçalho"
       },
       "subheading": {
         "label": "Subtítulo",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Certo"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Largura da imagem",
@@ -2082,6 +2115,13 @@
             "label": "Cor"
           }
         },
+        "customer_account": {
+          "content": "Conta do cliente",
+          "paragraph": "[Gerir visibilidade](/admin/settings/customer_accounts) nas definições da conta do cliente.",
+          "menu": {
+            "label": "Menu"
+          }
+        },
         "mobile_layout": {
           "content": "Layout móvel"
         },
@@ -3012,6 +3052,10 @@
         },
         "enable_video_looping": {
           "label": "Ativar loop de vídeo"
+        },
+        "default_product_image": {
+          "label": "Imagem de espaço reservado",
+          "info": "Usar como imagem de espaço reservado quando o produto não tiver mídia."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "Página 404"
     },
     "multicolumn": {
       "name": "Multicoluna",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Gaveta de pesquisa"
+      "name": "Gaveta de pesquisa",
+      "settings": {
+        "drawer_position": {
+          "label": "Posição da gaveta",
+          "options__right": {
+            "label": "Direita"
+          },
+          "options__top": {
+            "label": "Topo"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Olhada rápida"

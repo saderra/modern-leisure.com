@@ -1,11 +1,5 @@
 {%- liquid
   assign product_form_id = 'product-form-' | append: section.id
-  
-  if context == 'main-product'
-    assign title_tag = 'h1'
-  else
-    assign title_tag = 'h2'
-  endif
 -%}
 <div
   id="ProductInfo-{{ section.id }}"
@@ -34,12 +28,13 @@
             class="product__block product__block--{{ block.type }}"
             {{ block.shopify_attributes }}
           >
-            <{{title_tag}} class="product__title {{ block.settings.heading_size }}">{{ product.title | escape }}</{{title_tag}}>
-            <a href="{{ product.url }}" class="product__title">
-              <h2 class="h1">
-                {{ product.title | escape }}
+            {% if context == 'main-product' %}
+              <h1 class="product__title {{ block.settings.heading_size }}">{{ product.title | escape }}</h1>
+            {% else %}
+              <h2 class="product__title {{ block.settings.heading_size }}">
+                <a href="{{ product.url }}">{{ product.title | escape }}</a>
               </h2>
-            </a>
+            {% endif %}
           </div>
         {%- when 'price' -%}
           <div

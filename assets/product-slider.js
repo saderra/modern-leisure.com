@@ -13,6 +13,7 @@ if (!customElements.get('product-slider')) {
         this.selectors = {
           productsWrap: '.products-grid-wrap',
           products: '.products-grid',
+          swiperControls: '.swiper-controls',
         };
         this.classes = {
           grid: 'f-grid',
@@ -40,7 +41,7 @@ if (!customElements.get('product-slider')) {
       }
 
       init() {
-        if (FoxTheme.config.mqlMobile) {
+        if (FoxTheme.config.mqlMobile || this.shouldDestroySlider()) {
           this.destroySlider();
         } else {
           this.initSlider();
@@ -62,7 +63,7 @@ if (!customElements.get('product-slider')) {
           breakpoints: {
             1024: {
               slidesPerView: this.items > 4 ? 4 : parseInt(this.items),
-              spaceBetween: columnGap.tabletLarge
+              spaceBetween: columnGap.tabletLarge,
             },
             1280: {
               slidesPerView: parseInt(this.items),
@@ -76,6 +77,7 @@ if (!customElements.get('product-slider')) {
         this.elements.productsWrap.classList.add(this.classes.swiper);
         this.elements.products.classList.remove(this.classes.grid);
         this.elements.products.classList.add(this.classes.swiperWrapper);
+        this.elements.swiperControls.classList.add('md:block');
 
         this.sliderInstance = new window.FoxTheme.Carousel(this.elements.productsWrap, this.sliderOptions);
         this.sliderInstance.init();
@@ -84,9 +86,12 @@ if (!customElements.get('product-slider')) {
 
         this.calcNavButtonsPosition();
 
-        window.addEventListener("resize", FoxTheme.utils.debounce(() => {
-          this.calcNavButtonsPosition();
-        }, 100));
+        window.addEventListener(
+          'resize',
+          FoxTheme.utils.debounce(() => {
+            this.calcNavButtonsPosition();
+          }, 100),
+        );
       }
 
       handleAccessibility() {
@@ -110,6 +115,7 @@ if (!customElements.get('product-slider')) {
         this.elements.productsWrap.classList.remove(this.classes.swiper);
         this.elements.products.classList.remove(this.classes.swiperWrapper);
         this.elements.products.classList.add(this.classes.grid);
+        this.elements.swiperControls.classList.remove('md:block');
         if (typeof this.sliderInstance !== 'object') return;
         this.sliderInstance.slider.destroy();
         this.sliderInstance = false;
@@ -122,7 +128,7 @@ if (!customElements.get('product-slider')) {
         if (firstMedia && firstMedia.clientHeight > 0) {
           this.elements.section.style.setProperty(
             '--swiper-navigation-top-offset',
-            parseInt(firstMedia.clientHeight) / 2 + 'px'
+            parseInt(firstMedia.clientHeight) / 2 + 'px',
           );
         }
       }
@@ -138,6 +144,25 @@ if (!customElements.get('product-slider')) {
           }
         });
       }
-    }
+
+      shouldDestroySlider() {
+        const recentlyViewedSection = this.closest('recently-viewed-products');
+
+        if (recentlyViewedSection) {
+          const items = JSON.parse(window.localStorage.getItem('sleektheme:recently-viewed') || '[]');
+          const productId = parseInt(recentlyViewedSection.dataset.productId);
+
+          if (items.includes(productId)) {
+            items.splice(items.indexOf(productId), 1);
+          }
+
+          if (items.length < this.items) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+    },
   );
 }

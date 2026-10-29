@@ -1,0 +1,22 @@
+{%- comment -%}
+  JSON-only section: the variant the server resolved from the option_values carried by the request.
+
+  product-info.js fetches this when the variants cache cannot answer a click — a product past the 250
+  variants Liquid hands over. Still one round trip, but a few hundred bytes instead of the whole
+  product section, and it feeds the same optimistic patch a cache hit does.
+
+  Deliberately carries no schema block: it is never placed in a template, only requested by
+  ?section_id=variant-data, the way pickup-availability.liquid is.
+
+  selected_variant rather than selected_or_first_available_variant, because it expresses the intent:
+  answer about the combination that was asked for. Do not read it as a guarantee, though — measured
+  against this store, option_values that cannot be resolved (a bogus value id, an incomplete set) come
+  back as the default variant, not as nil. The null branch below is therefore a cheap backstop, not
+  the protection; product-info.js is what refuses to patch an answer whose options do not match the
+  selection on screen.
+{%- endcomment -%}
+{%- if product.selected_variant -%}
+  {%- render 'variant-json', variant: product.selected_variant -%}
+{%- else -%}
+  null
+{%- endif -%}

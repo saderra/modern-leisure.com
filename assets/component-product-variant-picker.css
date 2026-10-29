@@ -47,15 +47,21 @@ variant-selects input:is([type=checkbox], [type=radio]):is(:disabled, .disabled)
   padding: 0 2.4rem;
   min-height: var(--buttons-height);
   min-width: var(--buttons-height);
-  transition: all var(--duration-default) ease;
   color: rgb(var(--color-foreground));
   background-color: rgb(var(--color-background));
   border: var(--variant-pills-border-width) solid rgb(var(--color-foreground));
   border-radius: var(--variant-pills-radius, var(--buttons-radius));
 }
-.product-form__input--button input[type=radio] + label:hover {
-  background-color: rgb(var(--color-foreground));
-  color: rgb(var(--color-background));
+@media (hover: hover) {
+  .product-form__input--button input[type=radio] + label {
+    transition: color var(--duration-default) ease, background-color var(--duration-default) ease, border-color var(--duration-default) ease;
+  }
+}
+@media (hover: hover) {
+  .product-form__input--button input[type=radio] + label:hover {
+    background-color: rgb(var(--color-foreground));
+    color: rgb(var(--color-background));
+  }
 }
 .product-form__input--button input[type=radio]:checked + label {
   background-color: rgb(var(--color-foreground));
@@ -79,8 +85,10 @@ variant-selects input:is([type=checkbox], [type=radio]):is(:disabled, .disabled)
   border-radius: inherit;
   z-index: 1;
 }
-.product-form__input--button input[type=radio]:disabled + label:hover, .product-form__input--button input[type=radio].disabled + label:hover {
-  color: rgb(var(--color-background));
+@media (hover: hover) {
+  .product-form__input--button input[type=radio]:disabled + label:hover, .product-form__input--button input[type=radio].disabled + label:hover {
+    color: rgb(var(--color-background));
+  }
 }
 .product-form__input--button input[type=radio]:disabled:checked + label, .product-form__input--button input[type=radio].disabled:checked + label {
   color: rgba(var(--color-background), 0.5);
@@ -137,7 +145,7 @@ variant-selects input:is([type=checkbox], [type=radio]):is(:disabled, .disabled)
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  transition: all var(--duration-default);
+  transition: opacity var(--duration-default), box-shadow var(--duration-default);
 }
 .product-form__input--color .swatch-color:before, .product-form__input--swatch .swatch-color:before {
   opacity: 0;

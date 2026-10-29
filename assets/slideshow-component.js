@@ -9,16 +9,12 @@ if (!customElements.get('slideshow-component')) {
         this.sliderInstance = false;
         this.layout = this.dataset.layout;
         this.items = Number(this.dataset.items);
-
-        this.selectedIndex = this.selectedIndex;
       }
 
       connectedCallback() {
-        this.initSlider();
+        if (this.sliderInstance) return;
 
-        if (this.classList.contains('slideshow-height--adapt')) {
-          this.calcSlideHeight();
-        }
+        this.initSlider();
       }
 
       static get observedAttributes() {
@@ -34,113 +30,120 @@ if (!customElements.get('slideshow-component')) {
       }
 
       initSlider() {
-        const additionModules = [FoxTheme.Swiper.Autoplay, FoxTheme.Swiper.EffectFade];
+        try {
+          const additionModules = [FoxTheme.Swiper.Autoplay, FoxTheme.Swiper.EffectFade];
 
-        this.sliderOptions = {
-          slidesPerView: 1,
-          spaceBetween: 10,
-          loop: true,
-          grabCursor: true,
-          allowTouchMove: true,
-          threshold: 2,
-          effect: 'fade',
-          on: {
-            init: this.handleAfterInit.bind(this),
-          },
-          fadeEffect: {
-            crossFade: true,
-          },
-        };
-
-        if (this.sliderControls) {
-          this.sliderOptions.pagination = {
-            el: this.sliderControls.querySelector('.swiper-pagination'),
-            clickable: true,
-          };
-        }
-
-        switch (this.layout) {
-          case 'centered':
-            this.sliderOptions = {
-              ...this.sliderOptions,
-              centeredSlides: true,
-              slidesPerView: 'auto',
-              effect: 'slide',
-            };
-            break;
-        }
-
-        if (this.layout !== 'centered' && this.items === 1) {
-          this.sliderOptions.loop = false;
-          this.classList.remove('slideshow-controls-visible--yes');
-        }
-
-        const autoplayDelay = parseInt(this.dataset.autoplay);
-        if (autoplayDelay > 0) {
           this.sliderOptions = {
-            ...this.sliderOptions,
-            autoplay: {
-              delay: autoplayDelay,
-              disableOnInteraction: false,
+            slidesPerView: 1,
+            spaceBetween: 10,
+            loop: true,
+            grabCursor: true,
+            allowTouchMove: true,
+            threshold: 2,
+            effect: 'fade',
+            on: {
+              init: this.handleAfterInit.bind(this),
+            },
+            fadeEffect: {
+              crossFade: true,
             },
           };
-        }
 
-        this.sliderInstance = new window.FoxTheme.Carousel(this, this.sliderOptions, additionModules);
-        this.sliderInstance.init();
-
-        this.sliderInstance.slider.on('realIndexChange', this.handleSlideChange.bind(this));
-
-        if (this.sliderInstance) {
-          if (this.layout === 'centered' && !FoxTheme.config.mqlMobile) {
-            const motionTextElements = Array.from(this.querySelectorAll('motion-element[data-text]'));
-            motionTextElements &&
-              motionTextElements.forEach((motionTextElement) => {
-                if (
-                  typeof motionTextElement.resetAnimation === 'function' &&
-                  !motionTextElement.closest('.swiper-slide-active')
-                ) {
-                  motionTextElement.resetAnimation();
-                }
-              });
+          if (this.sliderControls) {
+            this.sliderOptions.pagination = {
+              el: this.sliderControls.querySelector('.swiper-pagination'),
+              clickable: true,
+            };
           }
-          this.selectedElement = this.sliderInstance.slider.slides[this.sliderInstance.slider.activeIndex];
-          this.onReady(this.selectedElement, this.sliderInstance.slider.slides);
-          // Fix accessibility
-          const focusableElements = FoxTheme.a11y.getFocusableElements(this);
-          if (this.layout === 'centered') {
-            focusableElements.forEach((element) => {
-              element.addEventListener('focusin', () => {
-                const slide = element.closest('.swiper-slide');
-                const slideToIndex = this.sliderInstance.slider.slides.indexOf(slide);
-                this.sliderInstance.slider.slideToLoop(slideToIndex);
-              });
-            });
-          } else {
-            focusableElements.forEach((element) => {
-              element.addEventListener('focusin', () => {
-                const slide = element.closest('.swiper-slide');
-                this.sliderInstance.slider.slideTo(this.sliderInstance.slider.slides.indexOf(slide));
-              });
-            });
+
+          switch (this.layout) {
+            case 'centered':
+              this.sliderOptions = {
+                ...this.sliderOptions,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                effect: 'slide',
+              };
+              break;
           }
+
+          if (this.layout !== 'centered' && this.items === 1) {
+            this.sliderOptions.loop = false;
+            this.classList.remove('slideshow-controls-visible--yes');
+          }
+
+          const autoplayDelay = parseInt(this.dataset.autoplay);
+          if (autoplayDelay > 0) {
+            this.sliderOptions = {
+              ...this.sliderOptions,
+              autoplay: {
+                delay: autoplayDelay,
+                disableOnInteraction: false,
+              },
+            };
+          }
+
+          this.sliderInstance = new window.FoxTheme.Carousel(this, this.sliderOptions, additionModules);
+          this.sliderInstance.init();
+
+          this.sliderInstance.slider.on('realIndexChange', this.handleSlideChange.bind(this));
+          this.selectedIndex = this.sliderInstance.slider.realIndex;
+
+          if (this.sliderInstance) {
+            if (this.layout === 'centered' && !FoxTheme.config.mqlMobile) {
+              const motionTextElements = Array.from(this.querySelectorAll('motion-element[data-text]'));
+              motionTextElements &&
+                motionTextElements.forEach((motionTextElement) => {
+                  if (
+                    typeof motionTextElement.resetAnimation === 'function' &&
+                    !motionTextElement.closest('.swiper-slide-active')
+                  ) {
+                    motionTextElement.resetAnimation();
+                  }
+                });
+            }
+            this.selectedElement = this.sliderInstance.slider.slides[this.sliderInstance.slider.activeIndex];
+            this.onReady(this.selectedElement, this.sliderInstance.slider.slides);
+            // Fix accessibility
+            const focusableElements = FoxTheme.a11y.getFocusableElements(this);
+            if (this.layout === 'centered') {
+              focusableElements.forEach((element) => {
+                element.addEventListener('focusin', () => {
+                  const slide = element.closest('.swiper-slide');
+                  const slideToIndex = this.sliderInstance.slider.slides.indexOf(slide);
+                  this.sliderInstance.slider.slideToLoop(slideToIndex);
+                });
+              });
+            } else {
+              focusableElements.forEach((element) => {
+                element.addEventListener('focusin', () => {
+                  const slide = element.closest('.swiper-slide');
+                  this.sliderInstance.slider.slideTo(this.sliderInstance.slider.slides.indexOf(slide));
+                });
+              });
+            }
+          }
+        } finally {
+          this.removeAttribute('data-media-loading');
         }
       }
 
       onReady(selectedElement) {
-        if (selectedElement.dataset.type === 'video') {
+        if (selectedElement?.dataset?.type === 'video') {
           const videoElement = FoxTheme.utils.displayedMedia(selectedElement.querySelectorAll('video-element'));
           videoElement?.play();
         }
 
         if (!FoxTheme.config.motionReduced) {
-          const motionEls = selectedElement.querySelectorAll('motion-element');
-          motionEls.forEach((motionEl) => {
+          const motionEls = selectedElement?.querySelectorAll('motion-element');
+          motionEls?.forEach((motionEl) => {
+            if (!motionEl || motionEl.classList.contains('is-animated')) return;
+
+            motionEl && motionEl?.removeAttribute('hold');
+            motionEl && motionEl?.preInitialize();
+
             setTimeout(() => {
-              motionEl && motionEl.removeAttribute('hold');
-              motionEl && motionEl.preInitialize();
-              this.removeAttribute('data-media-loading');
-              motionEl.initialize();
+              motionEl?.initialize();
             });
           });
         }
@@ -178,12 +181,11 @@ if (!customElements.get('slideshow-component')) {
             }
 
             const motionEls = fromElement.querySelectorAll('motion-element');
-            motionEls &&
-              motionEls.forEach((motionEl) => {
-                if (motionEl.hasAttribute('data-text')) {
-                  motionEl.resetAnimation();
-                }
-              });
+            motionEls.forEach((motionEl) => {
+              if (motionEl.hasAttribute('data-text')) {
+                motionEl.resetAnimation();
+              }
+            });
           });
 
           toElements.forEach((toElement) => {
@@ -213,27 +215,6 @@ if (!customElements.get('slideshow-component')) {
           const colorScheme = activeSlide.dataset.colorScheme;
           this.sliderControls.classList.add(colorScheme);
         }
-      }
-
-      calcSlideHeight() {
-        let maxHeight = 0;
-        const slides = this.querySelectorAll('.swiper-slide');
-        slides &&
-          slides.forEach((slide) => {
-            const slideText = slide.querySelector('.slideshow__text');
-            if (slideText) {
-              const slideTextHeight = slideText.offsetHeight;
-              if (slideTextHeight > maxHeight) {
-                maxHeight = slideTextHeight;
-              }
-            }
-          });
-
-        if (this.classList.contains('slideshow-controls-position--bottom')) {
-          maxHeight += 100; // Avoid overlap with dots.
-        }
-
-        this.style.setProperty('--slide-height', maxHeight + 'px');
       }
     }
   );

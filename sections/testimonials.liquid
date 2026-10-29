@@ -76,14 +76,14 @@
               {%- assign motion_delay = motion_delay | plus: 50 -%}
             {% endif %}
             {% if section.settings.heading != blank %}
-              <h2 class="rich-text__heading inline-richtext overflow-hidden {{ section.settings.heading_size }}">
+              <{{ section.settings.heading_tag }} class="rich-text__heading inline-richtext overflow-hidden {{ section.settings.heading_size }}">
                 <motion-element data-motion="fade-up" data-motion-delay="{{ motion_delay }}" class="block">
                   {% render 'highlight-text',
                     text: section.settings.heading,
                     style: section.settings.heading_highlight_style
                   %}
                 </motion-element>
-              </h2>
+              </{{ section.settings.heading_tag }}>
               {%- assign motion_delay = motion_delay | plus: 50 -%}
             {% endif %}
             {% if section.settings.description != blank %}
@@ -250,6 +250,39 @@
           "label": "t:sections.all.text_size.options__hd1.label"
         }
       ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.all.heading_tag.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_tag.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_tag.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.all.heading_tag.options__3.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.all.heading_tag.options__4.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.all.heading_tag.options__5.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.all.heading_tag.options__6.label"
+        }
+      ],
+      "info": "t:sections.all.heading_tag.info"
     },
     {
       "type": "header",

@@ -25,11 +25,21 @@ if (!customElements.get('product-list-with-details')) {
         this.selectedIndex = 0;
         this.hoverTracker = null;
 
-        this.productCards.forEach((pcard) => {
-          pcard.addEventListener('mouseenter', (e) => this.onMouseOver(e));
-        });
+        // On touch there is no hover, so a tap must reveal the details that a desktop
+        // hover does. A second tap on the already-active card then follows its product
+        // link. (The sidebar hover-cancel only matters when an actual pointer can move
+        // between card and sidebar, so it is desktop-only.)
+        if (FoxTheme.config.isTouch) {
+          this.productCards.forEach((pcard) => {
+            pcard.addEventListener('click', (e) => this.onTouchSelect(e));
+          });
+        } else {
+          this.productCards.forEach((pcard) => {
+            pcard.addEventListener('mouseenter', (e) => this.onMouseOver(e));
+          });
 
-        this.colProductDetails.addEventListener('mouseenter', (e) => this.handleSidebarHovered(e));
+          this.colProductDetails.addEventListener('mouseenter', (e) => this.handleSidebarHovered(e));
+        }
       }
 
       handleSidebarHovered() {
@@ -47,6 +57,19 @@ if (!customElements.get('product-list-with-details')) {
             this.showDetails(index);
           }
         }, 250);
+      }
+
+      onTouchSelect(evt) {
+        const index = evt.currentTarget.dataset.index;
+
+        // Already showing this product's details: let the tap follow its product link.
+        if (this.selectedIndex == index) return;
+
+        // Otherwise treat the tap like a hover and reveal the details (no navigation yet).
+        evt.preventDefault();
+        clearTimeout(this.hoverTracker);
+        this.selectedIndex = index;
+        this.showDetails(index);
       }
 
       showDetails(index) {

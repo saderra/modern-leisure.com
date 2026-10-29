@@ -30,14 +30,32 @@ if (!customElements.get('variant-selects')) {
         });
       }
 
+      /**
+       * The value shown beside the option name ("Material: oak"). Every picker type renders it as
+       * [data-selected-swatch-value], so update that: the previous code looked for
+       * [data-selected-value], which exists only inside the swatch_dropdown branch, so querySelector
+       * returned null and the label silently kept the server's value until the section render
+       * replaced the whole picker.
+       * @param {HTMLElement} target the input or select that changed
+       * @param {string} value the newly selected option value
+       */
+      updateSelectedLabel(target, value) {
+        const label = target.closest('.product-form__input')?.querySelector('[data-selected-swatch-value]');
+        if (label) label.textContent = value;
+      }
+
       updateSelectedSwatchValue({ target }) {
         const { value, tagName } = target;
 
         if (tagName === 'SELECT' && target.selectedOptions.length) {
+          // Optional call: a picker re-rendered without a selected attribute would otherwise throw
+          // here, and everything below — including the label — would never run.
           Array.from(target.options)
             .find((option) => option.getAttribute('selected'))
-            .removeAttribute('selected');
+            ?.removeAttribute('selected');
           target.selectedOptions[0].setAttribute('selected', 'selected');
+
+          this.updateSelectedLabel(target, target.selectedOptions[0].value);
 
           const swatchValue = target.selectedOptions[0].dataset.optionSwatchValue;
           const selectedDropdownSwatchValue = target
@@ -57,8 +75,7 @@ if (!customElements.get('variant-selects')) {
             target.selectedOptions[0].dataset.optionSwatchFocalPoint || 'unset'
           );
         } else if (tagName === 'INPUT' && target.type === 'radio') {
-          const selectedSwatchValue = target.closest(`.product-form__input`).querySelector('[data-selected-value]');
-          if (selectedSwatchValue) selectedSwatchValue.innerHTML = value;
+          this.updateSelectedLabel(target, value);
         }
       }
     }

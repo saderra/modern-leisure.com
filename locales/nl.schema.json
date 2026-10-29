@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Schakel paginaovergang in"
+        },
+        "enable_animation": {
+          "label": "Animatie inschakelen"
+        },
+        "enable_scroll_animations": {
+          "label": "Scroll-animaties inschakelen",
+          "info": "Wanneer ingeschakeld, animeren elementen zodra ze in beeld scrollen."
+        },
+        "enable_hover_image": {
+          "label": "Hover-effecten voor afbeeldingen inschakelen",
+          "info": "Wanneer ingeschakeld, zoomen of wisselen afbeeldingen bij hover op productkaarten, collecties en andere media."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Minimumbedrag voor gratis verzending",
-          "info": "Stel het minimumbedrag voor gratis verzending in in de [thema-instellingen](/editor?context=theme&category=cart)."
+          "info": "Stel het minimumbedrag voor gratis verzending in in de [thema-instellingen](/editor?context=theme&category=cart).",
+          "help": "Voer het bedrag alleen met cijfers in. Als je meerdere valuta's gebruikt, scheid elke valutacode met het bijbehorende bedrag (bijv.: USD:100, EUR:95, JPY:13000) Voeg de standaardvaluta van je winkel toe zodat andere valuta's hierop kunnen terugvallen."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Koptag"
+        "label": "Koptag",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Geef heading-tagtypen op voor SEO en zoekmachines voor crawl-doeleinden."
       },
       "text_alignment": {
         "label": "Tekstuitlijning",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Rubriek",
-        "name": "Rubriek"
+        "name": "Rubriek",
+        "content": "Rubriek"
       },
       "subheading": {
         "label": "Ondertitel",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Rechts"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Breedte afbeelding",
@@ -2082,6 +2115,13 @@
             "label": "Kleur"
           }
         },
+        "customer_account": {
+          "content": "Klantaccount",
+          "paragraph": "[Zichtbaarheid beheren](/admin/settings/customer_accounts) in klantaccountinstellingen.",
+          "menu": {
+            "label": "Menu"
+          }
+        },
         "mobile_layout": {
           "content": "Mobiele lay-out"
         },
@@ -3011,7 +3051,11 @@
           "label": "Schakel beeldzoom in"
         },
         "enable_video_looping": {
-          "label": "Schakel videolooping in"
+          "label": "Videoloop inschakelen"
+        },
+        "default_product_image": {
+          "label": "Plaatsvervangende afbeelding",
+          "info": "Gebruik als plaatsvervangende afbeelding wanneer het product geen media heeft."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "404-pagina"
     },
     "multicolumn": {
       "name": "Meerkolommen",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Zoek lade"
+      "name": "Zoek lade",
+      "settings": {
+        "drawer_position": {
+          "label": "Ladepositie",
+          "options__right": {
+            "label": "Rechts"
+          },
+          "options__top": {
+            "label": "Boven"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Snelle kijk"

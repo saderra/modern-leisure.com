@@ -83,14 +83,14 @@
                     {%- assign motion_delay = motion_delay | plus: 50 -%}
                   {%- endif -%}
                   {%- if block.settings.heading != blank -%}
-                    <h2 class="rich-text__heading inline-richtext {{ block.settings.heading_size }}">
+                    <{{ block.settings.heading_tag }} class="rich-text__heading inline-richtext {{ block.settings.heading_size }}">
                       <motion-element class="block" data-motion="fade-up" data-motion-delay="{{ motion_delay }}">
                         {% render 'highlight-text',
                           text: block.settings.heading,
                           style: block.settings.heading_highlight_style
                         %}
                       </motion-element>
-                    </h2>
+                    </{{ block.settings.heading_tag }}>
                     {%- assign motion_delay = motion_delay | plus: 50 -%}
                   {%- endif -%}
                   {%- if block.settings.description != blank -%}
@@ -324,7 +324,7 @@
                         data-motion="zoom-out-sm"
                         class="custom-image-with-text__badge absolute flex justify-center items-center color-{{ block.settings.image_badge_color_scheme }}"
                       >
-                        <div class="text-left font-heading">{{- block.settings.image_badge_text -}}</div>
+                        <div class="text-center font-heading">{{- block.settings.image_badge_text -}}</div>
                       </motion-element>
                     {%- endif -%}
                     <div class="media-wrapper blocks-radius{% if image == blank %} bg-none{% endif %}">
@@ -364,14 +364,14 @@
                         {%- assign motion_delay = motion_delay | plus: 50 -%}
                       {%- endif -%}
                       {%- if block.settings.heading != blank -%}
-                        <h2 class="rich-text__heading inline-richtext {{ block.settings.heading_size }}">
+                        <{{ block.settings.heading_tag }} class="rich-text__heading inline-richtext {{ block.settings.heading_size }}">
                           <motion-element class="block" data-motion="fade-up" data-motion-delay="{{ motion_delay }}">
                             {% render 'highlight-text',
                               text: block.settings.heading,
                               style: block.settings.heading_highlight_style
                             %}
                           </motion-element>
-                        </h2>
+                        </{{ block.settings.heading_tag }}>
                         {%- assign motion_delay = motion_delay | plus: 50 -%}
                       {%- endif -%}
                       {%- if block.settings.description != blank -%}
@@ -412,7 +412,7 @@
                   assign motion_delay = 50
                 -%}
                 <div class="custom-text-card-with-image relative h-full flex items-center blocks-radius color-{{ block.settings.color_scheme }}">
-                  <div class="rich-text text-left w-full">
+                  <div class="rich-text text-center w-full">
                     {%- if block.settings.subheading != blank -%}
                       <motion-element
                         data-motion="fade-up"
@@ -464,14 +464,14 @@
                       {%- assign motion_delay = motion_delay | plus: 50 -%}
                     {% endif %}
                     {%- if block.settings.heading != blank -%}
-                      <h2 class="rich-text__heading inline-richtext {{ block.settings.heading_size }}">
+                      <{{ block.settings.heading_tag }} class="rich-text__heading inline-richtext {{ block.settings.heading_size }}">
                         <motion-element class="block" data-motion="fade-up" data-motion-delay="{{ motion_delay }}">
                           {% render 'highlight-text',
                             text: block.settings.heading,
                             style: block.settings.heading_highlight_style
                           %}
                         </motion-element>
-                      </h2>
+                      </{{ block.settings.heading_tag }}>
                       {%- assign motion_delay = motion_delay | plus: 50 -%}
                     {%- endif -%}
                     {%- if block.settings.description != blank -%}
@@ -1604,6 +1604,39 @@
           ]
         },
         {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "t:sections.all.heading_tag.label",
+          "default": "h2",
+          "options": [
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_tag.options__1.label"
+            },
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_tag.options__2.label"
+            },
+            {
+              "value": "h3",
+              "label": "t:sections.all.heading_tag.options__3.label"
+            },
+            {
+              "value": "h4",
+              "label": "t:sections.all.heading_tag.options__4.label"
+            },
+            {
+              "value": "h5",
+              "label": "t:sections.all.heading_tag.options__5.label"
+            },
+            {
+              "value": "h6",
+              "label": "t:sections.all.heading_tag.options__6.label"
+            }
+          ],
+          "info": "t:sections.all.heading_tag.info"
+        },
+        {
           "type": "header",
           "content": "t:sections.all.highlight_text.header.content"
         },
@@ -2115,6 +2148,39 @@
               "label": "t:sections.all.text_size.options__hd1.label"
             }
           ]
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "t:sections.all.heading_tag.label",
+          "default": "h2",
+          "options": [
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_tag.options__1.label"
+            },
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_tag.options__2.label"
+            },
+            {
+              "value": "h3",
+              "label": "t:sections.all.heading_tag.options__3.label"
+            },
+            {
+              "value": "h4",
+              "label": "t:sections.all.heading_tag.options__4.label"
+            },
+            {
+              "value": "h5",
+              "label": "t:sections.all.heading_tag.options__5.label"
+            },
+            {
+              "value": "h6",
+              "label": "t:sections.all.heading_tag.options__6.label"
+            }
+          ],
+          "info": "t:sections.all.heading_tag.info"
         },
         {
           "type": "header",
@@ -3060,6 +3126,39 @@
               "label": "t:sections.all.text_size.options__hd1.label"
             }
           ]
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "t:sections.all.heading_tag.label",
+          "default": "h2",
+          "options": [
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_tag.options__1.label"
+            },
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_tag.options__2.label"
+            },
+            {
+              "value": "h3",
+              "label": "t:sections.all.heading_tag.options__3.label"
+            },
+            {
+              "value": "h4",
+              "label": "t:sections.all.heading_tag.options__4.label"
+            },
+            {
+              "value": "h5",
+              "label": "t:sections.all.heading_tag.options__5.label"
+            },
+            {
+              "value": "h6",
+              "label": "t:sections.all.heading_tag.options__6.label"
+            }
+          ],
+          "info": "t:sections.all.heading_tag.info"
         },
         {
           "type": "header",

@@ -42,7 +42,7 @@
 >
   <div class="page-width">
     <div data-motion="fade-up" class="template-search__header grid gap-6">
-      <h1 class="h2 text-center" tabindex="-1">
+      <{{ section.settings.heading_tag }} class="{{ section.settings.heading_size }} text-center" tabindex="-1">
         <motion-element class="block" data-motion="fade-up">
           {%- if search.performed -%}
             {{- 'templates.search.title' | t -}}
@@ -50,7 +50,7 @@
             {{- 'general.search.search' | t -}}
           {%- endif -%}
         </motion-element>
-      </h1>
+      </{{ section.settings.heading_tag }}>
       <div class="template-search__search flex items-center justify-center">
         {%- render 'predictive-search', context: 'page' -%}
       </div>
@@ -294,6 +294,87 @@
       "label": "t:sections.main-collection-product-grid.settings.expand_filter_groups.label",
       "placeholder": "Color, Price, Size",
       "info": "t:sections.main-collection-product-grid.settings.expand_filter_groups.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.heading.content"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.all.text_size.heading.label",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h6",
+          "label": "t:sections.all.text_size.options__h6.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.all.text_size.options__h5.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.all.text_size.options__h4.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.all.text_size.options__h3.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.text_size.options__h2.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.text_size.options__h1.label"
+        },
+        {
+          "value": "hd3",
+          "label": "t:sections.all.text_size.options__hd3.label"
+        },
+        {
+          "value": "hd2",
+          "label": "t:sections.all.text_size.options__hd2.label"
+        },
+        {
+          "value": "hd1",
+          "label": "t:sections.all.text_size.options__hd1.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.all.heading_tag.label",
+      "default": "h1",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_tag.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_tag.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.all.heading_tag.options__3.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.all.heading_tag.options__4.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.all.heading_tag.options__5.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.all.heading_tag.options__6.label"
+        }
+      ],
+      "info": "t:sections.all.heading_tag.info"
     },
     {
       "type": "header",

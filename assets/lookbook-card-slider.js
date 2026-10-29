@@ -2,6 +2,8 @@ if (!customElements.get('lookbook-card-slider')) {
   customElements.define(
     'lookbook-card-slider',
     class LookbookCardSlider extends HTMLElement {
+      #abortController = null;
+
       constructor() {
         super();
       }
@@ -12,22 +14,37 @@ if (!customElements.get('lookbook-card-slider')) {
           return;
         }
 
+        this.#abortController?.abort();
+        this.#abortController = new AbortController();
+        const { signal } = this.#abortController;
+
         this.lookbookIcons = this.querySelectorAll('lookbook-icon');
         this.productCards = this.querySelectorAll('.product-card');
         this.sliderInstance = false;
         this.initSlider();
-
-        Array.from(this.lookbookIcons).forEach((icon) => {
-          icon.addEventListener('mouseover', this.onMouseOver.bind(this));
-          icon.addEventListener('mouseleave', this.onMouseLeave.bind(this));
-        });
+        this.#setupEventListeners(signal);
       }
 
       disconnectedCallback() {
+        this.#abortController?.abort();
+        this.#abortController = null;
+      }
+
+      #setupEventListeners(signal) {
+        const onMouseOver = this.onMouseOver.bind(this);
+        const onMouseLeave = this.onMouseLeave.bind(this);
+        const onIconActivate = this.onIconActivate.bind(this);
+        const onResize = FoxTheme.utils.debounce(() => {
+          this.calcNavButtonsPosition();
+        }, 100);
+
         Array.from(this.lookbookIcons).forEach((icon) => {
-          icon.removeEventListener('mouseover', this.onMouseOver.bind(this));
-          icon.removeEventListener('mouseleave', this.onMouseLeave.bind(this));
+          icon.addEventListener('mouseover', onMouseOver, { signal });
+          icon.addEventListener('mouseleave', onMouseLeave, { signal });
         });
+
+        this.addEventListener('lookbook-icon:activate', onIconActivate, { signal });
+        window.addEventListener('resize', onResize, { signal });
       }
 
       initSlider() {
@@ -81,13 +98,6 @@ if (!customElements.get('lookbook-card-slider')) {
 
         this.fixQuickviewDuplicate();
         this.calcNavButtonsPosition();
-
-        window.addEventListener(
-          'resize',
-          FoxTheme.utils.debounce(() => {
-            this.calcNavButtonsPosition();
-          }, 100)
-        );
       }
 
       // Helper function to wait for swiper.slides to be available
@@ -193,8 +203,20 @@ if (!customElements.get('lookbook-card-slider')) {
         });
       }
 
-      onMouseOver(event) {
-        const target = event.currentTarget;
+      onIconActivate(event) {
+        const { index } = event.detail;
+
+        if (index === null || Number.isNaN(index)) {
+          return;
+        }
+
+        const target = this.lookbookIcons[index];
+        if (target) {
+          this.activateIcon(target);
+        }
+      }
+
+      activateIcon(target) {
         const index = Number(target.dataset.index);
         target.classList.add('is-active');
 
@@ -206,17 +228,23 @@ if (!customElements.get('lookbook-card-slider')) {
           }
 
           this.classList.add('is-hovering');
-
           this.resetAnimatePins();
         }
       }
 
-      onMouseLeave(event) {
+      onMouseOver(event) {
+        this.activateIcon(event.currentTarget);
+      }
+
+      resetActiveIcons() {
         Array.from(this.productCards).forEach((card) => card.classList.remove('is-active'));
         Array.from(this.lookbookIcons).forEach((icon) => icon.classList.remove('is-active'));
         this.classList.remove('is-hovering');
-
         this.startAnimatePins();
+      }
+
+      onMouseLeave() {
+        this.resetActiveIcons();
       }
     }
   );

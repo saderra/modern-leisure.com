@@ -12,8 +12,18 @@
 {%- unless product.has_only_default_variant -%}
   {% liquid
     assign size_option_name = block.settings.size_title | downcase
-    assign size_chart_content = product.metafields.foxtheme.size_chart.value.content
+    assign size_chart = product.metafields.foxtheme.size_chart
     assign size_chart_modal_id = 'SizeChartModal-' | append: block.id
+
+    case size_chart.type
+      when 'file_reference'
+        assign size_chart_alt = size_chart.value.alt | default: ''
+        assign size_chart_content = size_chart | image_url: width: size_chart.width | image_tag: alt: size_chart_alt, loading: 'lazy', fetchpriority: 'low', class: 'motion-reduce', is: 'image-lazy'
+      when 'page_reference'
+        assign size_chart_content = size_chart.value.content
+      else
+        assign size_chart_content = size_chart
+    endcase
 
     if size_chart_content == blank and block.settings.size_chart_from_page != blank
       assign size_chart_content = pages[block.settings.size_chart_from_page].content
@@ -160,6 +170,59 @@
     <script type="application/json" data-selected-variant>
       {{ product.selected_or_first_available_variant | json }}
     </script>
+    {%- comment -%}
+      Variant cache read by product-info.js to patch price / button / media / badges in the same frame
+      as the click, before the section render settles them.
+
+      Trimmed on purpose rather than `product.variants | json`: that ships fields nothing here reads,
+      and `in_stock` has to be precomputed because `inventory_quantity` and `inventory_policy` are
+      absent from variant JSON — a `continue` policy variant is `available` while its badge must still
+      read sold out (see product-badges.liquid).
+
+      Two shapes, because Liquid hands over only the first 250 variants:
+
+      - At or below 250 the array is complete, so cache all of it. Any combination, and any number of
+        option changes in a row, is answered without a round trip.
+      - Past 250 the array is a prefix, and caching it would weigh 64KB in every page load to answer
+        about a fifth of the clicks on a 1,400-variant product — an arbitrary fifth, since Shopify
+        picks it. Cache the neighbourhood instead: the variant behind each option value, which is the
+        one the shopper reaches by changing a single option from where they are. Measured on that
+        product: 10KB, and it spans the whole option range (1 CT through 10 CT) rather than stopping
+        at the cap, because product_option_value.variant is resolved server side rather than by
+        iterating the truncated array.
+
+      The neighbourhood only answers one change at a time. A second click landing before the section
+      render re-centres it misses, and falls to sections/variant-data.liquid exactly as it does today.
+      Option values with no variant behind them resolve to nothing and are skipped; clicking one has
+      nothing to show anyway, and the render marks it unavailable.
+
+      paginate.items, not product.variants.size: `.size` is the size of the capped array and so never
+      exceeds 250, which cannot tell a truncated product from one that genuinely has 250 variants.
+      paginate.items reports the real total (measured: 1400 where `.size` says 250).
+    {%- endcomment -%}
+    {%- paginate product.variants by 250 -%}
+      <script type="application/json" data-variants-cache>
+        [
+          {%- if paginate.items <= 250 -%}
+            {%- for variant in product.variants -%}
+              {%- render 'variant-json', variant: variant -%}
+              {%- unless forloop.last -%},{%- endunless -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- assign first_entry = true -%}
+            {%- for option in product.options_with_values -%}
+              {%- for value in option.values -%}
+                {%- if value.variant -%}
+                  {%- unless first_entry -%},{%- endunless -%}
+                  {%- render 'variant-json', variant: value.variant -%}
+                  {%- assign first_entry = false -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endfor -%}
+          {%- endif -%}
+        ]
+      </script>
+    {%- endpaginate -%}
   </variant-selects>
   {%- if size_chart_content != blank -%}
     <div id="SizeChart-{{ section.id }}">

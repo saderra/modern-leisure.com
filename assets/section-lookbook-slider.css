@@ -94,7 +94,7 @@
   }
 }
 lookbook-card-slider .product-card {
-  transition: 0.3s all;
+  transition: 0.3s opacity, 0.3s transform;
 }
 lookbook-card-slider .lookbook-card__product {
   width: auto;

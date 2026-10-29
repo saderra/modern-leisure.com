@@ -15,13 +15,13 @@
 <div class="cart section--padding{% if cart == empty %} is-empty{% endif %}">
   <div class="page-width">
     <div class="cart__header text-center">
-      <h1 class="cart__title hd2">
+      <{{ section.settings.heading_tag }} class="cart__title {{ section.settings.heading_size }}">
         <motion-element data-motion="fade-up" class="inline-flex">{{ 'sections.cart.title' | t }}</motion-element>
-      </h1>
+      </{{ section.settings.heading_tag }}>
     </div>
     <div class="cart__empty text-center grid gap-10">
       <div class="grid gap-4 cart__empty-header">
-        <h2 class="hd2">{{ 'sections.cart.empty' | t }}</h2>
+        <p class="{{ section.settings.heading_size }}">{{ 'sections.cart.empty' | t }}</p>
         {%- if settings.cart_empty_message != blank -%}
           <div class="rte text-lg">{{ settings.cart_empty_message }}</div>
         {%- endif -%}
@@ -141,6 +141,31 @@
                       assign is_gift_wrap_item = true
                     endif
 
+                    assign is_nested_item = false
+                    if item.parent_relationship.parent != null
+                      assign is_nested_item = true
+                    endif
+
+                    assign can_remove = true
+                    if item.instructions.can_remove == false
+                      assign can_remove = false
+                    endif
+
+                    assign can_update_quantity = true
+                    if item.instructions.can_update_quantity == false
+                      assign can_update_quantity = false
+                    endif
+
+                    assign has_components = false
+                    if item.item_components.size > 0
+                      assign has_components = true
+                    endif
+
+                    assign show_variant_options = false
+                    if item.product.has_only_default_variant == false and has_components == false
+                      assign show_variant_options = true
+                    endif
+
                     assign has_qty_rules = false
                     if item.variant.quantity_rule.increment > 1 or item.variant.quantity_rule.min > 1 or item.variant.quantity_rule.max != null
                       assign has_qty_rules = true
@@ -223,7 +248,7 @@
                   {%- endif -%}
 
                   {%- capture cart_item -%}
-                    <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
+                    <tr class="cart-item{% if is_nested_item %} cart-item--nested{% endif %}" id="CartItem-{{ item.index | plus: 1 }}">
                       <td class="cart-item__product">
                         <div class="flex items-start gap-4">
                           {%- if item.image -%}
@@ -235,7 +260,7 @@
                             <div class="grid gap-1 w-full">
                               <div class="flex items-center justify-between gap-1 flex-wrap">
                                 <div class="block">
-                                  <a href="{{ item.url }}" class="cart-item__title text-pcard-title reversed-link">{{- item.product.title | escape -}}</a>
+                                  <a href="{{ item.url }}" class="cart-item__title text-pcard-title reversed-link"{% if is_nested_item %} aria-label="{{ 'accessibility.nested_product' | t: product_title: item.product.title, parent_title: item.parent_relationship.parent.product.title | escape }}"{% endif %}>{{- item.product.title | escape -}}</a>
                                 </div>
                                 <div class="cart-item__prices lg:hidden">
                                   <div class="price text-right flex flex-wrap items-center gap-x-2 font-body-bolder{% if item.original_price != item.final_price %} price--on-sale{% endif %}">
@@ -284,9 +309,19 @@
                                   </div>
                                 </div>
                               </div>
-                              {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != null -%}
+                              {%- if has_components -%}
+                                <ul class="cart-item__components list-unstyled text-sm text-subtext" role="list">
+                                  {%- for component in item.item_components -%}
+                                    <li>
+                                      {{- component.title | escape -}}
+                                      {%- if component.quantity > 1 %} &times; {{ component.quantity }}{% endif -%}
+                                    </li>
+                                  {%- endfor -%}
+                                </ul>
+                              {%- endif -%}
+                              {%- if show_variant_options or item.properties.size != 0 or item.selling_plan_allocation != null -%}
                                 <div class="cart-item__options">
-                                  {%- if item.product.has_only_default_variant == false -%}
+                                  {%- if show_variant_options -%}
                                     {%- for option in item.options_with_values -%}
                                       <div class="flex gap-1 text-sm text-subtext">
                                         <span class="cart-item__option-name">{{ option.name }}:</span>
@@ -327,14 +362,16 @@
                                 </ul>
                               {%- endif -%}
                             </div>
-                            <a id="Loader-{{ section.id }}-{{ item.index | plus: 1 }}"{% unless is_gift_wrap_item %} is="cart-remove-item"{% else %} is="gift-wrap-remove-item"{% endunless %} class="btn--link items-center justify-center relative hidden lg:flex" href="{{ item.url_to_remove }}" data-index="{{ item.index | plus: 1 }}">
-                              <span>{{ 'general.cart.remove' | t }}</span>
-                              {% render 'loading-spinner' %}
-                            </a>
+                            {%- if can_remove -%}
+                              <a id="Loader-{{ section.id }}-{{ item.index | plus: 1 }}"{% unless is_gift_wrap_item %} is="cart-remove-item"{% else %} is="gift-wrap-remove-item"{% endunless %} class="btn--link items-center justify-center relative hidden lg:flex" href="{{ item.url_to_remove }}" data-index="{{ item.index | plus: 1 }}">
+                                <span>{{ 'general.cart.remove' | t }}</span>
+                                {% render 'loading-spinner' %}
+                              </a>
+                            {%- endif -%}
                             <template>
                               <div class="cart-item__action flex items-center justify-between gap-3 lg:hidden w-full">
                                 <div class="flex items-center gap-3">
-                                  {%- unless is_gift_wrap_item -%}
+                                  {%- if is_gift_wrap_item == false and can_update_quantity -%}
                                     <quantity-input class="cart-quantity quantity">
                                       <label class="visually-hidden" for="Quantity-{{ section.id }}-{{ item.index | plus: 1 }}"></label>
                                       <button type="button" name="minus" class="quantity__button" aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">
@@ -370,6 +407,9 @@
                                     </quantity-input>
                                   {%- else -%}
                                     <div class="cart-quantity quantity cart-quantity-gift-wrap">
+                                      {%- unless is_gift_wrap_item -%}
+                                        <input type="hidden" name="updates[]" value="{{ item.quantity }}">
+                                      {%- endunless -%}
                                       <label class="visually-hidden" for="Quantity-{{ section.id }}-{{ item.index | plus: 1 }}"></label>
                                       <button type="button" name="minus" class="quantity__button hidden" disabled aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">
                                         <svg width="16" height="16" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -404,7 +444,7 @@
                                         </svg>
                                       </button>
                                     </div>
-                                  {%- endunless -%}
+                                  {%- endif -%}
                                   {%- if has_qty_rules or has_vol_pricing -%}
                                     <button class="btn btn--plain no-js-hidden" aria-controls="VolumnPricing-{{ section.id }}-{{ item.key }}">
                                       <svg class="icon icon-info icon--medium" viewBox="0 0 25 24" stroke="currentColor" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -426,7 +466,7 @@
                                         <div class="drawer__content cart-addons-drawer__content grid gap-5">
                                           <div>
                                             <h4>{{ item.product.title | escape }}</h4>
-                                            {% if item.product.has_only_default_variant == false %}
+                                            {% if show_variant_options %}
                                               {%- assign last_index = item.options_with_values.size | minus: 1 -%}
                                               <div class="flex gap-1">
                                                 {% for option in item.options_with_values %}
@@ -446,10 +486,12 @@
                                     </basic-modal>
                                   {%- endif -%}
                                 </div>
-                                <a id="Loader-{{ section.id }}-{{ item.index | plus: 1 }}"{% unless is_gift_wrap_item %} is="cart-remove-item"{% else %} is="gift-wrap-remove-item"{% endunless %} class="btn--link flex items-center justify-center relative" href="{{ item.url_to_remove }}" data-index="{{ item.index | plus: 1 }}">
-                                  <span>{{ 'general.cart.remove' | t }}</span>
-                                  {% render 'loading-spinner' %}
-                                </a>
+                                {%- if can_remove -%}
+                                  <a id="Loader-{{ section.id }}-{{ item.index | plus: 1 }}"{% unless is_gift_wrap_item %} is="cart-remove-item"{% else %} is="gift-wrap-remove-item"{% endunless %} class="btn--link flex items-center justify-center relative" href="{{ item.url_to_remove }}" data-index="{{ item.index | plus: 1 }}">
+                                    <span>{{ 'general.cart.remove' | t }}</span>
+                                    {% render 'loading-spinner' %}
+                                  </a>
+                                {%- endif -%}
                               </div>
                             </template>
                           </div>
@@ -509,7 +551,7 @@
                         <div class="cart-item__action flex items-center justify-between">
                           <div class="flex items-center gap-3 cart-item__quantity-wrapper">
                             <template>
-                              {%- unless is_gift_wrap_item -%}
+                              {%- if is_gift_wrap_item == false and can_update_quantity -%}
                                 <quantity-input class="cart-quantity quantity">
                                   <label class="visually-hidden" for="Quantity-{{ section.id }}-{{ item.index | plus: 1 }}"></label>
                                   <button type="button" name="minus" class="quantity__button" aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">
@@ -545,6 +587,9 @@
                                 </quantity-input>
                               {%- else -%}
                                 <div class="cart-quantity quantity cart-quantity-gift-wrap">
+                                  {%- unless is_gift_wrap_item -%}
+                                    <input type="hidden" name="updates[]" value="{{ item.quantity }}">
+                                  {%- endunless -%}
                                   <label class="visually-hidden" for="Quantity-{{ section.id }}-{{ item.index | plus: 1 }}"></label>
                                   <button type="button" name="minus" class="quantity__button hidden" disabled aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">
                                     <svg width="16" height="16" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -580,7 +625,7 @@
                                     </svg>
                                   </button>
                                 </div>
-                              {%- endunless -%}
+                              {%- endif -%}
                             </template>
                             {%- if has_qty_rules or has_vol_pricing -%}
                               <button class="btn btn--plain no-js-hidden" aria-controls="VolumnPricing-{{ section.id }}-{{ item.key }}">
@@ -603,7 +648,7 @@
                                   <div class="drawer__content cart-addons-drawer__content grid gap-5">
                                     <div>
                                       <h4>{{ item.product.title | escape }}</h4>
-                                      {% if item.product.has_only_default_variant == false %}
+                                      {% if show_variant_options %}
                                         {%- assign last_index = item.options_with_values.size | minus: 1 -%}
                                         <div class="flex gap-1">
                                           {% for option in item.options_with_values %}
@@ -967,6 +1012,87 @@
 {
   "name": "t:sections.main-cart.name",
   "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.all.heading.content"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.all.text_size.heading.label",
+      "default": "hd2",
+      "options": [
+        {
+          "value": "h6",
+          "label": "t:sections.all.text_size.options__h6.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.all.text_size.options__h5.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.all.text_size.options__h4.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.all.text_size.options__h3.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.text_size.options__h2.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.text_size.options__h1.label"
+        },
+        {
+          "value": "hd3",
+          "label": "t:sections.all.text_size.options__hd3.label"
+        },
+        {
+          "value": "hd2",
+          "label": "t:sections.all.text_size.options__hd2.label"
+        },
+        {
+          "value": "hd1",
+          "label": "t:sections.all.text_size.options__hd1.label"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.all.heading_tag.label",
+      "default": "h1",
+      "options": [
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_tag.options__1.label"
+        },
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_tag.options__2.label"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.all.heading_tag.options__3.label"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.all.heading_tag.options__4.label"
+        },
+        {
+          "value": "h5",
+          "label": "t:sections.all.heading_tag.options__5.label"
+        },
+        {
+          "value": "h6",
+          "label": "t:sections.all.heading_tag.options__6.label"
+        }
+      ],
+      "info": "t:sections.all.heading_tag.info"
+    },
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"

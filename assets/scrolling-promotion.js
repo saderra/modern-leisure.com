@@ -2,7 +2,7 @@ if (!customElements.get('scrolling-promotion')) {
   class ScrollingPromotion extends HTMLElement {
     constructor() {
       super();
-      if (FoxTheme.config.motionReduced) return;
+      if (FoxTheme.config.motionReduced || FoxTheme.config.disableAnimations) return;
       this.promotion = this.querySelector('.promotion');
       FoxTheme.Motion.inView(this, this.init.bind(this), { margin: '200px 0px 200px 0px' });
     }
@@ -10,9 +10,16 @@ if (!customElements.get('scrolling-promotion')) {
       if (this.childElementCount === 1) {
         this.promotion.classList.add('promotion--animated');
 
-        for (let index = 0; index < 10; index++) {
-          this.clone = this.promotion.cloneNode(true);
-          this.appendChild(this.clone);
+        const promotionWidth = this.promotion.offsetWidth;
+        const targetWidth = window.innerWidth * 2;
+        let cloneCount = 1;
+
+        if (promotionWidth > 0) {
+          cloneCount = Math.max(1, Math.ceil(targetWidth / promotionWidth) - 1);
+        }
+
+        for (let index = 0; index < cloneCount; index++) {
+          this.appendChild(this.promotion.cloneNode(true));
         }
 
         // pause when out of view

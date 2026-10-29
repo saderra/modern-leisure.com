@@ -14,8 +14,10 @@ if (!customElements.get('image-comparison')) {
 
         this.init();
 
-        if (!FoxTheme.config.motionReduced) {
+        if (!FoxTheme.config.motionReduced && !FoxTheme.config.disableAnimations) {
           FoxTheme.Motion.inView(this.querySelector('.image-comparison__animation-trigger'), this.animation.bind(this));
+        } else {
+          this.animation();
         }
       }
 

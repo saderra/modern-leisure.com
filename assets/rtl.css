@@ -58,6 +58,11 @@
 [dir=rtl] .image-comparison[data-direction=horizontal] .image-comparison__after {
   clip-path: inset(0px var(--percent, 50%) 0px 0px);
 }
+@media (min-width: 768px) {
+  [dir=rtl] .slideshow-layout--centered:not(.swiper-initialized) .swiper-wrapper {
+    transform: translate3d(calc((var(--slideshow-centered-width) - 100%) / 2), 0, 0);
+  }
+}
 [dir=rtl] .article-navigation__prev svg {
   transform: scaleX(1);
 }

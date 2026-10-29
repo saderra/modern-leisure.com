@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Bật chuyển đổi trang"
+        },
+        "enable_animation": {
+          "label": "Bật hiệu ứng chuyển động"
+        },
+        "enable_scroll_animations": {
+          "label": "Bật hiệu ứng chuyển động khi cuộn",
+          "info": "Khi được bật, các phần tử sẽ chuyển động khi cuộn vào khung nhìn."
+        },
+        "enable_hover_image": {
+          "label": "Bật hiệu ứng di chuột cho hình ảnh",
+          "info": "Khi được bật, hình ảnh sẽ phóng to hoặc chuyển đổi khi di chuột trên thẻ sản phẩm, bộ sưu tập và các nội dung khác."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Số tiền tối thiểu miễn phí vận chuyển",
-          "info": "Đặt số tiền tối thiểu cho Giao hàng miễn phí trong [cài đặt chủ đề](/editor?context=theme&category=cart)."
+          "info": "Đặt số tiền tối thiểu cho Giao hàng miễn phí trong [cài đặt chủ đề](/editor?context=theme&category=cart).",
+          "help": "Chỉ nhập số tiền bằng chữ số. Nếu dùng nhiều loại tiền tệ, phân tách mỗi mã tiền tệ kèm số tiền (ví dụ: USD:100, EUR:95, JPY:13000) Hãy thêm cả loại tiền tệ mặc định của cửa hàng để các loại tiền tệ khác có thể quy đổi theo."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Thẻ tiêu đề"
+        "label": "Thẻ tiêu đề",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Chỉ định loại thẻ tiêu đề cho SEO và công cụ tìm kiếm để thu thập dữ liệu."
       },
       "text_alignment": {
         "label": "Căn chỉnh văn bản",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Phần mở đầu",
-        "name": "Phần mở đầu"
+        "name": "Phần mở đầu",
+        "content": "Phần mở đầu"
       },
       "subheading": {
         "label": "Tiêu đề phụ",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Phải"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Chiều rộng hình ảnh",
@@ -2082,6 +2115,13 @@
             "label": "Màu sắc"
           }
         },
+        "customer_account": {
+          "content": "Tài khoản khách hàng",
+          "paragraph": "[Quản lý hiển thị](/admin/settings/customer_accounts) trong cài đặt tài khoản khách hàng.",
+          "menu": {
+            "label": "Menu"
+          }
+        },
         "mobile_layout": {
           "content": "Bố cục di động"
         },
@@ -3012,6 +3052,10 @@
         },
         "enable_video_looping": {
           "label": "Bật vòng lặp video"
+        },
+        "default_product_image": {
+          "label": "Hình ảnh giữ chỗ",
+          "info": "Sử dụng làm hình ảnh giữ chỗ khi sản phẩm không có phương tiện."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "Trang 404"
     },
     "multicolumn": {
       "name": "Nhiều cột",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Ngăn tìm kiếm"
+      "name": "Ngăn tìm kiếm",
+      "settings": {
+        "drawer_position": {
+          "label": "Vị trí ngăn kéo",
+          "options__right": {
+            "label": "Phải"
+          },
+          "options__top": {
+            "label": "Trên"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Xem lướt qua"

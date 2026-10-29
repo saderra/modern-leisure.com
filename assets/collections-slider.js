@@ -34,8 +34,13 @@ if (!customElements.get('collections-slider')) {
         this.initSlider();
         this.selectedIndex = this.selectedIndex;
 
+        // On touch there is no hover, so a tap must do the slide-switch that a desktop
+        // hover does. A second tap on the already-active heading then follows its <a>
+        // link to the collection page.
+        this.headingEvent = FoxTheme.config.isTouch ? 'click' : 'mouseover';
+        this.headingHandler = (FoxTheme.config.isTouch ? this.onTouchSelect : this.onMouseOver).bind(this);
         Array.from(this.textHovering).forEach((item) => {
-          item.addEventListener('mouseover', this.onMouseOver.bind(this));
+          item.addEventListener(this.headingEvent, this.headingHandler);
         });
 
         FoxTheme.Motion.inView(this, this.playInView.bind(this));
@@ -99,7 +104,7 @@ if (!customElements.get('collections-slider')) {
 
       disconnectedCallback() {
         Array.from(this.textHovering).forEach((item) => {
-          item.removeEventListener('mouseover', this.onMouseOver.bind(this));
+          item.removeEventListener(this.headingEvent, this.headingHandler);
         });
         clearInterval(this.tracker);
       }
@@ -163,6 +168,18 @@ if (!customElements.get('collections-slider')) {
         this.hoverTracker = setTimeout(() => {
           this.selectedIndex = index;
         }, 100);
+      }
+
+      onTouchSelect(event) {
+        const index = Number(event.currentTarget.dataset.index);
+
+        // Already on this collection: let the tap follow the heading's <a> link.
+        if (this.selectedIndex === index) return;
+
+        // Otherwise treat the tap like a hover and switch to it (no navigation yet).
+        event.preventDefault();
+        clearTimeout(this.hoverTracker);
+        this.selectedIndex = index;
       }
 
       attributeChangedCallback(name, oldValue, newValue) {

@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "เปิดใช้งานการเปลี่ยนหน้า"
+        },
+        "enable_animation": {
+          "label": "เปิดใช้แอนิเมชัน"
+        },
+        "enable_scroll_animations": {
+          "label": "เปิดใช้แอนิเมชันเมื่อเลื่อน",
+          "info": "เมื่อเปิดใช้งาน องค์ประกอบจะเคลื่อนไหวเมื่อเลื่อนเข้ามาในมุมมอง"
+        },
+        "enable_hover_image": {
+          "label": "เปิดใช้เอฟเฟกต์รูปภาพเมื่อชี้เมาส์",
+          "info": "เมื่อเปิดใช้งาน รูปภาพจะซูมหรือสลับเมื่อชี้เมาส์ทั่วทั้งการ์ดสินค้า คอลเลกชัน และสื่ออื่นๆ"
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "จัดส่งฟรีจำนวนขั้นต่ำ",
-          "info": "กำหนดจำนวนเงินขั้นต่ำสำหรับการจัดส่งฟรีใน [การตั้งค่าธีม](/editor?context=theme&category=cart)"
+          "info": "กำหนดจำนวนเงินขั้นต่ำสำหรับการจัดส่งฟรีใน [การตั้งค่าธีม](/editor?context=theme&category=cart)",
+          "help": "กรอกจำนวนเงินด้วยตัวเลขเท่านั้น หากใช้หลายสกุลเงิน ให้คั่นแต่ละรหัสสกุลเงินพร้อมจำนวนเงิน (เช่น: USD:100, EUR:95, JPY:13000) ใส่สกุลเงินเริ่มต้นของร้านค้าของคุณด้วย เพื่อให้สกุลเงินอื่นใช้แทนได้"
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "แท็กหัวเรื่อง"
+        "label": "แท็กหัวเรื่อง",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "ระบุประเภทแท็กหัวเรื่องสำหรับ SEO และเครื่องมือค้นหาสำหรับวัตถุประสงค์ในการรวบรวมข้อมูล"
       },
       "text_alignment": {
         "label": "การจัดตำแหน่งข้อความ",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "หัวเรื่อง",
-        "name": "หัวเรื่อง"
+        "name": "หัวเรื่อง",
+        "content": "หัวเรื่อง"
       },
       "subheading": {
         "label": "หัวเรื่องย่อย",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "ขวา"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "ความกว้างของภาพ",
@@ -2082,6 +2115,13 @@
             "label": "สี"
           }
         },
+        "customer_account": {
+          "content": "บัญชีลูกค้า",
+          "paragraph": "[จัดการการมองเห็น](/admin/settings/customer_accounts) ในการตั้งค่าบัญชีลูกค้า",
+          "menu": {
+            "label": "เมนู"
+          }
+        },
         "mobile_layout": {
           "content": "เค้าโครงมือถือ"
         },
@@ -3011,7 +3051,11 @@
           "label": "เปิดใช้งานการซูมภาพ"
         },
         "enable_video_looping": {
-          "label": "เปิดใช้งานการวนซ้ำวิดีโอ"
+          "label": "เปิดใช้งานการเล่นวิดีโอซ้ำ"
+        },
+        "default_product_image": {
+          "label": "รูปภาพตัวยึด",
+          "info": "ใช้เป็นรูปภาพตัวยึดเมื่อผลิตภัณฑ์ไม่มีสื่อ"
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "หน้า 404"
     },
     "multicolumn": {
       "name": "หลายคอลัมน์",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "ลิ้นชักการค้นหา"
+      "name": "ลิ้นชักการค้นหา",
+      "settings": {
+        "drawer_position": {
+          "label": "ตำแหน่งลิ้นชัก",
+          "options__right": {
+            "label": "ขวา"
+          },
+          "options__top": {
+            "label": "ด้านบน"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "ดูด่วน"

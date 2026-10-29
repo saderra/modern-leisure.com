@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Aktivera sidövergång"
+        },
+        "enable_animation": {
+          "label": "Aktivera animation"
+        },
+        "enable_scroll_animations": {
+          "label": "Aktivera rullningsanimationer",
+          "info": "När detta är aktiverat animeras element när de rullas in i vyn."
+        },
+        "enable_hover_image": {
+          "label": "Aktivera bildeffekter vid hovring",
+          "info": "När detta är aktiverat zoomas eller byts bilder vid hovring på produktkort, kollektioner och andra medier."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Fri frakt minimibelopp",
-          "info": "Ställ in minimibeloppet för gratis frakt i [temainställningar](/editor?context=theme&category=cart)."
+          "info": "Ställ in minimibeloppet för gratis frakt i [temainställningar](/editor?context=theme&category=cart).",
+          "help": "Ange beloppet med endast siffror. Om du använder flera valutor, separera varje valutakod med dess belopp (t.ex.: USD:100, EUR:95, JPY:13000) Inkludera butikens standardvaluta så att andra valutor kan falla tillbaka på den."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Rubriktagg"
+        "label": "Rubriktagg",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Ange rubriktaggtyper för SEO och sökmotorer för crawländamål."
       },
       "text_alignment": {
         "label": "Textjustering",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Rubrik",
-        "name": "Rubrik"
+        "name": "Rubrik",
+        "content": "Rubrik"
       },
       "subheading": {
         "label": "Underrubrik",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Höger"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Bildens bredd",
@@ -2082,6 +2115,13 @@
             "label": "Färg"
           }
         },
+        "customer_account": {
+          "content": "Kundkonto",
+          "paragraph": "[Hantera synlighet](/admin/settings/customer_accounts) i kundkontoinställningarna.",
+          "menu": {
+            "label": "Meny"
+          }
+        },
         "mobile_layout": {
           "content": "Mobil layout"
         },
@@ -3011,7 +3051,11 @@
           "label": "Aktivera bildzoom"
         },
         "enable_video_looping": {
-          "label": "Aktivera videolooping"
+          "label": "Aktivera videoloop"
+        },
+        "default_product_image": {
+          "label": "Platshållarbild",
+          "info": "Använd som platshållarbild när produkten inte har några media."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "404-sida"
     },
     "multicolumn": {
       "name": "Flerkolumn",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Sök låda"
+      "name": "Sök låda",
+      "settings": {
+        "drawer_position": {
+          "label": "Lådans position",
+          "options__right": {
+            "label": "Höger"
+          },
+          "options__top": {
+            "label": "Topp"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Snabbtitt"

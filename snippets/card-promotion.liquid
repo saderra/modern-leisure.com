@@ -18,18 +18,18 @@
   assign description_size = description_size | default: 'text-base'
 -%}
 
+{%- if link -%}
+  <a
+    href="{{ link }}"
+    class="card-promotion__link focus-inset w-full h-full block"
+    aria-label="{{ heading | default: shop.name }}"
+  >
+{%- endif -%}
 <div class="card-promotion card-promotion--layout-{{ layout }} card-media--{{ content_spacing }} blocks-radius relative overflow-hidden color-{{ color_scheme }} hover-wrapper">
-  {%- if link -%}
-    <a
-      href="{{ link }}"
-      class="card-promotion__link focus-inset w-full h-full block"
-      aria-label="{{ heading | default: shop.name }}"
-    >
-  {%- endif -%}
-  <div class="overflow-hidden w-full h-full">
+  <div class="card-promotion__image relative overflow-hidden w-full h-full">
     <motion-element class="block h-full" data-motion="zoom-out">
       <picture
-        class="card-promotion__media media-wrapper{% if image == blank %} bg-none{% endif %}"
+        class="card-promotion__media media-wrapper h-full{% if image == blank %} bg-none{% endif %}"
         style="--aspect-ratio: {{ image_ratio }};{% if image_mobile_ratio %}--aspect-ratio-mobile: {{ image_mobile_ratio }};{% endif %}"
       >
         {%- if image != blank -%}
@@ -92,7 +92,7 @@
       {%- endif -%}
     </div>
   {%- endif -%}
-  {%- if link -%}
-    </a>
-  {%- endif -%}
 </div>
+{%- if link -%}
+  </a>
+{%- endif -%}

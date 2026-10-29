@@ -8,6 +8,10 @@ if (!customElements.get('product-info')) {
       preProcessHtmlCallbacks = [];
       postProcessHtmlCallbacks = [];
       cartUpdateUnsubscriber = undefined;
+      cachedVariants = null;
+      cachedVariantsSource = null;
+      variantDataAbortController = undefined;
+      variantDataToken = null;
 
       constructor() {
         super();
@@ -56,6 +60,7 @@ if (!customElements.get('product-info')) {
       disconnectedCallback() {
         this.onVariantChangeUnsubscriber();
         this.cartUpdateUnsubscriber?.();
+        this.variantDataAbortController?.abort();
       }
 
       initializeProductSwapUtility() {
@@ -68,11 +73,21 @@ if (!customElements.get('product-info')) {
       handleOptionValueChange({ data: { event, target, selectedOptionValues } }) {
         if (!this.contains(event.target)) return;
 
-        this.disableButtons();
         const productUrl = target.dataset.productUrl || this.pendingRequestUrl || this.dataset.url;
         const shouldSwapProduct = this.dataset.url !== productUrl;
         const shouldFetchFullPage = this.dataset.updateUrl === 'true' && shouldSwapProduct;
         const viewMode = this.dataset.viewMode || 'main-product';
+
+        // Answer the click with what the variant JSON already knows, then let the fetch below settle
+        // the rest. A cache miss — combined listing, impossible combination, product too large to
+        // cache — falls back to the pending state this always had.
+        const optimisticVariant = shouldSwapProduct ? null : this.getVariantFromCache();
+        if (optimisticVariant) {
+          this.applyOptimisticUpdate(optimisticVariant);
+        } else {
+          this.disableButtons();
+          if (!shouldSwapProduct) this.fetchVariantData(productUrl, selectedOptionValues);
+        }
 
         this.renderProductInfo({
           requestUrl: this.buildRequestUrlWithParams(productUrl, selectedOptionValues, shouldFetchFullPage),
@@ -209,11 +224,14 @@ if (!customElements.get('product-info')) {
 
         !shouldFetchFullPage && params.push(`section_id=${this.sectionId}`);
 
-        if (optionValues.length) {
+        // A combined-listing value's product_url can already pin a variant (`?variant=`): Shopify adds it
+        // when the current selection does not exist on that product, so it must win over option_values.
+        const pinsVariant = url.includes('variant=');
+        if (optionValues.length && !pinsVariant) {
           params.push(`option_values=${optionValues.join(',')}`);
         }
 
-        return `${url}?${params.join('&')}`;
+        return `${url}${url.includes('?') ? '&' : '?'}${params.join('&')}`;
       }
 
       getSelectedVariant(productInfoNode) {
@@ -254,7 +272,7 @@ if (!customElements.get('product-info')) {
 
       updateURL(url, variantId) {
         if (this.dataset.updateUrl === 'false') return;
-        window.history.replaceState({}, '', `${url}${variantId ? `?variant=${variantId}` : ''}`);
+        window.history.replaceState({}, '', `${url.split('?')[0]}${variantId ? `?variant=${variantId}` : ''}`);
       }
 
       updateVariantInputs(variantId) {
@@ -428,6 +446,133 @@ if (!customElements.get('product-info')) {
         });
 
         this.setQuantityBoundries();
+      }
+
+      getVariantsCache() {
+        const script = this.querySelector('variant-selects [data-variants-cache]');
+        if (!script) return null;
+
+        // Re-parse when variant-selects has been replaced (combined-listing swap, editor re-render).
+        if (this.cachedVariantsSource !== script) {
+          try {
+            this.cachedVariants = JSON.parse(script.textContent);
+          } catch (error) {
+            console.error('Failed to parse the variants cache:', error);
+            this.cachedVariants = null;
+          }
+          this.cachedVariantsSource = script;
+        }
+
+        return this.cachedVariants;
+      }
+
+      // The same nodes variant-selects reads for selectedOptionValues, so the two never disagree.
+      //
+      // Scoped to the current picker rather than to this element: viewTransition swaps the picker by
+      // inserting the new node before the old one and removing the old only 500ms later, so for that
+      // window a query from here spans both and returns one selection appended to another — twice as
+      // many values as the product has options, or a mix of two selections if the shopper clicks
+      // again meanwhile. Every optimistic path then fails its length check and the click falls back
+      // to the network, which is what makes the picker feel stuck mid-switch.
+      getSelectedOptionValues() {
+        const picker = this.variantSelectors;
+        if (!picker) return [];
+
+        return Array.from(picker.querySelectorAll('select option[selected], fieldset input:checked')).map(
+          (element) => element.value
+        );
+      }
+
+      matchesOptions(variant, selectedValues) {
+        return (
+          selectedValues.length > 0 &&
+          variant.options.length === selectedValues.length &&
+          variant.options.every((option, index) => option === selectedValues[index])
+        );
+      }
+
+      getVariantFromCache() {
+        const variants = this.getVariantsCache();
+        if (!variants) return null;
+
+        const selectedValues = this.getSelectedOptionValues();
+
+        return variants.find((variant) => this.matchesOptions(variant, selectedValues)) || null;
+      }
+
+      // The cache could not answer, which on a product past 250 variants is every click. Ask the
+      // server for that one variant instead of waiting on the section render: still a round trip, but
+      // a few hundred bytes rather than the whole section, so price and button land noticeably sooner.
+      fetchVariantData(productUrl, optionValues) {
+        if (!optionValues.length) return;
+
+        this.variantDataAbortController?.abort();
+        this.variantDataAbortController = new AbortController();
+
+        const token = {};
+        this.variantDataToken = token;
+
+        fetch(`${productUrl}?section_id=variant-data&option_values=${optionValues.join(',')}`, {
+          signal: this.variantDataAbortController.signal,
+        })
+          .then((response) => (response.ok ? response.text() : Promise.reject(new Error(response.status))))
+          .then((responseText) => {
+            // A newer click owns the UI by now; this answer describes a variant nobody is looking at.
+            if (this.variantDataToken !== token) return;
+
+            const json = new DOMParser().parseFromString(responseText, 'text/html').body.textContent.trim();
+            const variant = json ? JSON.parse(json) : null;
+
+            // Shopify resolves option_values server-side, but a set it cannot resolve falls back to
+            // the default variant rather than to nothing — a bogus option value id comes back as the
+            // current variant, not null. So patch only when the answer describes the combination that
+            // was actually asked for; anything else is left to the render and its setUnavailable.
+            if (variant && this.matchesOptions(variant, this.getSelectedOptionValues())) {
+              this.applyOptimisticUpdate(variant);
+            }
+          })
+          .catch((error) => {
+            if (error.name !== 'AbortError') console.error('Variant data fetch failed:', error);
+          });
+      }
+
+      applyOptimisticUpdate(variant) {
+        // Before updateButtonsState: it only re-enables once the form carries a variant id.
+        this.updateVariantInputs(variant.id);
+        this.updateButtonsState(!variant.available, {
+          updateText: true,
+          text: variant.available ? null : FoxTheme.variantStrings.soldOut,
+        });
+
+        // Quantity price breaks render a price range the variant JSON cannot express. #VolumeNote-
+        // exists only in that case, so its presence is the signal to leave the price to the fetch.
+        if (!this.querySelector(`#VolumeNote-${this.dataset.section}`)) {
+          FoxTheme.updatePriceFromVariant(this.querySelector(`#price-${this.dataset.section}`), variant);
+        }
+
+        if (variant.featured_media) this.updateMedia(variant);
+
+        this.updateBadgesOptimistic(variant);
+      }
+
+      updateBadgesOptimistic(variant) {
+        const badges = this.querySelector(`#Badges-${this.dataset.section}`);
+        if (!badges) return;
+
+        const saleBadge = badges.querySelector('.f-badge--sale');
+        const soldOutBadge = badges.querySelector('.f-badge--soldout');
+        const onSale = variant.compare_at_price && variant.compare_at_price > variant.price;
+
+        // Only badges already in the DOM can be patched: product-badges.liquid renders the in-stock
+        // set and the sold-out badge in mutually exclusive branches, so one that has to appear for
+        // the first time is left to the section render.
+        //
+        // visibility, not the .hidden utility: display: none collapses the badge row, which moves
+        // every block below it up by the row's height and back again when the render settles — a
+        // visible jump for no gain. The section render replaces this markup wholesale, so the
+        // inline style never outlives the update.
+        if (saleBadge) saleBadge.style.visibility = !variant.in_stock || !onSale ? 'hidden' : '';
+        if (soldOutBadge) soldOutBadge.style.visibility = variant.in_stock ? 'hidden' : '';
       }
 
       disableButtons() {

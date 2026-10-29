@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "페이지 전환 활성화"
+        },
+        "enable_animation": {
+          "label": "애니메이션 활성화"
+        },
+        "enable_scroll_animations": {
+          "label": "스크롤 애니메이션 활성화",
+          "info": "활성화하면 요소가 스크롤되어 화면에 나타날 때 애니메이션됩니다."
+        },
+        "enable_hover_image": {
+          "label": "이미지 호버 효과 활성화",
+          "info": "활성화하면 제품 카드, 컬렉션 및 기타 미디어에서 마우스를 올렸을 때 이미지가 확대되거나 전환됩니다."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "무료 배송 최소 금액",
-          "info": "[테마 설정](/editor?context=theme&category=cart)에서 무료배송 최소 금액을 설정하세요."
+          "info": "[테마 설정](/editor?context=theme&category=cart)에서 무료배송 최소 금액을 설정하세요.",
+          "help": "금액은 숫자만 입력하세요. 여러 통화를 사용하는 경우 각 통화 코드와 금액을 구분하세요 (예: USD:100, EUR:95, JPY:13000) 다른 통화가 대체할 수 있도록 스토어의 기본 통화를 포함하세요."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "제목 태그"
+        "label": "제목 태그",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "SEO 및 검색 엔진의 크롤링 목적으로 제목 태그 유형을 지정합니다."
       },
       "text_alignment": {
         "label": "텍스트 정렬",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "표제",
-        "name": "표제"
+        "name": "표제",
+        "content": "표제"
       },
       "subheading": {
         "label": "소제목",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "오른쪽"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "이미지 너비",
@@ -2082,6 +2115,13 @@
             "label": "색상"
           }
         },
+        "customer_account": {
+          "content": "고객 계정",
+          "paragraph": "고객 계정 설정에서 [표시 여부 관리](/admin/settings/customer_accounts).",
+          "menu": {
+            "label": "메뉴"
+          }
+        },
         "mobile_layout": {
           "content": "모바일 레이아웃"
         },
@@ -3011,7 +3051,11 @@
           "label": "이미지 확대/축소 활성화"
         },
         "enable_video_looping": {
-          "label": "비디오 루핑 활성화"
+          "label": "동영상 반복 재생"
+        },
+        "default_product_image": {
+          "label": "자리 표시자 이미지",
+          "info": "제품에 미디어가 없을 때 자리 표시자 이미지로 사용합니다."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "404 페이지"
     },
     "multicolumn": {
       "name": "다중 열",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "검색창"
+      "name": "검색창",
+      "settings": {
+        "drawer_position": {
+          "label": "서랍 위치",
+          "options__right": {
+            "label": "오른쪽"
+          },
+          "options__top": {
+            "label": "위"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "퀵뷰"

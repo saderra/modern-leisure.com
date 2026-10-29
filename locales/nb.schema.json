@@ -664,6 +664,17 @@
       "settings": {
         "enable_page_transition": {
           "label": "Aktiver sideovergang"
+        },
+        "enable_animation": {
+          "label": "Aktiver animasjon"
+        },
+        "enable_scroll_animations": {
+          "label": "Aktiver rulleanimasjoner",
+          "info": "Når dette er aktivert, animeres elementer når de rulles inn i visningen."
+        },
+        "enable_hover_image": {
+          "label": "Aktiver bilde-hovereffekter",
+          "info": "Når dette er aktivert, zoomes eller byttes bilder ved hover på tvers av produktkort, kolleksjoner og andre medier."
         }
       }
     },
@@ -819,7 +830,8 @@
         },
         "free_shipping_minimum_amount": {
           "label": "Gratis frakt minimumsbeløp",
-          "info": "Angi minimumsbeløpet for gratis frakt i [temainnstillinger](/editor?context=theme&category=cart)."
+          "info": "Angi minimumsbeløpet for gratis frakt i [temainnstillinger](/editor?context=theme&category=cart).",
+          "help": "Skriv inn beløp kun med tall. Hvis du bruker flere valutaer, skill hver valutakode med beløpet (f.eks.: USD:100, EUR:95, JPY:13000) Inkluder butikkens standardvaluta slik at andre valutaer kan falle tilbake på den."
         }
       }
     },
@@ -969,7 +981,26 @@
         }
       },
       "heading_tag": {
-        "label": "Overskriftsmerke"
+        "label": "Overskriftsmerke",
+        "options__1": {
+          "label": "H1"
+        },
+        "options__2": {
+          "label": "H2"
+        },
+        "options__3": {
+          "label": "H3"
+        },
+        "options__4": {
+          "label": "H4"
+        },
+        "options__5": {
+          "label": "H5"
+        },
+        "options__6": {
+          "label": "H6"
+        },
+        "info": "Spesifiser overskriftsmerke-typer for SEO og søkemotorer for crawling-formål."
       },
       "text_alignment": {
         "label": "Tekstjustering",
@@ -1040,7 +1071,8 @@
       },
       "heading": {
         "label": "Overskrift",
-        "name": "Overskrift"
+        "name": "Overskrift",
+        "content": "Overskrift"
       },
       "subheading": {
         "label": "Underoverskrift",
@@ -1141,7 +1173,8 @@
         },
         "options__2": {
           "label": "Ikke sant"
-        }
+        },
+        "info": "Ensure the position is less than or equal to the total number of products per page. Otherwise, this block will not appear"
       },
       "image_width": {
         "label": "Bildebredde",
@@ -2082,6 +2115,13 @@
             "label": "Farge"
           }
         },
+        "customer_account": {
+          "content": "Kundekonto",
+          "paragraph": "[Administrer synlighet](/admin/settings/customer_accounts) i kundekontoinnstillinger.",
+          "menu": {
+            "label": "Meny"
+          }
+        },
         "mobile_layout": {
           "content": "Mobil layout"
         },
@@ -3011,7 +3051,11 @@
           "label": "Aktiver bildezoom"
         },
         "enable_video_looping": {
-          "label": "Aktiver videolooping"
+          "label": "Aktiver videoloop"
+        },
+        "default_product_image": {
+          "label": "Plassholderbilde",
+          "info": "Bruk som plassholderbilde når produktet ikke har noe media."
         }
       }
     },
@@ -3106,6 +3150,9 @@
           }
         }
       }
+    },
+    "main-404": {
+      "name": "404-side"
     },
     "multicolumn": {
       "name": "Flerspalte",
@@ -4211,7 +4258,18 @@
       }
     },
     "search-drawer": {
-      "name": "Søkeskuff"
+      "name": "Søkeskuff",
+      "settings": {
+        "drawer_position": {
+          "label": "Skuffeposisjon",
+          "options__right": {
+            "label": "Høyre"
+          },
+          "options__top": {
+            "label": "Topp"
+          }
+        }
+      }
     },
     "quick-view": {
       "name": "Hurtigvisning"

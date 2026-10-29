@@ -35,13 +35,18 @@
 .product-bundle-hotspot {
   left: var(--horizontal);
   top: var(--vertical);
-  transition: all var(--animation-default);
+  transition: transform var(--animation-default);
   transform-origin: center;
   backface-visibility: hidden;
   will-change: transform;
 }
+@media (hover: hover) and (min-width: 1280px) {
+  .product-bundle-hotspot:hover {
+    transform: scale(1.5);
+  }
+}
 @media (min-width: 1280px) {
-  .product-bundle-hotspot:hover, .product-bundle-hotspot.is-active {
+  .product-bundle-hotspot.is-active {
     transform: scale(1.5);
   }
 }

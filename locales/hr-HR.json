@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -130,7 +139,8 @@
     "menu_drawer": "Prebaci izbornik",
     "layout_switcher": "{{ col }} kolona",
     "play_video": "Reproduciraj video",
-    "load_video": "Učitaj video: {{ description }}"
+    "load_video": "Učitaj video: {{ description }}",
+    "nested_product": "{{ product_title }} za {{ parent_title }}"
   },
   "blogs": {
     "article": {

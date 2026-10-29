@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -130,7 +139,8 @@
     "menu_drawer": "切换菜单",
     "layout_switcher": "{{ col }} 栏",
     "play_video": "播放视频",
-    "load_video": "加载视频：{{ description }}"
+    "load_video": "加载视频：{{ description }}",
+    "nested_product": "{{ product_title }}（{{ parent_title }}）"
   },
   "blogs": {
     "article": {

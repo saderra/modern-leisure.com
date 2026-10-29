@@ -6,6 +6,7 @@ FoxTheme.config = {
   mediaQueryMobile: 'screen and (max-width: 767px)',
   mediaQueryTablet: 'screen and (max-width: 1023px)',
   motionReduced: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  disableAnimations: !FoxTheme.settings.enableAnimation,
   isTouch: 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0,
   isRTL: document.documentElement.getAttribute('dir') === 'rtl',
 };
@@ -114,8 +115,10 @@ console.log(
       return throttled;
     },
     setScrollbarWidth: () => {
-      const scrollbarWidth = window.innerWidth - document.body.clientWidth;
-      scrollbarWidth > 0 && document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
+      const scrollbarWidth = Math.max(window.innerWidth - document.body.clientWidth, 0);
+      // Always set it (even 0) so the modal padding compensation is never left
+      // with an undefined custom property, and keep it current on resize.
+      document.documentElement.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
     },
     waitForEvent: (element, eventName) => {
       return new Promise((resolve) => {
@@ -383,7 +386,9 @@ console.log(
 
         this.options = {
           modules: defaultModules,
+          // speed: 300,
           ...options,
+          // ...(FoxTheme.config.disableAnimations ? { speed: 0 } : {}),
         };
       }
 
@@ -474,8 +479,14 @@ console.log(
         case 'amount_no_decimals_with_space_separator':
           value = formatWithDelimiters(cents, 0, ' ');
           break;
+        case 'amount_with_space_separator':
+          value = formatWithDelimiters(cents, 2, ' ', ',');
+          break;
+        case 'amount_with_period_and_space_separator':
+          value = formatWithDelimiters(cents, 2, ' ', '.');
+          break;
         case 'amount_with_apostrophe_separator':
-          value = formatWithDelimiters(cents, 2, "'");
+          value = formatWithDelimiters(cents, 2, "'", '.');
           break;
       }
 
@@ -502,12 +513,63 @@ console.log(
     };
   })();
 
+  /**
+   * Patches a rendered `price.liquid` block in place to match a variant.
+   * Shared by the sticky ATC bar and the product page's optimistic variant update so both write the
+   * same DOM the same way. Text and visibility only — structural cases (`f-price--no-compare`,
+   * quantity price breaks) stay the server render's job.
+   */
+  FoxTheme.updatePriceFromVariant = (root, variant) => {
+    if (!root || !variant) return;
+
+    const classes = {
+      onSale: 'f-price--on-sale',
+      soldOut: 'f-price--sold-out',
+    };
+    const selectors = {
+      priceWrapper: '.f-price',
+      salePrice: '.f-price-item--sale',
+      compareAtPrice: ['.f-price-item--regular'],
+      unitPriceWrapper: '.f-price__unit-wrapper',
+    };
+    const moneyFormat = FoxTheme.settings.moneyFormat;
+    const { priceWrapper, salePrice, unitPriceWrapper, compareAtPrice } = FoxTheme.utils.queryDomNodes(selectors, root);
+
+    if (!priceWrapper) return;
+
+    const unitPrice = unitPriceWrapper && unitPriceWrapper.querySelector('.f-price__unit');
+    const { compare_at_price, price, unit_price_measurement } = variant;
+    const onSale = compare_at_price && compare_at_price > price;
+
+    priceWrapper.classList.toggle(classes.onSale, !!onSale);
+    priceWrapper.classList.toggle(classes.soldOut, !variant.available);
+
+    if (salePrice) salePrice.innerHTML = FoxTheme.Currency.formatMoney(price, moneyFormat);
+
+    if (compareAtPrice && compareAtPrice.length) {
+      const regularAmount = onSale ? compare_at_price : price;
+      compareAtPrice.forEach((item) => (item.innerHTML = FoxTheme.Currency.formatMoney(regularAmount, moneyFormat)));
+    }
+
+    if (!unitPriceWrapper) return;
+
+    if (unit_price_measurement && unitPrice) {
+      unitPriceWrapper.classList.remove('hidden');
+      unitPrice.innerHTML = `<span>${FoxTheme.Currency.formatMoney(
+        variant.unit_price,
+        moneyFormat
+      )}</span>/<span data-unit-price-base-unit>${FoxTheme.Currency.getBaseUnit(variant)}</span>`;
+    } else {
+      unitPriceWrapper.classList.add('hidden');
+    }
+  };
+
   new FoxTheme.delayUntilInteraction(() => {
     document.body.removeAttribute('data-initializing');
   });
 
   FoxTheme.DOMready(FoxTheme.utils.setScrollbarWidth);
-  // window.addEventListener('resize', FoxTheme.utils.throttle(FoxTheme.utils.setScrollbarWidth));
+  window.addEventListener('resize', FoxTheme.utils.throttle(FoxTheme.utils.setScrollbarWidth));
 
   const mql = window.matchMedia(FoxTheme.config.mediaQueryMobile);
   FoxTheme.config.mqlMobile = mql.matches;
@@ -846,6 +908,11 @@ class ModalComponent extends HTMLElement {
   prepareToShow() {}
 
   handleShowTransition() {
+    // if (FoxTheme.config.disableAnimations) {
+    //   this.setAttribute('active', '');
+    //   return Promise.resolve();
+    // }
+
     // Start a timeout to set an attribute
     setTimeout(() => {
       this.setAttribute('active', '');
@@ -860,6 +927,8 @@ class ModalComponent extends HTMLElement {
   handleHideTransition() {
     // Immediately remove the 'active' attribute
     this.removeAttribute('active');
+
+    // if (FoxTheme.config.disableAnimations) return Promise.resolve();
 
     // Return a promise that resolves when the transition ends
     return new Promise((resolve) => {
@@ -905,6 +974,7 @@ customElements.define('drawer-component', DrawerComponent);
 class AccordionDetails extends HTMLDetailsElement {
   constructor() {
     super();
+    this.hasAnimation = true;
     this.initAccordion();
   }
 
@@ -964,7 +1034,52 @@ class AccordionDetails extends HTMLDetailsElement {
     this.animateAccordion(false);
   }
 
+  /**
+   * Set open status without animation
+   * @param {*} value
+   */
+  toggle(value) {
+    this.hasAnimation = false;
+    this.open = value;
+    this.hasAnimation = true;
+  }
+
   async animateAccordion(isOpen) {
+    // if (FoxTheme.config.disableAnimations) {
+    //   if (isOpen) {
+    //     this.setAttribute('open', '');
+    //   } else {
+    //     this.removeAttribute('open');
+    //   }
+    //   this.handleAfterAnimated();
+    //   return;
+    // }
+
+    // When animation is disabled (programmatic toggles such as responsive breakpoint
+    // changes), bypass Motion entirely. A WAAPI animation — even with duration 0 — can
+    // leave a committed inline height or never resolve its `.finished` promise on iOS,
+    // which leaves the accordion stuck at a wrong height after closing. Snapping the
+    // native `open` attribute directly and clearing any inline styles avoids all of that.
+    if (!this.hasAnimation) {
+      if (isOpen) {
+        this.setAttribute('open', '');
+      } else {
+        this.removeAttribute('open');
+      }
+
+      this.style.removeProperty('height');
+      this.style.removeProperty('overflow');
+
+      // iOS Safari sometimes does not re-layout a <details> when the `open` attribute is
+      // toggled programmatically, leaving the content occupying space (wrong height).
+      // Force a synchronous reflow to make the browser collapse/expand it immediately.
+      // eslint-disable-next-line no-unused-expressions
+      this.offsetHeight;
+
+      this.handleAfterAnimated();
+      return;
+    }
+
     this.style.overflow = 'hidden';
 
     if (isOpen) {
@@ -1025,16 +1140,60 @@ class AccordionGroup extends AccordionDetails {
   }
 
   handleAfterToggle() {
-    if (this.isOpen) {
-      const parent = this.closest('.accordion-parent') || document;
-      const siblingsAccordions = parent.querySelectorAll('details[is="accordion-group"]');
+    if (!this.isOpen) return;
 
-      siblingsAccordions.forEach((details) => {
-        if (details !== this) {
-          details.open = false;
-        }
-      });
-    }
+    const parent = this.closest('.accordion-parent') || document;
+    const openedSiblings = Array.from(parent.querySelectorAll('details[is="accordion-group"]')).filter(
+      (details) => details !== this && details.open
+    );
+
+    if (!openedSiblings.length) return;
+
+    // Measured before the siblings start collapsing, while the layout is still untouched.
+    const summaryTop = this.getBoundingClientRect().top;
+    const shiftsViewport = openedSiblings.some((details) => details.getBoundingClientRect().top < summaryTop);
+
+    openedSiblings.forEach((details) => {
+      details.open = false;
+    });
+
+    if (shiftsViewport) this.keepSummaryInPlace(summaryTop);
+  }
+
+  /**
+   * A sibling collapsing ABOVE this accordion pulls the page up, so the summary the user
+   * just tapped slides away from where they tapped it -- very visible on mobile when the
+   * previous row held a long block of content. Pin the summary to its viewport position
+   * for the duration of the closing animation instead.
+   * @param {number} summaryTop viewport offset to keep this accordion at
+   */
+  keepSummaryInPlace(summaryTop) {
+    const controller = new AbortController();
+    const stop = () => controller.abort();
+
+    // Never fight the user: if they start scrolling themselves, hand the scroll back.
+    window.addEventListener('wheel', stop, { passive: true, signal: controller.signal });
+    window.addEventListener('touchmove', stop, { passive: true, signal: controller.signal });
+
+    let frames = 0;
+    const maxFrames = 45; // ~0.75s, comfortably longer than the 0.25s close animation
+
+    const anchor = () => {
+      if (controller.signal.aborted) return;
+
+      const delta = this.getBoundingClientRect().top - summaryTop;
+      if (Math.abs(delta) >= 1) {
+        window.scrollTo({ top: window.scrollY + delta, behavior: 'instant' });
+      }
+
+      if (++frames < maxFrames) {
+        requestAnimationFrame(anchor);
+      } else {
+        controller.abort();
+      }
+    };
+
+    requestAnimationFrame(anchor);
   }
 }
 customElements.define('accordion-group', AccordionGroup, { extends: 'details' });
@@ -1048,6 +1207,11 @@ class ProgressBar extends HTMLElement {
     if (this.dataset.from) {
       this.initProgress();
     }
+
+    // if (FoxTheme.config.disableAnimations || FoxTheme.config.motionReduced) {
+    //   this.init();
+    //   return;
+    // }
 
     FoxTheme.Motion.inView(this, this.init.bind(this));
   }
@@ -1546,14 +1710,38 @@ class LocalizationForm extends HTMLElement {
       panel: this.querySelector('.disclosure-list'),
     };
 
+    this.listTemplate = this.elements.panel.querySelector('template');
+    this.panelLoaded = !this.listTemplate;
+
     this.elements.panel.removeAttribute('hidden');
     this.elements.button.addEventListener('click', this.openSelector.bind(this));
     this.elements.button.addEventListener('focusout', this.closeSelector.bind(this));
     this.addEventListener('keyup', this.onContainerKeyUp.bind(this));
 
-    this.querySelectorAll('a').forEach((item) => item.addEventListener('click', this.onItemClick.bind(this)));
+    if (this.panelLoaded) {
+      this.bindOptions();
+    } else {
+      FoxTheme.Motion.inView(this, this.loadPanel.bind(this), { margin: '200px 0px 200px 0px' });
+    }
 
     this.handleDropdownPos();
+  }
+
+  loadPanel() {
+    if (this.panelLoaded || !this.listTemplate) return;
+
+    this.elements.panel.appendChild(document.importNode(this.listTemplate.content, true));
+    this.listTemplate.remove();
+    this.listTemplate = null;
+    this.panelLoaded = true;
+    this.bindOptions();
+    this.handleDropdownPos();
+  }
+
+  bindOptions() {
+    this.elements.panel.querySelectorAll('[data-disclosure-option]').forEach((item) => {
+      item.addEventListener('click', this.onItemClick.bind(this));
+    });
   }
 
   handleDropdownPos() {
@@ -1584,6 +1772,7 @@ class LocalizationForm extends HTMLElement {
   }
 
   openSelector() {
+    this.loadPanel();
     this.elements.button.focus();
     this.toggleAttribute('open');
     this.elements.button.setAttribute(
@@ -1607,7 +1796,8 @@ class GridList extends HTMLElement {
   constructor() {
     super();
 
-    if (FoxTheme.config.motionReduced || this.hasAttribute('motion-reduced')) return;
+    if (FoxTheme.config.motionReduced || FoxTheme.config.disableAnimations || this.hasAttribute('motion-reduced'))
+      return;
 
     this.hideGridItems();
     FoxTheme.Motion.inView(this, this.showGridItems.bind(this), { margin: '0px 0px -50px 0px' });
@@ -1630,22 +1820,30 @@ class GridList extends HTMLElement {
   }
 
   showGridItems() {
+    if (FoxTheme.config.disableAnimations) return;
+
     FoxTheme.Motion.animate(
       this.gridItems,
       { transform: ['translateY(3.5rem)', 'translateY(0)'], opacity: [0.01, 1], visibility: ['hidden', 'visible'] },
       {
         duration: 0.5,
-        delay: FoxTheme.config.motionReduced ? 0 : FoxTheme.Motion.stagger(0.1),
+        delay: FoxTheme.config.motionReduced || FoxTheme.config.disableAnimations ? 0 : FoxTheme.Motion.stagger(0.1),
         easing: [0, 0, 0.3, 1],
       }
     );
   }
 
   reShowVisibleGridItems() {
+    if (FoxTheme.config.disableAnimations) return;
+
     FoxTheme.Motion.animate(
       this.visibleGridItems,
       { transform: ['translateY(3.5rem)', 'translateY(0)'], opacity: [0.01, 1], visibility: ['hidden', 'visible'] },
-      { duration: 0.5, delay: FoxTheme.config.motionReduced ? 0 : FoxTheme.Motion.stagger(0.1), easing: [0, 0, 0.3, 1] }
+      {
+        duration: 0.5,
+        delay: FoxTheme.config.motionReduced || FoxTheme.config.disableAnimations ? 0 : FoxTheme.Motion.stagger(0.1),
+        easing: [0, 0, 0.3, 1],
+      }
     );
   }
 }
@@ -1656,7 +1854,11 @@ class AnnouncementBar extends HTMLElement {
     super();
     this.announcementItemsWrapper = this.querySelector('.swiper-wrapper');
 
-    FoxTheme.Motion.inView(this, this.initializeCarousel.bind(this), { margin: '200px 0px 200px 0px' });
+    if (FoxTheme.config.disableAnimations || FoxTheme.config.motionReduced) {
+      this.initializeCarousel();
+    } else {
+      FoxTheme.Motion.inView(this, this.initializeCarousel.bind(this), { margin: '200px 0px 200px 0px' });
+    }
   }
 
   getNextSlideButton() {
@@ -1817,18 +2019,36 @@ class ProductsBundle extends HTMLElement {
       this.addToCartButtonElement.addEventListener('click', this.handleButtonClick.bind(this));
 
     this.productBundleBlocks = this.querySelectorAll('[data-block-id]');
-    this.productBundleBlocks.forEach((block) =>
-      block.addEventListener('mouseenter', this.handleBlockHover.bind(this, 'enter'))
-    );
-    this.productBundleBlocks.forEach((block) =>
-      block.addEventListener('mouseleave', this.handleBlockHover.bind(this, 'leave'))
-    );
+    if (FoxTheme.config.isTouch) {
+      // No hover on touch: a tap highlights the matching block like a desktop hover.
+      // A second tap on the already-active hotspot then follows its product link.
+      this.productBundleBlocks.forEach((block) => block.addEventListener('click', this.handleBlockTap.bind(this)));
+    } else {
+      this.productBundleBlocks.forEach((block) =>
+        block.addEventListener('mouseenter', this.handleBlockHover.bind(this, 'enter'))
+      );
+      this.productBundleBlocks.forEach((block) =>
+        block.addEventListener('mouseleave', this.handleBlockHover.bind(this, 'leave'))
+      );
+    }
+  }
+
+  handleBlockTap(event) {
+    const block = event.currentTarget;
+
+    // Already highlighted: let the tap follow the hotspot's <a> link (cards have none).
+    if (block.classList.contains(this.cssClasses.active)) return;
+
+    // Otherwise treat the tap like a hover and highlight it (no navigation yet).
+    if (block.tagName === 'A') event.preventDefault();
+    this.classList.add(this.cssClasses.hover);
+    this.toggleBlockActive(block, true);
   }
 
   handleBlockHover(type, event) {
     if (type === 'enter') {
       this.classList.add(this.cssClasses.hover);
-      this.toggleBlockActive(event.target, true);
+      this.toggleBlockActive(event.currentTarget, true);
     } else {
       this.classList.remove(this.cssClasses.hover);
       this.toggleBlockActive(null, false);
@@ -1977,7 +2197,7 @@ class MotionElement extends HTMLElement {
   }
 
   connectedCallback() {
-    if (FoxTheme.config.motionReduced) return;
+    if (FoxTheme.config.motionReduced || FoxTheme.config.disableAnimations) return;
     FoxTheme.Motion.inView(
       this,
       async () => {
@@ -2009,7 +2229,7 @@ class MotionElement extends HTMLElement {
   }
 
   preInitialize() {
-    if (this.isHold) return;
+    if (this.isHold || FoxTheme.config.motionReduced || FoxTheme.config.disableAnimations) return;
     switch (this.animationType) {
       case 'fade-in':
         FoxTheme.Motion.animate(this, { opacity: 0.01 }, { duration: 0 });
@@ -2036,7 +2256,8 @@ class MotionElement extends HTMLElement {
   }
 
   async initialize() {
-    if (this.isHold) return;
+    if (this.isHold || this._animating || FoxTheme.config.motionReduced || FoxTheme.config.disableAnimations) return;
+    this._animating = true;
 
     switch (this.animationType) {
       case 'fade-in':
@@ -2088,10 +2309,13 @@ class MotionElement extends HTMLElement {
         break;
     }
 
+    this._animating = false;
     this.classList.add('is-animated');
   }
 
   async resetAnimation(duration) {
+    if (FoxTheme.config.disableAnimations) return;
+
     switch (this.animationType) {
       case 'fade-in':
         await FoxTheme.Motion.animate(
@@ -2168,6 +2392,7 @@ class MotionElement extends HTMLElement {
   }
 
   refreshAnimation() {
+    this._animating = false;
     this.removeAttribute('hold');
     this.preInitialize();
     setTimeout(() => {
@@ -2248,7 +2473,7 @@ class TabsComponent extends HTMLElement {
 
   scrollToTop() {
     let offsetTop = this.offsetTop - this.scrollOffset - this.getHeaderHeight();
-    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+    window.scrollTo({ top: offsetTop, behavior: FoxTheme.config.disableAnimations ? 'auto' : 'smooth' });
   }
 
   onTabClick(evt) {
@@ -2353,6 +2578,12 @@ class TabsComponent extends HTMLElement {
   }
 
   async transition(fromPanel, toPanel) {
+    if (FoxTheme.config.disableAnimations) {
+      fromPanel.hidden = true;
+      toPanel.hidden = false;
+      return;
+    }
+
     await FoxTheme.Motion.animate(
       fromPanel,
       { transform: ['translateY(0)', 'translateY(2rem)'], opacity: [1, 0] },
@@ -2637,7 +2868,11 @@ class HighlightText extends HTMLElement {
   constructor() {
     super();
 
-    FoxTheme.Motion.inView(this, this.init.bind(this));
+    if (FoxTheme.config.disableAnimations || FoxTheme.config.motionReduced) {
+      this.init();
+    } else {
+      FoxTheme.Motion.inView(this, this.init.bind(this));
+    }
   }
 
   init() {
@@ -2700,9 +2935,16 @@ if (!customElements.get('scrolling-promotion')) {
       if (this.childElementCount === 1) {
         this.promotion.classList.add('promotion--animated');
 
-        for (let index = 0; index < 10; index++) {
-          this.clone = this.promotion.cloneNode(true);
-          this.appendChild(this.clone);
+        const promotionWidth = this.promotion.offsetWidth;
+        const targetWidth = window.innerWidth * 2;
+        let cloneCount = 1;
+
+        if (promotionWidth > 0) {
+          cloneCount = Math.max(1, Math.ceil(targetWidth / promotionWidth) - 1);
+        }
+
+        for (let index = 0; index < cloneCount; index++) {
+          this.appendChild(this.promotion.cloneNode(true));
         }
 
         // pause when out of view

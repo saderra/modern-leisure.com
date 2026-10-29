@@ -1,4 +1,4 @@
-if (!customElements.get('collection-showcase')) {
+if (!customElements.get('collection-showcase-products')) {
   customElements.define(
     'collection-showcase-products',
     class CollectionsShowcaseProducts extends HTMLElement {

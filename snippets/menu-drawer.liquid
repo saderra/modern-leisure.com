@@ -94,20 +94,20 @@
             </div>
           {%- endif -%}
           {%- if shop.customer_accounts_enabled -%}
-            <a
-              href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-              class="account-button btn btn--primary"
-            >
-              <span>
-                {%- liquid
-                  if customer
-                    echo 'customer.account_fallback' | t
-                  else
-                    echo 'customer.log_in' | t
-                  endif
-                -%}
-              </span>
-            </a>
+            <shopify-account menu="{{ section.settings.customer_account_menu }}">
+              {% if customer %}
+                <div class="account-button__fallback no-empty" aria-label="{{ 'customer.account_fallback' | t }}"></div>
+              {% else %}
+                <span
+                  slot="signed-out-avatar"
+                  aria-hidden="true"
+                  aria-label="{{ 'customer.log_in' | t }}"
+                  class="account-button btn btn--primary w-full"
+                >
+                  {{ 'customer.log_in' | t }}
+                </span>
+              {% endif %}
+            </shopify-account>
           {%- endif -%}
         </div>
         {%- if section.settings.show_social_media_icons -%}
