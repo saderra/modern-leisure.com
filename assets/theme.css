@@ -6746,20 +6746,14 @@ shopify-account::part(signed-out-avatar) {
   text-transform: var(--buttons-transform, var(--buttons-transform-default));
 }
 
-/*
-Edited by Aneurin Barker Snook <aneurin@aneur.in> for Saderra <corinne@saderra.com> Modern Leisure.
-  - Changed display: flex -> display: none
-  - Added display: flex at 768px
-*/
 .breadcrumbs {
-  display: none;
+  display: flex;
   padding: 1.2rem 0;
   font-size: calc(var(--font-body-size) * 0.9);
   line-height: 2.4rem;
 }
 @media (min-width: 768px) {
   .breadcrumbs {
-    display: flex;
     padding: 2.4rem 0;
   }
 }

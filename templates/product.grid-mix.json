@@ -2,6 +2,9 @@
   "sections": {
     "breadcrumbs": {
       "type": "breadcrumbs",
+      "custom_css": [
+        "@media (max-width: 767px) {.breadcrumbs {display: none;}}"
+      ],
       "settings": {
         "text_alignment": "start"
       }

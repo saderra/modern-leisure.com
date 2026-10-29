@@ -121,18 +121,21 @@ function updateProductAlternativeImages(variantId) {
   */
 }
 
-document.querySelector('.product-variant-id')?.addEventListener('change', function() {
-  updateProductAlternativeImages(this.value)
-})
-
-document.addEventListener('readystatechange', function(event) {
-  if (event.target.readyState === 'interactive') {
-    const input = document.querySelector('.product-variant-id')
-    if (input) {
-      updateProductAlternativeImages(input.value)
-    }
+// Listen on the document so this keeps working if the theme replaces the variant input.
+// Variants of other products (e.g. a quick view) have no images in this section's data, so they're ignored.
+document.addEventListener('change', function(event) {
+  if (event.target.matches?.('.product-variant-id')) {
+    updateProductAlternativeImages(event.target.value)
   }
 })
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    updateProductAlternativeImages('{{ product.selected_or_first_available_variant.id }}')
+  })
+} else {
+  updateProductAlternativeImages('{{ product.selected_or_first_available_variant.id }}')
+}
 </script>
 
 <div

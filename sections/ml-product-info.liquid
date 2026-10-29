@@ -12,11 +12,11 @@ Custom section developed by Aneurin Barker Snook <aneurin@aneur.in> for Saderra 
   "{{ product.id }}": {}{% if product.variants.size > 0 %},{% endif %}
   {% for v in product.variants %}
   "{{ v.id }}": {
-    "sku": { "value": "{{ v.sku }}" },
-    "upc": { "value": "{{ v.metafields.custom.upc.value }}" },
-    "color": { "value": "{{ v.metafields.custom.color.value }}" },
+    "sku": { "value": {{ v.sku | json }} },
+    "upc": { "value": {{ v.metafields.custom.upc.value | json }} },
+    "color": { "value": {{ v.metafields.custom.color.value | json }} },
     "material": { "value": {{ v.metafields.custom.material.value | json }} },
-    "size": { "value": "{{ v.metafields.custom.size.value | escape }}" }
+    "size": { "value": {{ v.metafields.custom.size.value | json }} }
   }{% unless forloop.last %},{% endunless %}
   {%  endfor  %}
 }
@@ -31,7 +31,7 @@ function SpecificationHtml(input) {
   ${input.product_weight?.value ? `<li>Weight: <span>${input.product_weight.value}${input.product_weight.unit}</span></li>` : ''}
 
   ${input.color?.value ? `<li>Color: <span>${input.color.value}</span></li>` : ''}
-  ${input.material?.value?.length ? `<li>Material: <span>${input.material.value.join(', ')}` : ''}
+  ${input.material?.value?.length ? `<li>Material: <span>${input.material.value.join(', ')}</span></li>` : ''}
   ${input.size?.value?.length ? `<li>Size: <span>${input.size.value}</span></li>` : ''}
 </ul>
 `
@@ -43,11 +43,11 @@ function getVariantSpecification(variantId) {
     if (!el) throw new Error('unable to find specification data')
 
     const data = JSON.parse(el.textContent)
-    return data?.[variantId] || {}
+    return data?.[variantId] || null
   }
   catch(err) {
     console.error(err)
-    return []
+    return null
   }
 }
 
@@ -58,8 +58,9 @@ function updateProductSpecification(variantId) {
     return
   }
 
+  // Ignore variants of other products, e.g. a quick view opened from related products
   const specification = getVariantSpecification(variantId)
-  console.log(specification)
+  if (!specification) return
   const html = SpecificationHtml(specification)
 
   while (el.firstChild) {
@@ -68,18 +69,20 @@ function updateProductSpecification(variantId) {
   el.innerHTML = html
 }
 
-document.querySelector('.product-variant-id')?.addEventListener('change', function() {
-  updateProductSpecification(this.value)
-})
-
-document.addEventListener('readystatechange', function(event) {
-  if (event.target.readyState === 'interactive') {
-    const input = document.querySelector('.product-variant-id')
-    if (input) {
-      updateProductSpecification(input.value)
-    }
+// Listen on the document so this keeps working if the theme replaces the variant input
+document.addEventListener('change', function(event) {
+  if (event.target.matches?.('.product-variant-id')) {
+    updateProductSpecification(event.target.value)
   }
 })
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', function() {
+    updateProductSpecification('{{ product.selected_or_first_available_variant.id }}')
+  })
+} else {
+  updateProductSpecification('{{ product.selected_or_first_available_variant.id }}')
+}
 </script>
 
 {% render 'divider',
