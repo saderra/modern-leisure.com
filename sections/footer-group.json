@@ -60,7 +60,9 @@
       ],
       "custom_css": [
         ".form-control {--color-border: var(--color-field);}",
-        ".footer__copyright-content span {display: none;}"
+        ".footer__copyright-content span {display: none;}",
+        ".footer__localization:empty, .footer__info:not(:has(*)) {display: none;}",
+        "@media (min-width: 768px) {.footer__bottom > motion-element {display: flex; justify-content: space-between; align-items: center; gap: var(--element-gap);} .footer__bottom-row + .footer__bottom-row {margin-top: 0;}}"
       ],
       "settings": {
         "color_scheme": "scheme-1",
