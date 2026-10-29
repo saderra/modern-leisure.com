@@ -59,7 +59,8 @@
         "image_text_F3FNhx"
       ],
       "custom_css": [
-        ".form-control {--color-border: var(--color-field);}"
+        ".form-control {--color-border: var(--color-field);}",
+        ".footer__copyright-content span {display: none;}"
       ],
       "settings": {
         "color_scheme": "scheme-1",
