@@ -52,7 +52,9 @@
     },
     "product-grid": {
       "type": "main-collection-product-grid",
-      "custom_css": [],
+      "custom_css": [
+        ".product-card-style-card {border: 1px solid rgba(var(--color-foreground), 0.08);}"
+      ],
       "settings": {
         "color_scheme": "scheme-9",
         "products_per_page": 20,

@@ -23,6 +23,7 @@ Carry these over on every Sleek upgrade. Everything else matches stock Sleek.
 - `sections/ml-product-info.liquid`, `sections/ml-alt-images.liquid`, `assets/component-ml-product-info.css`, `assets/ml-alt-images.css`: custom product sections by the original developer (Aneurin Barker Snook), used in `templates/product.json`.
 - `locales/en.default.schema.json`: theme-editor labels for those two sections (`sections.ml-alt-images`, `sections.ml-product-info`). Other locales don't have them, which causes theme check `MatchingTranslations` errors. That's expected.
 - Breadcrumbs hidden on mobile: done with each breadcrumbs section's Custom CSS (`custom_css` in the templates), not in `assets/theme.css`, so it carries over with the content JSON. Add the same rule to any new template that uses breadcrumbs.
+- Faint product card border on collection pages: also section Custom CSS, on the `main-collection-product-grid` section in each `templates/collection*.json`.
 - `blocks/ai_gen_block_df1f073.liquid` (header top bar) and `blocks/ai_gen_block_deb1e09.liquid` (contact page): Shopify AI-generated blocks, inside Shopify's built-in `_blocks` section type.
 - `sections/ss-grid-pro.liquid`: a Section Store app section. Not used in any template right now.
 
