@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "settings_schema": {
     "global": {
@@ -960,26 +969,7 @@
         }
       },
       "heading_tag": {
-        "label": "Heading tag",
-        "options__1": {
-          "label": "H1"
-        },
-        "options__2": {
-          "label": "H2"
-        },
-        "options__3": {
-          "label": "H3"
-        },
-        "options__4": {
-          "label": "H4"
-        },
-        "options__5": {
-          "label": "H5"
-        },
-        "options__6": {
-          "label": "H6"
-        },
-        "info": "Specify heading code types for SEO and search engines for crawling purposes."
+        "label": "Heading tag"
       },
       "text_alignment": {
         "label": "Text alignment",
@@ -1050,8 +1040,7 @@
       },
       "heading": {
         "label": "Heading",
-        "name": "Heading",
-        "content": "Heading"
+        "name": "Heading"
       },
       "subheading": {
         "label": "Subheading",
@@ -2122,13 +2111,6 @@
             "label": "Color"
           }
         },
-        "customer_account": {
-          "content": "Customer account",
-          "paragraph": "[Manage visibility](/admin/settings/customer_accounts) in customer account settings.",
-          "menu": {
-            "label": "Menu"
-          }
-        },
         "mobile_layout": {
           "content": "Mobile layout"
         },
@@ -3153,9 +3135,6 @@
           }
         }
       }
-    },
-    "main-404": {
-      "name": "404 page"
     },
     "multicolumn": {
       "name": "Multicolumn",

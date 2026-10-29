@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "settings_schema": {
     "global": {
@@ -960,14 +969,7 @@
         }
       },
       "heading_tag": {
-        "label": "見出しタグ",
-        "options__1": { "label": "H1" },
-        "options__2": { "label": "H2" },
-        "options__3": { "label": "H3" },
-        "options__4": { "label": "H4" },
-        "options__5": { "label": "H5" },
-        "options__6": { "label": "H6" },
-        "info": "SEOと検索エンジンのクロール目的で見出しタグの種類を指定します。"
+        "label": "見出しタグ"
       },
       "text_alignment": {
         "label": "テキストの配置",
@@ -1038,8 +1040,7 @@
       },
       "heading": {
         "label": "見出し",
-        "name": "見出し",
-        "content": "見出し"
+        "name": "見出し"
       },
       "subheading": {
         "label": "小見出し",
@@ -2081,13 +2082,6 @@
             "label": "色"
           }
         },
-        "customer_account": {
-          "content": "顧客アカウント",
-          "paragraph": "[表示設定を管理](/admin/settings/customer_accounts)は顧客アカウント設定にあります。",
-          "menu": {
-            "label": "メニュー"
-          }
-        },
         "mobile_layout": {
           "content": "モバイルレイアウト"
         },
@@ -3112,9 +3106,6 @@
           }
         }
       }
-    },
-    "main-404": {
-      "name": "404ページ"
     },
     "multicolumn": {
       "name": "複数列",

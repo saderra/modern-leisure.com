@@ -16,8 +16,6 @@
   inset: -1rem;
 }
 
-@media (hover: hover) {
-  .list-social__link:hover .icon {
-    transform: scale(1.04);
-  }
+.list-social__link:hover .icon {
+  transform: scale(1.04);
 }

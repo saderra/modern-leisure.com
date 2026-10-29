@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "settings_schema": {
     "global": {
@@ -960,14 +969,7 @@
         }
       },
       "heading_tag": {
-        "label": "Koptag",
-        "options__1": { "label": "H1" },
-        "options__2": { "label": "H2" },
-        "options__3": { "label": "H3" },
-        "options__4": { "label": "H4" },
-        "options__5": { "label": "H5" },
-        "options__6": { "label": "H6" },
-        "info": "Geef heading-tagtypen op voor SEO en zoekmachines voor crawl-doeleinden."
+        "label": "Koptag"
       },
       "text_alignment": {
         "label": "Tekstuitlijning",
@@ -1038,8 +1040,7 @@
       },
       "heading": {
         "label": "Rubriek",
-        "name": "Rubriek",
-        "content": "Rubriek"
+        "name": "Rubriek"
       },
       "subheading": {
         "label": "Ondertitel",
@@ -2081,13 +2082,6 @@
             "label": "Kleur"
           }
         },
-        "customer_account": {
-          "content": "Klantaccount",
-          "paragraph": "[Zichtbaarheid beheren](/admin/settings/customer_accounts) in klantaccountinstellingen.",
-          "menu": {
-            "label": "Menu"
-          }
-        },
         "mobile_layout": {
           "content": "Mobiele lay-out"
         },
@@ -3112,9 +3106,6 @@
           }
         }
       }
-    },
-    "main-404": {
-      "name": "404-pagina"
     },
     "multicolumn": {
       "name": "Meerkolommen",

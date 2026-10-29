@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "settings_schema": {
     "global": {
@@ -960,26 +969,7 @@
         }
       },
       "heading_tag": {
-        "label": "Thẻ tiêu đề",
-        "options__1": {
-          "label": "H1"
-        },
-        "options__2": {
-          "label": "H2"
-        },
-        "options__3": {
-          "label": "H3"
-        },
-        "options__4": {
-          "label": "H4"
-        },
-        "options__5": {
-          "label": "H5"
-        },
-        "options__6": {
-          "label": "H6"
-        },
-        "info": "Chỉ định loại thẻ tiêu đề cho SEO và công cụ tìm kiếm để thu thập dữ liệu."
+        "label": "Thẻ tiêu đề"
       },
       "text_alignment": {
         "label": "Căn chỉnh văn bản",
@@ -1050,8 +1040,7 @@
       },
       "heading": {
         "label": "Phần mở đầu",
-        "name": "Phần mở đầu",
-        "content": "Phần mở đầu"
+        "name": "Phần mở đầu"
       },
       "subheading": {
         "label": "Tiêu đề phụ",
@@ -2093,13 +2082,6 @@
             "label": "Màu sắc"
           }
         },
-        "customer_account": {
-          "content": "Tài khoản khách hàng",
-          "paragraph": "[Quản lý hiển thị](/admin/settings/customer_accounts) trong cài đặt tài khoản khách hàng.",
-          "menu": {
-            "label": "Menu"
-          }
-        },
         "mobile_layout": {
           "content": "Bố cục di động"
         },
@@ -3124,9 +3106,6 @@
           }
         }
       }
-    },
-    "main-404": {
-      "name": "Trang 404"
     },
     "multicolumn": {
       "name": "Nhiều cột",

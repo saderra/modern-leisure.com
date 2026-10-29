@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "settings_schema": {
     "global": {
@@ -960,14 +969,7 @@
         }
       },
       "heading_tag": {
-        "label": "Otsikkotunniste",
-        "options__1": { "label": "H1" },
-        "options__2": { "label": "H2" },
-        "options__3": { "label": "H3" },
-        "options__4": { "label": "H4" },
-        "options__5": { "label": "H5" },
-        "options__6": { "label": "H6" },
-        "info": "Määritä otsikkotunnistetyypit SEO:lle ja hakukoneille indeksointitarkoituksessa."
+        "label": "Otsikkotunniste"
       },
       "text_alignment": {
         "label": "Tekstin tasaus",
@@ -1038,8 +1040,7 @@
       },
       "heading": {
         "label": "Otsikko",
-        "name": "Otsikko",
-        "content": "Otsikko"
+        "name": "Otsikko"
       },
       "subheading": {
         "label": "Alaotsikko",
@@ -2081,13 +2082,6 @@
             "label": "Väri"
           }
         },
-        "customer_account": {
-          "content": "Asiakastili",
-          "paragraph": "[Hallitse näkyvyyttä](/admin/settings/customer_accounts) asiakastilin asetuksissa.",
-          "menu": {
-            "label": "Valikko"
-          }
-        },
         "mobile_layout": {
           "content": "Mobiiliasettelu"
         },
@@ -3112,9 +3106,6 @@
           }
         }
       }
-    },
-    "main-404": {
-      "name": "404-sivu"
     },
     "multicolumn": {
       "name": "Monisarake",

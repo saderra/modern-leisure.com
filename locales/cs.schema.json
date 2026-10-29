@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "settings_schema": {
     "global": {
@@ -960,14 +969,7 @@
         }
       },
       "heading_tag": {
-        "label": "Značka nadpisu",
-        "options__1": { "label": "H1" },
-        "options__2": { "label": "H2" },
-        "options__3": { "label": "H3" },
-        "options__4": { "label": "H4" },
-        "options__5": { "label": "H5" },
-        "options__6": { "label": "H6" },
-        "info": "Zadejte typy značek nadpisu pro SEO a vyhledávače pro účely procházení."
+        "label": "Značka nadpisu"
       },
       "text_alignment": {
         "label": "Zarovnání textu",
@@ -1038,8 +1040,7 @@
       },
       "heading": {
         "label": "Nadpis",
-        "name": "Nadpis",
-        "content": "Nadpis"
+        "name": "Nadpis"
       },
       "subheading": {
         "label": "Podnadpis",
@@ -2081,13 +2082,6 @@
             "label": "Barva"
           }
         },
-        "customer_account": {
-          "content": "Zákaznický účet",
-          "paragraph": "[Spravovat viditelnost](/admin/settings/customer_accounts) v nastavení zákaznického účtu.",
-          "menu": {
-            "label": "Menu"
-          }
-        },
         "mobile_layout": {
           "content": "Mobilní rozložení"
         },
@@ -3112,9 +3106,6 @@
           }
         }
       }
-    },
-    "main-404": {
-      "name": "Stránka 404"
     },
     "multicolumn": {
       "name": "Vícesloupcové",

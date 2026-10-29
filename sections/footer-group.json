@@ -1,1 +1,80 @@
-{"name":"t:sections.footer.name","type":"footer","sections":{"footer":{"type":"footer","blocks":{"newsletter_3qCrWc":{"type":"newsletter","settings":{"block_width":40,"heading":"Newsletter Subscription","heading_size":"h2","newsletter_description":"<p>Subscribe for store updates and discounts.<\/p>","newsletter_term":"<p>By subscribing you agree to the <a href=\"#\">Terms of Use<\/a> & <a href=\"#\">Privacy Policy.<\/a><\/p>","newsletter_text_alignment":"left","form_width":465,"order_first":true}},"menu_4eCrBB":{"type":"menu","settings":{"block_width":30,"heading":"Customer Care","heading_size":"h4","menu":"customer-service-menu","open_default":false,"show_divider":false}},"image_text_F3FNhx":{"type":"image_text","settings":{"block_width":30,"heading":"About","heading_size":"h4","image_width":150,"text":"<p>Modern Leisure designs Rocky Mountain–tested outdoor covers that combine durable, weatherproof protection with elevated style so you can spend more time enjoying your space.<\/p>","button_label":"Learn more","button_link":"shopify:\/\/pages\/about","open_default":false,"show_divider":false}}},"block_order":["newsletter_3qCrWc","menu_4eCrBB","image_text_F3FNhx"],"custom_css":[".form-control {--color-border: var(--color-field);}"],"settings":{"color_scheme":"scheme-1","enable_follow_on_shop":false,"show_social":true,"enable_country_selector":true,"enable_language_selector":false,"payment_enable":false,"footer_bottom_menu":"","show_section_divider":true,"divider_width":"full"}}},"order":["footer"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "newsletter_3qCrWc": {
+          "type": "newsletter",
+          "settings": {
+            "block_width": 40,
+            "heading": "Newsletter Subscription",
+            "heading_size": "h2",
+            "newsletter_description": "<p>Subscribe for store updates and discounts.</p>",
+            "newsletter_term": "<p>By subscribing you agree to the <a href=\"/pages/terms-of-use\" title=\"Terms of Use\">Terms of Use</a> & <a href=\"#\">Privacy Policy.</a></p>",
+            "newsletter_text_alignment": "left",
+            "form_width": 465,
+            "order_first": true
+          }
+        },
+        "menu_4eCrBB": {
+          "type": "menu",
+          "settings": {
+            "block_width": 30,
+            "heading": "Customer Care",
+            "heading_size": "h4",
+            "menu": "customer-service-menu",
+            "open_default": false,
+            "show_divider": false
+          }
+        },
+        "image_text_F3FNhx": {
+          "type": "image_text",
+          "settings": {
+            "block_width": 30,
+            "heading": "About",
+            "heading_size": "h4",
+            "image_width": 150,
+            "text": "<p>Modern Leisure designs Rocky Mountain–tested outdoor covers that combine durable, weatherproof protection with elevated style so you can spend more time enjoying your space.</p>",
+            "button_label": "Learn more",
+            "button_link": "shopify://pages/about",
+            "open_default": false,
+            "show_divider": false
+          }
+        }
+      },
+      "block_order": [
+        "newsletter_3qCrWc",
+        "menu_4eCrBB",
+        "image_text_F3FNhx"
+      ],
+      "custom_css": [
+        ".form-control {--color-border: var(--color-field);}"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "enable_follow_on_shop": false,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": false,
+        "payment_enable": false,
+        "footer_bottom_menu": "",
+        "show_section_divider": true,
+        "divider_width": "full"
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

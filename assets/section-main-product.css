@@ -31,10 +31,8 @@
 .product__media-item {
   width: 100%;
 }
-@media (hover: hover) {
-  .product__media-item:hover .product__media-icon {
-    opacity: 1;
-  }
+.product__media-item:hover .product__media-icon {
+  opacity: 1;
 }
 .product__media-container {
   position: relative;
@@ -55,7 +53,7 @@
   background: #fff;
   color: #000;
   opacity: 0;
-  transition: opacity var(--duration-default);
+  transition: all var(--duration-default);
 }
 .product__media-zoom {
   display: flex;
@@ -102,7 +100,7 @@
   position: relative;
   cursor: pointer;
   border-radius: var(--medium-blocks-radius);
-  transition: 0.3s padding;
+  transition: 0.3s all;
 }
 .product__thumbs-container:after {
   content: "";
@@ -115,10 +113,10 @@
   opacity: 0;
   z-index: 1;
   border-radius: inherit;
-  transition: 0.2s opacity;
+  transition: 0.2s all;
 }
 .product__thumbs-inner {
-  transition: 0.3s border-radius;
+  transition: 0.3s all;
   border-radius: inherit;
 }
 .product__thumbs-badge {
@@ -420,11 +418,9 @@
 .shopify-payment-button__button--unbranded::selection {
   background-color: rgba(var(--color-button-text), 0.3);
 }
-@media (hover: hover) {
-  .shopify-payment-button__button--unbranded:hover, .shopify-payment-button__button--unbranded:hover:not([disabled]) {
-    color: rgb(var(--color-button-hover-text));
-    background-color: rgb(var(--color-button-hover-background));
-  }
+.shopify-payment-button__button--unbranded:hover, .shopify-payment-button__button--unbranded:hover:not([disabled]) {
+  color: rgb(var(--color-button-hover-text));
+  background-color: rgb(var(--color-button-hover-background));
 }
 .shopify-payment-button__button + .shopify-payment-button__button--hidden {
   display: none;

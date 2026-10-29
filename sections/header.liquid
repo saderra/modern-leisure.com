@@ -224,22 +224,21 @@
         {%- render 'icon-search', size: 'large' -%}
       </a>
       {%- if shop.customer_accounts_enabled -%}
-        <header-account class="header__account block">
-          <shopify-account menu="{{ section.settings.customer_account_menu }}">
-            {% if customer %}
-              <div class="account-button__fallback no-empty" aria-label="{{ 'customer.account_fallback' | t }}"></div>
-            {% else %}
-              <span
-                slot="signed-out-avatar"
-                aria-hidden="true"
-                aria-label="{{ 'customer.log_in' | t }}"
-                class="flex items-center justify-center"
-              >
-                {%- render 'icon-account', size: 'large' -%}
-              </span>
-            {% endif %}
-          </shopify-account>
-        </header-account>
+        <a
+          href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+          class="account-button hidden lg:flex items-center justify-center"
+        >
+          {%- render 'icon-account', size: 'large' -%}
+          <span class="visually-hidden">
+            {%- liquid
+              if customer
+                echo 'customer.account_fallback' | t
+              else
+                echo 'customer.log_in' | t
+              endif
+            -%}
+          </span>
+        </a>
       {%- endif -%}
       <a
         href="{{ routes.cart_url }}"
@@ -452,20 +451,6 @@
       "label": "t:sections.header.settings.transparent_header.transparent_header_color.label",
       "default": "#FFFFFF",
       "visible_if": "{{ section.settings.enable_transparent_header == true }}"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.header.settings.customer_account.content"
-    },
-    {
-      "type": "paragraph",
-      "content": "t:sections.header.settings.customer_account.paragraph"
-    },
-    {
-      "type": "link_list",
-      "id": "customer_account_menu",
-      "label": "t:sections.header.settings.customer_account.menu.label",
-      "default": "customer-account-main-menu"
     },
     {
       "type": "header",

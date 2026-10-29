@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "settings_schema": {
     "global": {
@@ -960,14 +969,7 @@
         }
       },
       "heading_tag": {
-        "label": "Etiqueta de título",
-        "options__1": { "label": "H1" },
-        "options__2": { "label": "H2" },
-        "options__3": { "label": "H3" },
-        "options__4": { "label": "H4" },
-        "options__5": { "label": "H5" },
-        "options__6": { "label": "H6" },
-        "info": "Especifique os tipos de etiquetas de título para SEO e motores de pesquisa para fins de rastreamento."
+        "label": "Etiqueta de título"
       },
       "text_alignment": {
         "label": "Alinhamento de texto",
@@ -1038,8 +1040,7 @@
       },
       "heading": {
         "label": "Cabeçalho",
-        "name": "Cabeçalho",
-        "content": "Cabeçalho"
+        "name": "Cabeçalho"
       },
       "subheading": {
         "label": "Subtítulo",
@@ -2081,13 +2082,6 @@
             "label": "Cor"
           }
         },
-        "customer_account": {
-          "content": "Conta do cliente",
-          "paragraph": "[Gerenciar visibilidade](/admin/settings/customer_accounts) nas configurações da conta do cliente.",
-          "menu": {
-            "label": "Menu"
-          }
-        },
         "mobile_layout": {
           "content": "Layout móvel"
         },
@@ -3112,9 +3106,6 @@
           }
         }
       }
-    },
-    "main-404": {
-      "name": "Página 404"
     },
     "multicolumn": {
       "name": "Multicoluna",

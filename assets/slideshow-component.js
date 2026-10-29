@@ -9,11 +9,11 @@ if (!customElements.get('slideshow-component')) {
         this.sliderInstance = false;
         this.layout = this.dataset.layout;
         this.items = Number(this.dataset.items);
+
+        this.selectedIndex = this.selectedIndex;
       }
 
       connectedCallback() {
-        if (this.sliderInstance) return;
-
         this.initSlider();
 
         if (this.classList.contains('slideshow-height--adapt')) {
@@ -90,20 +90,19 @@ if (!customElements.get('slideshow-component')) {
         this.sliderInstance.init();
 
         this.sliderInstance.slider.on('realIndexChange', this.handleSlideChange.bind(this));
-        this.selectedIndex = this.sliderInstance.slider.realIndex;
 
         if (this.sliderInstance) {
           if (this.layout === 'centered' && !FoxTheme.config.mqlMobile) {
             const motionTextElements = Array.from(this.querySelectorAll('motion-element[data-text]'));
             motionTextElements &&
               motionTextElements.forEach((motionTextElement) => {
-              if (
-                typeof motionTextElement.resetAnimation === 'function' &&
-                !motionTextElement.closest('.swiper-slide-active')
-              ) {
-                motionTextElement.resetAnimation();
-              }
-            });
+                if (
+                  typeof motionTextElement.resetAnimation === 'function' &&
+                  !motionTextElement.closest('.swiper-slide-active')
+                ) {
+                  motionTextElement.resetAnimation();
+                }
+              });
           }
           this.selectedElement = this.sliderInstance.slider.slides[this.sliderInstance.slider.activeIndex];
           this.onReady(this.selectedElement, this.sliderInstance.slider.slides);
@@ -137,18 +136,14 @@ if (!customElements.get('slideshow-component')) {
         if (!FoxTheme.config.motionReduced) {
           const motionEls = selectedElement.querySelectorAll('motion-element');
           motionEls.forEach((motionEl) => {
-            if (!motionEl || motionEl.classList.contains('is-animated')) return;
-
-            motionEl.removeAttribute('hold');
-            motionEl.preInitialize();
-
             setTimeout(() => {
+              motionEl && motionEl.removeAttribute('hold');
+              motionEl && motionEl.preInitialize();
+              this.removeAttribute('data-media-loading');
               motionEl.initialize();
             });
           });
         }
-
-        this.removeAttribute('data-media-loading');
       }
 
       handleAfterInit() {
@@ -183,11 +178,12 @@ if (!customElements.get('slideshow-component')) {
             }
 
             const motionEls = fromElement.querySelectorAll('motion-element');
-            motionEls.forEach((motionEl) => {
-              if (motionEl.hasAttribute('data-text')) {
-                motionEl.resetAnimation();
-              }
-            });
+            motionEls &&
+              motionEls.forEach((motionEl) => {
+                if (motionEl.hasAttribute('data-text')) {
+                  motionEl.resetAnimation();
+                }
+              });
           });
 
           toElements.forEach((toElement) => {

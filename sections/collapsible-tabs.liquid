@@ -126,9 +126,7 @@
                           {% if block.settings.icon != 'none' %}
                             {% render 'icons', icon: block.settings.icon, size: item_icon_size %}
                           {%- endif -%}
-                          <{{ section.settings.item_heading_tag }} class="inline-richtext {{ item_trigger_class }}">
-                            {{- block.settings.heading -}}
-                          </{{ section.settings.item_heading_tag }}>
+                          <h2 class="{{ item_trigger_class }} inline-richtext">{{ block.settings.heading }}</h2>
                         </div>
                         {%- render 'icon-plus-toggle' -%}
                       </summary>
@@ -146,9 +144,9 @@
                         <div class="rich-text__subheading text-subheading">{{ block.settings.sub_heading }}</div>
                       {%- endif -%}
                       {%- if block.settings.heading != blank -%}
-                        <{{ block.settings.heading_tag }} class="rich-text__heading {{ block.settings.heading_size }}">
+                        <h2 class="rich-text__heading {{ block.settings.heading_size }}">
                           {{ block.settings.heading }}
-                        </{{ block.settings.heading_tag }}>
+                        </h2>
                       {%- endif -%}
                     </div>
                   {%- endif -%}
@@ -266,39 +264,6 @@
           "label": "t:sections.all.text_size.options__hd1.label"
         }
       ]
-    },
-    {
-      "type": "select",
-      "id": "heading_tag",
-      "label": "t:sections.all.heading_tag.label",
-      "default": "h2",
-      "options": [
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_tag.options__1.label"
-        },
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_tag.options__2.label"
-        },
-        {
-          "value": "h3",
-          "label": "t:sections.all.heading_tag.options__3.label"
-        },
-        {
-          "value": "h4",
-          "label": "t:sections.all.heading_tag.options__4.label"
-        },
-        {
-          "value": "h5",
-          "label": "t:sections.all.heading_tag.options__5.label"
-        },
-        {
-          "value": "h6",
-          "label": "t:sections.all.heading_tag.options__6.label"
-        }
-      ],
-      "info": "t:sections.all.heading_tag.info"
     },
     {
       "type": "header",
@@ -529,39 +494,6 @@
           "label": "t:sections.all.text_size.options__h3.label"
         }
       ]
-    },
-    {
-      "type": "select",
-      "id": "item_heading_tag",
-      "label": "t:sections.all.heading_tag.label",
-      "default": "h2",
-      "options": [
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_tag.options__1.label"
-        },
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_tag.options__2.label"
-        },
-        {
-          "value": "h3",
-          "label": "t:sections.all.heading_tag.options__3.label"
-        },
-        {
-          "value": "h4",
-          "label": "t:sections.all.heading_tag.options__4.label"
-        },
-        {
-          "value": "h5",
-          "label": "t:sections.all.heading_tag.options__5.label"
-        },
-        {
-          "value": "h6",
-          "label": "t:sections.all.heading_tag.options__6.label"
-        }
-      ],
-      "info": "t:sections.all.heading_tag.info"
     },
     {
       "type": "select",
@@ -841,39 +773,6 @@
               "label": "t:sections.all.text_size.options__hd1.label"
             }
           ]
-        },
-        {
-          "type": "select",
-          "id": "heading_tag",
-          "label": "t:sections.all.heading_tag.label",
-          "default": "h2",
-          "options": [
-            {
-              "value": "h1",
-              "label": "t:sections.all.heading_tag.options__1.label"
-            },
-            {
-              "value": "h2",
-              "label": "t:sections.all.heading_tag.options__2.label"
-            },
-            {
-              "value": "h3",
-              "label": "t:sections.all.heading_tag.options__3.label"
-            },
-            {
-              "value": "h4",
-              "label": "t:sections.all.heading_tag.options__4.label"
-            },
-            {
-              "value": "h5",
-              "label": "t:sections.all.heading_tag.options__5.label"
-            },
-            {
-              "value": "h6",
-              "label": "t:sections.all.heading_tag.options__6.label"
-            }
-          ],
-          "info": "t:sections.all.heading_tag.info"
         },
         {
           "type": "text",

@@ -1,1 +1,436 @@
-{"sections":{"slideshow_q3U4Jn":{"type":"slideshow","blocks":{"slide_pEkPxY":{"type":"slide","settings":{"color_scheme":"scheme-inverse","background":"shopify:\/\/shop_images\/Modern-Leisure-Lifestyle.jpg","image_overlay_opacity":35,"show_content_in_container":true,"content_position":"middle-left","content_position_mobile":"middle-center","text_alignment":"left","title":"<strong>Protect The Spaces You Love<\/strong>","heading_size":"hd1","subheading":"Modern Leisure Outdoor Covers","description":"","description_size":"text-base","button_label":"Shop Now","button_link":"shopify:\/\/collections\/all","button_style":"btn--primary"}},"slide_ciyqEJ":{"type":"slide","settings":{"color_scheme":"scheme-inverse","background":"shopify:\/\/shop_images\/black-covers.jpg","image_overlay_opacity":0,"show_content_in_container":true,"content_position":"middle-left","content_position_mobile":"middle-center","text_alignment":"left","title":"<strong>Cover Your Equipment<\/strong>","heading_size":"hd1","subheading":"Love Your Gear & It Will Love You Back","description":"","description_size":"text-base","button_label":"Shop Equipment Covers","button_link":"shopify:\/\/collections\/equipment-covers","button_style":"btn--primary"}},"slide_AMa46x":{"type":"slide","settings":{"color_scheme":"scheme-inverse","background":"shopify:\/\/shop_images\/ml-mast-slider_copy-2.jpg","image_overlay_opacity":20,"show_content_in_container":true,"content_position":"middle-left","content_position_mobile":"middle-center","text_alignment":"left","title":"<strong>Basics Collection<\/strong>","heading_size":"hd1","subheading":"Everyday Outdoor Covers","description":"","description_size":"text-lg","button_label":"Shop Now","button_link":"shopify:\/\/collections\/basics","button_style":"btn--primary"}},"slide_JhU8hg":{"type":"slide","settings":{"color_scheme":"scheme-inverse","background":"shopify:\/\/shop_images\/ml-mast-slider.jpg","image_overlay_opacity":20,"show_content_in_container":true,"content_position":"middle-left","content_position_mobile":"middle-center","text_alignment":"left","title":"<strong>Garrison Collection<\/strong>","heading_size":"hd1","subheading":"Premium Waterproof Covers","description":"","description_size":"text-base","button_label":"Shop Now","button_link":"shopify:\/\/collections\/garrison","button_style":"btn--primary"}},"slide_U9bPyj":{"type":"slide","settings":{"color_scheme":"scheme-inverse","background":"shopify:\/\/shop_images\/ml-mast-slider-monterey-2.jpg","image_overlay_opacity":20,"show_content_in_container":true,"content_position":"middle-left","content_position_mobile":"middle-center","text_alignment":"left","title":"<strong>Monterey Collection<\/strong>","heading_size":"hd1","subheading":"Heavy-Duty Covers Built to Last","description":"","description_size":"text-base","button_label":"Shop Now","button_link":"shopify:\/\/collections\/monterey","button_style":"btn--primary"}}},"block_order":["slide_pEkPxY","slide_ciyqEJ","slide_AMa46x","slide_JhU8hg","slide_U9bPyj"],"custom_css":["@media (max-width: 767px) {.slideshow__text {margin: 0 auto; }}","@media (min-width: 1200px) {.slideshow__text {max-width: 38rem; }}","@media (min-width: 1280px) {.slideshow__text {padding-inline: 3.2rem; max-width: 46rem; }}"],"settings":{"container":"full","layout":"centered","slide_height":"large","show_dots":true,"autoplay":true,"autoplay_delay":7,"controls_position":"below","show_text_below":true,"text_alignment_mobile":"center","accessibility_info":"Slideshow about our brand","custom_class":""}},"image_with_text_VFnBxc":{"type":"image-with-text","blocks":{"heading_hqqxhV":{"type":"heading","settings":{"heading":"<strong>It's Always Grilling Season<\/strong>","heading_size":"hd2","heading_highlight_style":"none"}},"text_LbQYEz":{"type":"text","settings":{"text":"<p>Modern Leisure grill covers are ready to keep your grill protected, clean, and ready to grill at a moment’s notice—any season, any forecast.<\/p>","text_size":"text-base"}},"button_qyp3Mj":{"type":"button","settings":{"button_label":"Shop Our Grill Covers","button_link":"shopify:\/\/collections\/grill-covers","button_style":"btn--primary"}}},"block_order":["heading_hqqxhV","text_LbQYEz","button_qyp3Mj"],"name":"t:sections.image-with-text.presets.name","settings":{"section_color_scheme":"scheme-1","color_scheme":"scheme-3","image":"shopify:\/\/shop_images\/grilling-time.jpg","image_height":"adapt","layout":"image_first","desktop_content_position":"center","desktop_content_alignment":"left","enable_parallax":false,"parallax_direction":"vertical","mobile_content_alignment":"left","padding_top":50,"padding_bottom":50,"show_section_divider":false,"divider_width":"fixed","custom_class":""}},"collection_list_Pr36qH":{"type":"collection-list","blocks":{"featured_collection_VHfaMD":{"type":"featured_collection","settings":{"collection":"black-diamond","image":"shopify:\/\/shop_images\/black-diamond-collection.jpg","title":"Black Diamond","description":"<p>100% Waterproof & Tear Resistant <\/p>"}},"featured_collection_ytHAXL":{"type":"featured_collection","settings":{"collection":"garrison","image":"shopify:\/\/shop_images\/garrison-collection.jpg","title":"Garrison","description":"<p>100% Waterproof & Taped Seams<\/p>"}},"featured_collection_H3VHEr":{"type":"featured_collection","settings":{"collection":"monterey","image":"shopify:\/\/shop_images\/monterey-collection.jpg","title":"Monterey","description":"<p>Heavy-Duty & UV Resistant<\/p>"}},"featured_collection_dhxamt":{"type":"featured_collection","settings":{"collection":"basics","image":"shopify:\/\/shop_images\/basics-collection.jpg","title":"Basics","description":"<p>Affordable for Everyday Use<\/p>"}},"featured_collection_qQhEgj":{"type":"featured_collection","settings":{"collection":"renaissance","image":"shopify:\/\/shop_images\/renn-collection.jpg","title":"Renaissance","description":"<p>Durable & Ultralight Material<\/p>"}}},"block_order":["featured_collection_VHfaMD","featured_collection_ytHAXL","featured_collection_H3VHEr","featured_collection_dhxamt","featured_collection_qQhEgj"],"settings":{"color_scheme":"scheme-1","layout":"split","subheading":"","heading":"Shop By Collection","heading_size":"h1","heading_highlight_style":"none","description":"<p>Explore our collections, thoughtfully curated by color, material, and performance to fit your outdoor lifestyle.<\/p>","text_size":"text-base","card_color_inherited":false,"show_product_count":false,"show_icon":true,"card_style":"","card_image_ratio":"adapt","content_alignment":"left","columns_desktop":3,"column_gap":"medium","row_gap":"medium","enable_slider":true,"columns_mobile":"1","swipe_on_mobile":true,"padding_top":100,"padding_bottom":100,"show_section_divider":false,"divider_width":"full","custom_class":""}},"image_with_text_overlay_CnFkqY":{"type":"image-with-text-overlay","blocks":{"subheading_KDxyKN":{"type":"subheading","settings":{"subheading":"Garage & Equipment Covers"}},"heading_D9tVLT":{"type":"heading","settings":{"heading":"Love It? Cover it.","heading_size":"hd1","heading_highlight_style":"none"}},"button_dgEhFG":{"type":"button","settings":{"button_label":"Shop Garage & Equipment Gear Covers","button_link":"shopify:\/\/collections\/equipment-covers","button_style":"btn--secondary"}}},"block_order":["subheading_KDxyKN","heading_D9tVLT","button_dgEhFG"],"name":"t:sections.image-with-text-overlay.name","settings":{"container":"full","image":"shopify:\/\/shop_images\/garage.jpg","desktop_height":"extra-medium","overlay_opacity":45,"enable_parallax":false,"parallax_direction":"vertical","color_scheme":"","content_position":"middle-left","content_alignment":"left","mobile_height":"auto","padding_top":0,"padding_bottom":0,"custom_class":""}},"product_tabs_iJHLzK":{"type":"product-tabs","blocks":{"tab_9cGBUe":{"type":"tab","settings":{"title":"Best Sellers","collection":"best-sellers"}},"tab_73mpDA":{"type":"tab","settings":{"title":"Grill Covers","collection":"grill-covers"}}},"block_order":["tab_9cGBUe","tab_73mpDA"],"settings":{"color_scheme":"scheme-3","header_layout":"horizontal","heading":"","heading_size":"h1","heading_highlight_style":"none","limit":8,"columns":4,"column_gap":"small","row_gap":"inherit","grid_layout":"standard","pcard_image_ratio":"","columns_mobile":"2","swipe_on_mobile":false,"show_all_button_on_top":true,"button_label":"Shop All Products","button_link":"shopify:\/\/collections\/all","button_style":"btn--underline","tabs_nav_style":"design-2","padding_top":76,"padding_bottom":76,"show_section_divider":false,"divider_width":"fixed","custom_class":""}},"feature_list_cW3d9c":{"type":"feature-list","blocks":{"feature_item_NzxQGa":{"type":"feature_item","settings":{"color_scheme":"","icon":"check","icon_style":"btn--secondary","text":"Stylish Patterns"}},"feature_item_yyNV9A":{"type":"feature_item","settings":{"color_scheme":"","icon":"check","icon_style":"btn--secondary","text":"Durable Construction"}},"feature_item_gBgLft":{"type":"feature_item","settings":{"color_scheme":"","icon":"check","icon_style":"btn--secondary","text":"Extended Warranty"}}},"block_order":["feature_item_NzxQGa","feature_item_yyNV9A","feature_item_gBgLft"],"settings":{"color_scheme":"scheme-1","subheading":"","heading":"","heading_size":"h2","heading_highlight_style":"none","description":"","text_size":"text-lg","item_alignment":"center","icon_size":"medium","swipe_on_mobile":true,"padding_top":40,"padding_bottom":40,"show_section_divider":true,"divider_width":"fixed","custom_class":""}}},"order":["slideshow_q3U4Jn","image_with_text_VFnBxc","collection_list_Pr36qH","image_with_text_overlay_CnFkqY","product_tabs_iJHLzK","feature_list_cW3d9c"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow_q3U4Jn": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_pEkPxY": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-inverse",
+            "background": "shopify://shop_images/Modern-Leisure-Lifestyle.jpg",
+            "image_overlay_opacity": 35,
+            "show_content_in_container": true,
+            "content_position": "middle-left",
+            "content_position_mobile": "middle-center",
+            "text_alignment": "left",
+            "title": "<strong>Protect The Spaces You Love</strong>",
+            "heading_size": "hd1",
+            "subheading": "Modern Leisure Outdoor Covers",
+            "description": "",
+            "description_size": "text-base",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/all",
+            "button_style": "btn--primary"
+          }
+        },
+        "slide_ciyqEJ": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-inverse",
+            "background": "shopify://shop_images/black-covers.jpg",
+            "image_overlay_opacity": 0,
+            "show_content_in_container": true,
+            "content_position": "middle-left",
+            "content_position_mobile": "middle-center",
+            "text_alignment": "left",
+            "title": "<strong>Cover Your Equipment</strong>",
+            "heading_size": "hd1",
+            "subheading": "Love Your Gear & It Will Love You Back",
+            "description": "",
+            "description_size": "text-base",
+            "button_label": "Shop Equipment Covers",
+            "button_link": "shopify://collections/equipment-covers",
+            "button_style": "btn--primary"
+          }
+        },
+        "slide_AMa46x": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-inverse",
+            "background": "shopify://shop_images/ml-mast-slider_copy-2.jpg",
+            "image_overlay_opacity": 20,
+            "show_content_in_container": true,
+            "content_position": "middle-left",
+            "content_position_mobile": "middle-center",
+            "text_alignment": "left",
+            "title": "<strong>Basics Collection</strong>",
+            "heading_size": "hd1",
+            "subheading": "Everyday Outdoor Covers",
+            "description": "",
+            "description_size": "text-lg",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/basics",
+            "button_style": "btn--primary"
+          }
+        },
+        "slide_JhU8hg": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-inverse",
+            "background": "shopify://shop_images/ml-mast-slider.jpg",
+            "image_overlay_opacity": 20,
+            "show_content_in_container": true,
+            "content_position": "middle-left",
+            "content_position_mobile": "middle-center",
+            "text_alignment": "left",
+            "title": "<strong>Garrison Collection</strong>",
+            "heading_size": "hd1",
+            "subheading": "Premium Waterproof Covers",
+            "description": "",
+            "description_size": "text-base",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/garrison",
+            "button_style": "btn--primary"
+          }
+        },
+        "slide_U9bPyj": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-inverse",
+            "background": "shopify://shop_images/ml-mast-slider-monterey-2.jpg",
+            "image_overlay_opacity": 20,
+            "show_content_in_container": true,
+            "content_position": "middle-left",
+            "content_position_mobile": "middle-center",
+            "text_alignment": "left",
+            "title": "<strong>Monterey Collection</strong>",
+            "heading_size": "hd1",
+            "subheading": "Heavy-Duty Covers Built to Last",
+            "description": "",
+            "description_size": "text-base",
+            "button_label": "Shop Now",
+            "button_link": "shopify://collections/monterey",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "slide_pEkPxY",
+        "slide_ciyqEJ",
+        "slide_AMa46x",
+        "slide_JhU8hg",
+        "slide_U9bPyj"
+      ],
+      "custom_css": [
+        "@media (max-width: 767px) {.slideshow__text {margin: 0 auto; }}",
+        "@media (min-width: 1200px) {.slideshow__text {max-width: 38rem; }}",
+        "@media (min-width: 1280px) {.slideshow__text {padding-inline: 3.2rem; max-width: 46rem; }}"
+      ],
+      "settings": {
+        "container": "full",
+        "layout": "centered",
+        "slide_height": "large",
+        "show_dots": true,
+        "autoplay": true,
+        "autoplay_delay": 7,
+        "controls_position": "below",
+        "show_text_below": true,
+        "text_alignment_mobile": "center",
+        "accessibility_info": "Slideshow about our brand",
+        "custom_class": ""
+      }
+    },
+    "image_with_text_VFnBxc": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_hqqxhV": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>It's Always Grilling Season</strong>",
+            "heading_size": "hd2",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_LbQYEz": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Modern Leisure grill covers are ready to keep your grill protected, clean, and ready to grill at a moment’s notice—any season, any forecast.</p>",
+            "text_size": "text-base"
+          }
+        },
+        "button_qyp3Mj": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Our Grill Covers",
+            "button_link": "shopify://collections/grill-covers",
+            "button_style": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_hqqxhV",
+        "text_LbQYEz",
+        "button_qyp3Mj"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-3",
+        "image": "shopify://shop_images/grilling-time.jpg",
+        "image_height": "adapt",
+        "layout": "image_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "collection_list_Pr36qH": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_VHfaMD": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "black-diamond",
+            "image": "shopify://shop_images/black-diamond-collection.jpg",
+            "title": "Black Diamond",
+            "description": "<p>100% Waterproof & Tear Resistant </p>"
+          }
+        },
+        "featured_collection_ytHAXL": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "garrison",
+            "image": "shopify://shop_images/garrison-collection.jpg",
+            "title": "Garrison",
+            "description": "<p>100% Waterproof & Taped Seams</p>"
+          }
+        },
+        "featured_collection_H3VHEr": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "monterey",
+            "image": "shopify://shop_images/monterey-collection.jpg",
+            "title": "Monterey",
+            "description": "<p>Heavy-Duty & UV Resistant</p>"
+          }
+        },
+        "featured_collection_dhxamt": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "basics",
+            "image": "shopify://shop_images/basics-collection.jpg",
+            "title": "Basics",
+            "description": "<p>Affordable for Everyday Use</p>"
+          }
+        },
+        "featured_collection_qQhEgj": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "renaissance",
+            "image": "shopify://shop_images/renn-collection.jpg",
+            "title": "Renaissance",
+            "description": "<p>Durable & Ultralight Material</p>"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_VHfaMD",
+        "featured_collection_ytHAXL",
+        "featured_collection_H3VHEr",
+        "featured_collection_dhxamt",
+        "featured_collection_qQhEgj"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "layout": "split",
+        "subheading": "",
+        "heading": "Shop By Collection",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "description": "<p>Explore our collections, thoughtfully curated by color, material, and performance to fit your outdoor lifestyle.</p>",
+        "text_size": "text-base",
+        "card_color_inherited": false,
+        "show_product_count": false,
+        "show_icon": true,
+        "card_style": "",
+        "card_image_ratio": "adapt",
+        "content_alignment": "left",
+        "columns_desktop": 3,
+        "column_gap": "medium",
+        "row_gap": "medium",
+        "enable_slider": true,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "show_section_divider": false,
+        "divider_width": "full",
+        "custom_class": ""
+      }
+    },
+    "image_with_text_overlay_CnFkqY": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_KDxyKN": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Garage & Equipment Covers"
+          }
+        },
+        "heading_D9tVLT": {
+          "type": "heading",
+          "settings": {
+            "heading": "Love It? Cover it.",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        },
+        "button_dgEhFG": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Garage & Equipment Gear Covers",
+            "button_link": "shopify://collections/equipment-covers",
+            "button_style": "btn--secondary"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_KDxyKN",
+        "heading_D9tVLT",
+        "button_dgEhFG"
+      ],
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "container": "full",
+        "image": "shopify://shop_images/garage.jpg",
+        "desktop_height": "extra-medium",
+        "overlay_opacity": 45,
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "color_scheme": "",
+        "content_position": "middle-left",
+        "content_alignment": "left",
+        "mobile_height": "auto",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "custom_class": ""
+      }
+    },
+    "product_tabs_iJHLzK": {
+      "type": "product-tabs",
+      "blocks": {
+        "tab_9cGBUe": {
+          "type": "tab",
+          "settings": {
+            "title": "Best Sellers",
+            "collection": "best-sellers"
+          }
+        },
+        "tab_73mpDA": {
+          "type": "tab",
+          "settings": {
+            "title": "Grill Covers",
+            "collection": "grill-covers"
+          }
+        }
+      },
+      "block_order": [
+        "tab_9cGBUe",
+        "tab_73mpDA"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "header_layout": "horizontal",
+        "heading": "",
+        "heading_size": "h1",
+        "heading_highlight_style": "none",
+        "limit": 8,
+        "columns": 4,
+        "column_gap": "small",
+        "row_gap": "inherit",
+        "grid_layout": "standard",
+        "pcard_image_ratio": "",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "show_all_button_on_top": true,
+        "button_label": "Shop All Products",
+        "button_link": "shopify://collections/all",
+        "button_style": "btn--underline",
+        "tabs_nav_style": "design-2",
+        "padding_top": 76,
+        "padding_bottom": 76,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "feature_list_cW3d9c": {
+      "type": "feature-list",
+      "blocks": {
+        "feature_item_NzxQGa": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Stylish Patterns"
+          }
+        },
+        "feature_item_yyNV9A": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Durable Construction"
+          }
+        },
+        "feature_item_gBgLft": {
+          "type": "feature_item",
+          "settings": {
+            "color_scheme": "",
+            "icon": "check",
+            "icon_style": "btn--secondary",
+            "text": "Extended Warranty"
+          }
+        }
+      },
+      "block_order": [
+        "feature_item_NzxQGa",
+        "feature_item_yyNV9A",
+        "feature_item_gBgLft"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "subheading": "",
+        "heading": "",
+        "heading_size": "h2",
+        "heading_highlight_style": "none",
+        "description": "",
+        "text_size": "text-lg",
+        "item_alignment": "center",
+        "icon_size": "medium",
+        "swipe_on_mobile": true,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "show_section_divider": true,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "slideshow_q3U4Jn",
+    "image_with_text_VFnBxc",
+    "collection_list_Pr36qH",
+    "image_with_text_overlay_CnFkqY",
+    "product_tabs_iJHLzK",
+    "feature_list_cW3d9c"
+  ]
+}

@@ -1,1 +1,196 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"padding_top":28,"padding_bottom":28}},"video_hero_riEjtc":{"type":"video-hero","blocks":{"subheading_EhCzmF":{"type":"subheading","settings":{"subheading":"Elegant Color Palettes & Weather-Proof Protection"}},"heading_fRzaVJ":{"type":"heading","settings":{"heading":"Modern Leisure","heading_size":"hd1","heading_highlight_style":"none"}}},"block_order":["subheading_EhCzmF","heading_fRzaVJ"],"custom_css":[".rich-text {--subheading-margin-bottom: 2.4rem;}"],"settings":{"container":"full","video":"shopify:\/\/files\/videos\/modern-leisure.mov","video_url":"","description":"","video_height":"extra-medium","overlay_opacity":30,"enable_parallax":false,"parallax_direction":"vertical","color_scheme":"scheme-inverse","content_position":"middle-center","content_alignment":"center","video_mobile_height":"auto","padding_top":0,"padding_bottom":0,"show_section_divider":false,"divider_width":"fixed","custom_class":""}},"image_with_text_p3XgXR":{"type":"image-with-text","blocks":{"heading_YagwQB":{"type":"heading","settings":{"heading":"Handle The Harsh","heading_size":"hd1","heading_highlight_style":"none"}},"text_c66HGH":{"type":"text","settings":{"text":"<p>Modern Leisure covers are built for the harshest conditions. From our design lab at the foot of the Rocky Mountains, just outside Denver, Colorado, our team designs every cover to stand up to punishing weather and help shield your equipment and furniture from the elements season after season.<\/p>","text_size":"text-lg"}}},"block_order":["heading_YagwQB","text_c66HGH"],"name":"t:sections.image-with-text.presets.name","settings":{"section_color_scheme":"","color_scheme":"","image":"shopify:\/\/shop_images\/shutterstock_164182235.jpg","image_height":"adapt","layout":"image_first","desktop_content_position":"center","desktop_content_alignment":"left","enable_parallax":false,"parallax_direction":"vertical","mobile_content_alignment":"left","padding_top":50,"padding_bottom":50,"show_section_divider":false,"divider_width":"fixed","custom_class":""}},"image_with_text_overlay_WV3dmM":{"type":"image-with-text-overlay","blocks":{"subheading_yehyGE":{"type":"subheading","settings":{"subheading":"All Orders Ship From The USA"}},"heading_wGLbCa":{"type":"heading","settings":{"heading":"Designed In Colorado","heading_size":"hd1","heading_highlight_style":"none"}},"text_dH6xFL":{"type":"text","settings":{"text":"<p>Our products ship from the USA, ensuring fast and convenient shipping. Orders placed before 12pm MST ship the same day, while orders placed after 12pm MST or on weekends ship the next business day.<\/p>","text_size":"text-base"}}},"block_order":["subheading_yehyGE","heading_wGLbCa","text_dH6xFL"],"name":"t:sections.image-with-text-overlay.name","settings":{"container":"full","image":"shopify:\/\/shop_images\/ready.jpg","desktop_height":"extra-medium","overlay_opacity":45,"enable_parallax":true,"parallax_direction":"vertical","color_scheme":"","content_position":"middle-left","content_alignment":"left","mobile_height":"auto","padding_top":0,"padding_bottom":0,"custom_class":""}},"rich_text_QYkRX4":{"type":"rich-text","blocks":{"heading_AMKaTR":{"type":"heading","settings":{"heading":"About Modern Leisure","heading_size":"hd1","heading_highlight_style":"none"}},"text_tAgzaV":{"type":"text","settings":{"text":"<p>At <strong>Modern Leisure<\/strong>, enhancing your outdoor living space and protecting your personal treasures, is a commitment that we take very seriously.  Concepted and tested at a mile above sea level, Modern Leisure products are designed from the onset to stand up to the harshest UV, wind, and rain\/ snow elements that inhabit the Rocky Mountains.  From the elegant color palettes and weather-proof protection of our Monterey Collection to the truly 100% waterproof barrier provided by our Garrison Waterproof Collection-our vast product lineup will ensure you can focus your time on enjoying your personal leisure.  We live and breathe making the most of leisure moments and make it our mission to protect yours.<\/p>","text_size":"text-base"}}},"block_order":["heading_AMKaTR","text_tAgzaV"],"name":"t:sections.rich-text.presets.name","settings":{"color_scheme":"scheme-3","content_alignment":"center","padding_top":100,"padding_bottom":100,"show_section_divider":false,"divider_width":"fixed","custom_class":""}}},"order":["main","video_hero_riEjtc","image_with_text_p3XgXR","image_with_text_overlay_WV3dmM","rich_text_QYkRX4"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "video_hero_riEjtc": {
+      "type": "video-hero",
+      "blocks": {
+        "subheading_EhCzmF": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Elegant Color Palettes & Weather-Proof Protection"
+          }
+        },
+        "heading_fRzaVJ": {
+          "type": "heading",
+          "settings": {
+            "heading": "Modern Leisure",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_EhCzmF",
+        "heading_fRzaVJ"
+      ],
+      "custom_css": [
+        ".rich-text {--subheading-margin-bottom: 2.4rem;}"
+      ],
+      "settings": {
+        "container": "full",
+        "video": "shopify://files/videos/modern-leisure.mov",
+        "video_url": "",
+        "description": "",
+        "video_height": "extra-medium",
+        "overlay_opacity": 30,
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "color_scheme": "scheme-inverse",
+        "content_position": "middle-center",
+        "content_alignment": "center",
+        "video_mobile_height": "auto",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "image_with_text_p3XgXR": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_YagwQB": {
+          "type": "heading",
+          "settings": {
+            "heading": "Handle The Harsh",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_c66HGH": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Modern Leisure covers are built for the harshest conditions. From our design lab at the foot of the Rocky Mountains, just outside Denver, Colorado, our team designs every cover to stand up to punishing weather and help shield your equipment and furniture from the elements season after season.</p>",
+            "text_size": "text-lg"
+          }
+        }
+      },
+      "block_order": [
+        "heading_YagwQB",
+        "text_c66HGH"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "image": "shopify://shop_images/shutterstock_164182235.jpg",
+        "image_height": "adapt",
+        "layout": "image_first",
+        "desktop_content_position": "center",
+        "desktop_content_alignment": "left",
+        "enable_parallax": false,
+        "parallax_direction": "vertical",
+        "mobile_content_alignment": "left",
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    },
+    "image_with_text_overlay_WV3dmM": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "subheading_yehyGE": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "All Orders Ship From The USA"
+          }
+        },
+        "heading_wGLbCa": {
+          "type": "heading",
+          "settings": {
+            "heading": "Designed In Colorado",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_dH6xFL": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our products ship from the USA, ensuring fast and convenient shipping. Orders placed before 12pm MST ship the same day, while orders placed after 12pm MST or on weekends ship the next business day.</p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "subheading_yehyGE",
+        "heading_wGLbCa",
+        "text_dH6xFL"
+      ],
+      "name": "t:sections.image-with-text-overlay.name",
+      "settings": {
+        "container": "full",
+        "image": "shopify://shop_images/ready.jpg",
+        "desktop_height": "extra-medium",
+        "overlay_opacity": 45,
+        "enable_parallax": true,
+        "parallax_direction": "vertical",
+        "color_scheme": "",
+        "content_position": "middle-left",
+        "content_alignment": "left",
+        "mobile_height": "auto",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "custom_class": ""
+      }
+    },
+    "rich_text_QYkRX4": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_AMKaTR": {
+          "type": "heading",
+          "settings": {
+            "heading": "About Modern Leisure",
+            "heading_size": "hd1",
+            "heading_highlight_style": "none"
+          }
+        },
+        "text_tAgzaV": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At <strong>Modern Leisure</strong>, enhancing your outdoor living space and protecting your personal treasures, is a commitment that we take very seriously.  Concepted and tested at a mile above sea level, Modern Leisure products are designed from the onset to stand up to the harshest UV, wind, and rain/ snow elements that inhabit the Rocky Mountains.  From the elegant color palettes and weather-proof protection of our Monterey Collection to the truly 100% waterproof barrier provided by our Garrison Waterproof Collection-our vast product lineup will ensure you can focus your time on enjoying your personal leisure.  We live and breathe making the most of leisure moments and make it our mission to protect yours.</p>",
+            "text_size": "text-base"
+          }
+        }
+      },
+      "block_order": [
+        "heading_AMKaTR",
+        "text_tAgzaV"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "content_alignment": "center",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "show_section_divider": false,
+        "divider_width": "fixed",
+        "custom_class": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "video_hero_riEjtc",
+    "image_with_text_p3XgXR",
+    "image_with_text_overlay_WV3dmM",
+    "rich_text_QYkRX4"
+  ]
+}

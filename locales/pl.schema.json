@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "settings_schema": {
     "global": {
@@ -960,14 +969,7 @@
         }
       },
       "heading_tag": {
-        "label": "Etykieta nagłówka",
-        "options__1": { "label": "H1" },
-        "options__2": { "label": "H2" },
-        "options__3": { "label": "H3" },
-        "options__4": { "label": "H4" },
-        "options__5": { "label": "H5" },
-        "options__6": { "label": "H6" },
-        "info": "Określ typy tagów nagłówków dla SEO i wyszukiwarek w celach indeksowania."
+        "label": "Etykieta nagłówka"
       },
       "text_alignment": {
         "label": "Wyrównanie tekstu",
@@ -1038,8 +1040,7 @@
       },
       "heading": {
         "label": "Nagłówek",
-        "name": "Nagłówek",
-        "content": "Nagłówek"
+        "name": "Nagłówek"
       },
       "subheading": {
         "label": "Podtytuł",
@@ -2081,13 +2082,6 @@
             "label": "Kolor"
           }
         },
-        "customer_account": {
-          "content": "Konto klienta",
-          "paragraph": "[Zarządzaj widocznością](/admin/settings/customer_accounts) w ustawieniach konta klienta.",
-          "menu": {
-            "label": "Menu"
-          }
-        },
         "mobile_layout": {
           "content": "Układ mobilny"
         },
@@ -3112,9 +3106,6 @@
           }
         }
       }
-    },
-    "main-404": {
-      "name": "Strona 404"
     },
     "multicolumn": {
       "name": "Wielokolumnowe",

@@ -506,32 +506,6 @@ console.log(
     document.body.removeAttribute('data-initializing');
   });
 
-  if (FoxTheme.config.isTouch) {
-    let moved = false;
-    document.addEventListener(
-      'touchstart',
-      () => {
-        moved = false;
-      },
-      { passive: true }
-    );
-    document.addEventListener(
-      'touchmove',
-      () => {
-        moved = true;
-      },
-      { passive: true }
-    );
-    document.addEventListener('touchend', (e) => {
-      if (moved) return;
-      const target = e.target.closest('button, a');
-      if (target) {
-        e.preventDefault();
-        target.click();
-      }
-    });
-  }
-
   FoxTheme.DOMready(FoxTheme.utils.setScrollbarWidth);
   // window.addEventListener('resize', FoxTheme.utils.throttle(FoxTheme.utils.setScrollbarWidth));
 
@@ -2035,7 +2009,7 @@ class MotionElement extends HTMLElement {
   }
 
   preInitialize() {
-    if (this.isHold || FoxTheme.config.motionReduced) return;
+    if (this.isHold) return;
     switch (this.animationType) {
       case 'fade-in':
         FoxTheme.Motion.animate(this, { opacity: 0.01 }, { duration: 0 });
@@ -2062,8 +2036,7 @@ class MotionElement extends HTMLElement {
   }
 
   async initialize() {
-    if (this.isHold || this._animating || FoxTheme.config.motionReduced) return;
-    this._animating = true;
+    if (this.isHold) return;
 
     switch (this.animationType) {
       case 'fade-in':
@@ -2115,7 +2088,6 @@ class MotionElement extends HTMLElement {
         break;
     }
 
-    this._animating = false;
     this.classList.add('is-animated');
   }
 
@@ -2196,7 +2168,6 @@ class MotionElement extends HTMLElement {
   }
 
   refreshAnimation() {
-    this._animating = false;
     this.removeAttribute('hold');
     this.preInitialize();
     setTimeout(() => {

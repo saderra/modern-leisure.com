@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "settings_schema": {
     "global": {
@@ -960,14 +969,7 @@
         }
       },
       "heading_tag": {
-        "label": "Balise de titre",
-        "options__1": { "label": "H1" },
-        "options__2": { "label": "H2" },
-        "options__3": { "label": "H3" },
-        "options__4": { "label": "H4" },
-        "options__5": { "label": "H5" },
-        "options__6": { "label": "H6" },
-        "info": "Spécifiez les types de balises de titre pour le SEO et les moteurs de recherche à des fins d'exploration."
+        "label": "Balise de titre"
       },
       "text_alignment": {
         "label": "Alignement du texte",
@@ -1038,8 +1040,7 @@
       },
       "heading": {
         "label": "Titre",
-        "name": "Titre",
-        "content": "Titre"
+        "name": "Titre"
       },
       "subheading": {
         "label": "Sous-titre",
@@ -2081,13 +2082,6 @@
             "label": "Couleur"
           }
         },
-        "customer_account": {
-          "content": "Compte client",
-          "paragraph": "[Gérer la visibilité](/admin/settings/customer_accounts) dans les paramètres du compte client.",
-          "menu": {
-            "label": "Menu"
-          }
-        },
         "mobile_layout": {
           "content": "Disposition mobile"
         },
@@ -3112,9 +3106,6 @@
           }
         }
       }
-    },
-    "main-404": {
-      "name": "Page 404"
     },
     "multicolumn": {
       "name": "Multicolonne",
