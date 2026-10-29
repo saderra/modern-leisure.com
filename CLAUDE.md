@@ -2,7 +2,7 @@
 
 This is a Shopify theme (based on Sleek v2.x) for the store `modern-leisure-home`, connected through Shopify's GitHub integration:
 
-- `main` → the live (published) theme, "modern-leisure.com/main". A push to `main` goes live right away.
+- `main` → the live (published) theme, "modern-leisure.com". A push to `main` goes live right away.
 - `staging` → the dev (draft) theme, "modern-leisure.com/staging". Preview it from Shopify admin (theme ⋯ menu → Preview).
 
 Workflow:
