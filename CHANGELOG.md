@@ -2,6 +2,12 @@
 
 Changes to the Modern Leisure Shopify theme (modern-leisure.com), newest first. The theme is based on **Sleek** by FoxEcom. See `CLAUDE.md` for the workflow and the list of customizations to keep on every upgrade.
 
+## 2026-10-30: QA fixes
+
+### Fixed
+- `assets/variant-selects.js`: choosing an option value that has no variant with the other current selections (e.g. Green while 1-Pack is selected on the Basics Outdoor Loveseat Cover, where only Green / 2-Pack exists) now moves the other options to the closest variant with that value, preferring one in stock. Before, the product showed "Unavailable" and the photo and alternate images didn't change.
+- `snippets/desktop-menu.liquid` and `snippets/menu-drawer-details.liquid`: dropdowns and mobile submenus start with a "View all <menu item>" link. On touch devices (phones, tablets and touchscreen laptops), tapping a top-level menu item only opens its dropdown, so there was no way to reach the parent collection (e.g. Equipment Covers). `snippets/mega-menu.liquid` isn't changed because the store doesn't use mega menus.
+
 ## 2026-10-29: Fixes and audit (staging, not yet on main)
 
 ### Changed

@@ -30,6 +30,14 @@
       {{ link.title | escape }}
     </button>
     <ul class="flex flex-col h-full v-scrollable" data-parent role="list">
+      {%- comment -%} The summary above only opens this submenu, so link to the top-level page here. {%- endcomment -%}
+      {%- if link.url != blank and link.url != '#' -%}
+        <li class="menu-drawer__item" level="child">
+          <a href="{{ link.url }}" class="menu-drawer__item-link flex items-center justify-between">
+            {{- 'sections.collection_list.view_all' | t }} {{ link.title | escape -}}
+          </a>
+        </li>
+      {%- endif -%}
       {%- if collections != blank and block.type == 'product_list' and enable_mega_menu -%}
         <div class="menu-drawer__item" level="child">
           <ul role="list" class="grid gap-3">

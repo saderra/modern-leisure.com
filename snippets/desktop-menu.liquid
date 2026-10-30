@@ -46,6 +46,16 @@
               <div class="dropdown">
                 <div class="dropdown__container blocks-radius-bottom-left-right">
                   <ul class="dropdown__nav" role="list">
+                    {%- comment -%} Touch devices open the dropdown instead of following the top-level link, so give them a way to it. {%- endcomment -%}
+                    {%- if link.url != blank and link.url != '#' -%}
+                      <li>
+                        <p>
+                          <a href="{{ link.url }}" class="reversed-link">
+                            {{- 'sections.collection_list.view_all' | t }} {{ link.title | escape -}}
+                          </a>
+                        </p>
+                      </li>
+                    {%- endif -%}
                     {%- for childlink in link.links -%}
                       {%- if childlink.links != blank -%}
                         <li class="relative">
